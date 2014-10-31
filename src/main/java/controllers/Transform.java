@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.OutputStream;
 import java.io.FileOutputStream;
+import java.io.Writer;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerFactory;
@@ -60,6 +61,11 @@ public class Transform
     public static Result getOutput(OutputStream os)
     {
         return new StreamResult(os);
+    }
+
+    public static Result getOutput(Writer w)
+    {
+        return new StreamResult(w);
     }
 
     public static Transformer getTransformerFromURL(String url)
@@ -123,6 +129,14 @@ public class Transform
     {
         Transformer tf = getTransformerFromURL(t);
         doTransformation(tf, getInput(in), getOutput(out));
+    }
+
+    public static void doTransformation(String xslt, String in, Writer out)
+    {
+        Source xml_in = getInput(Util.openURL(in));
+        Result xml_out = getOutput(out);
+        Transformer tf = getTransformerFromURL(xslt);
+        doTransformation(tf, xml_in, xml_out);
     }
 
     /** Takes the URI of the xslt and input xml and writes to the OutputStream.
