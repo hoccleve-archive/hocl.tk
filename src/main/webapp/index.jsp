@@ -5,8 +5,8 @@
     </head>
     <body>
         <form action="transform.jsp" method="get" id="main-xsl-input" class="input-box">
-            <label for="xsl-url">xslt</label> <input id="xsl-url" value="http://localhost/ctable.xslt" type="text" name="xsl"><br/>
-            <label for="xml-url">xml</label> <input id="xml-url" value="http://localhost/reg.xml" type="text" name="q"><br/>
+            <label for="xsl-url">xslt</label> <input id="xsl-url" value="http://localhost:8080/ctable.xslt" type="text" name="xsl"><br/>
+            <label for="xml-url">xml</label> <input id="xml-url" value="http://localhost:8080/reg.xml" type="text" name="q"><br/>
             <input type="submit" value="Send">
         </form>
         <ul>
