@@ -13,7 +13,9 @@ import controllers.*;
 @WebServlet("/tei-line-numbers")
 public class TEI extends XSLTTransformer
 {
-    static {
+    @Override
+    public void init ()
+    {
         xsltResourceName = "/tei-numbers.xslt";
     }
 }

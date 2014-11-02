@@ -10,8 +10,11 @@ import controllers.*;
 @WebServlet("/tei-html")
 public class TEIHtml extends XSLTTransformer
 {
-    static {
+    @Override
+    public void init ()
+    {
         xsltResourceName = "/tei-poem.xslt";
+        contentType = "text/html";
     }
 }
 
