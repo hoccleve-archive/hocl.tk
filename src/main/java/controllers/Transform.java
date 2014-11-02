@@ -19,9 +19,19 @@ import util.Util;
 public class Transform
 {
     static TransformerFactory tf = TransformerFactory.newInstance();
-    public String transform()
+
+    /* A wrapper around a checked exception, TransformerException,
+     * so it can pass through the to top level methods
+     */
+    public static class MyTransformerException extends RuntimeException
     {
-        return "";
+        private static final long serialVersionUID = 1L;
+        public TransformerException exc;
+        public MyTransformerException (TransformerException tf)
+        {
+            super();
+            exc = tf;
+        }
     }
 
     public static Source getInput(String fileName)
@@ -78,7 +88,7 @@ public class Transform
         }
         catch (TransformerConfigurationException e)
         {
-            e.printStackTrace();
+            throw new MyTransformerException(e);
         }
         return res;
     }
@@ -98,7 +108,7 @@ public class Transform
         }
         catch (TransformerConfigurationException e)
         {
-            e.printStackTrace();
+            throw new MyTransformerException(e);
         }
         return res;
     }
@@ -111,7 +121,7 @@ public class Transform
         }
         catch (TransformerException e)
         {
-            System.out.println("Transformation failed");
+            throw new MyTransformerException(e);
         }
     }
 
