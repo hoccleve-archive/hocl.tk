@@ -10,7 +10,21 @@ import controllers.Transform;
 @WebServlet("/transform")
 public class XSLTTransformer extends HttpServlet
 {
+    /** This is the base for most of the XSLT transformations.
+     *
+     * To implement a new transformation, the simplest way is to override
+     * HttpServlet::init, initializing xsltResourceName with the name of
+     * the XSLT file to use. The file must be relative to the application
+     * root (the root contains the WEB-INF directory)
+     *
+     * Each transformation should have at least one XSLTTransformer-derived
+     * WebServlet that routes to it. Documentation for the transformation
+     * should be provided as a Javadoc comment on the WebServlet.
+     */
+
+    /* Required for serializable objects */
     private static final long serialVersionUID = 1L;
+
     /* MUST be a local resource starting with "/"
      * rather than a full URI */
     public String xsltResourceName = null;

@@ -11,3 +11,11 @@ This documentation is composed in rst_.
 .. _TEI: http://www.tei-c.org/index.xml
 .. _Hoccleve Archive: http://hocclevearchive.org/hocclevearchive/
 .. _concordance table subproject: http://hocclevearchive.org/hocclevearchive/time-references/
+
+XSLT Recommendations
+--------------------
+This project is largely composed of XSLT documents. The most useful and authoritative reference for XSLT is the `W3C XSL Transformations recommendation <http://www.w3.org/TR/xslt>`_. Below is a list of recommendations for authoring XSLT documents (called "stylesheets") in this project.
+
+1. The stylesheet should have a basename, excluding the extension, matching the last element of the associated URL path. The URL path is determined by the WebServlet annotation on a XSLTTransformer subclass.
+
+

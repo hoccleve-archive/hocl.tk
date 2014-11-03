@@ -319,6 +319,13 @@ ul.auto-toc {
 
 <p>This is the documentation for the <a class="reference external" href="http://hocclevearchive.org/hocclevearchive/">Hoccleve Archive</a> <a class="reference external" href="http://hocclevearchive.org/hocclevearchive/time-references/">concordance table subproject</a>. The project is <a class="reference external" href="https://github.com/hoccleve-archive/hocl.tk">hosted on github</a> as hocl.tk. This project uses a combination of XSLT, Java Server Pages, and Java WebServlets to modify and present documents composed in <a class="reference external" href="http://www.tei-c.org/index.xml">TEI</a> XML markup.</p>
 <p>This documentation is composed in <a class="reference external" href="http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html">rst</a>.</p>
+<div class="section" id="xslt-recommendations">
+<h1>XSLT Recommendations</h1>
+<p>This project is largely composed of XSLT documents. The most useful and authoritative reference for XSLT is the <a class="reference external" href="http://www.w3.org/TR/xslt">W3C XSL Transformations recommendation</a>. Below is a list of recommendations for authoring XSLT documents (called &quot;stylesheets&quot;) in this project.</p>
+<ol class="arabic simple">
+<li>The stylesheet should have a basename, excluding the extension, matching the last element of the associated URL path. The URL path is determined by the WebServlet annotation on a XSLTTransformer subclass.</li>
+</ol>
+</div>
 </div>
 </body>
 </html>

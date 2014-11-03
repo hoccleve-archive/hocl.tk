@@ -1,7 +1,13 @@
 <xsl:stylesheet
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:tei="http://www.tei-c.org/ns/1.0"  
+    version="2.0"
     >
+    <!--
+       - There *is* a TEI->HTML XSLT-based converter provided by TEI-C, but it
+       - basically just wraps everything in divs. It doesn't support line numbers
+       - out of the box. It isn't any prettier...
+       -->
     <xsl:template match="//tei:text">
         <html>
             <xsl:for-each select="tei:body">
