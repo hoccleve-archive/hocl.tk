@@ -1,0 +1,19 @@
+import org.junit.*; // Test, Before, After, etc.
+import static org.junit.Assert.*; // test assertions
+
+public class TransformTest
+{
+    /* Things to test:
+     *   Transform functionality
+     *   - Test XInclude processing
+     *   Stylesheets
+     *   - Test addition of line numbers to a TEI document
+     *   - Test translation of internalized analytical markup
+     *     into HTML
+     */
+    @Test
+    public void test_() {
+        System.out.println("slow");
+    }
+
+}
