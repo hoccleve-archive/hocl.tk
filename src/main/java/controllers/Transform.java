@@ -14,11 +14,17 @@ import javax.xml.transform.stream.StreamSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.Source;
 import javax.xml.transform.Result;
+import javax.xml.transform.ErrorListener;
 import util.Util;
 
 public class Transform
 {
     static TransformerFactory tf = TransformerFactory.newInstance();
+    static ErrorListener errors = new MyErrorListener();
+
+    static {
+        tf.setErrorListener(errors);
+    };
 
     /* A wrapper around a checked exception, TransformerException,
      * so it can pass through the to top level methods
@@ -31,6 +37,26 @@ public class Transform
         {
             super();
             exc = tf;
+        }
+    }
+
+    public static class MyErrorListener implements ErrorListener
+    {
+        public void fatalError(TransformerException exception) throws TransformerException
+        {
+            //throw exception;
+        }
+
+        public void warning(TransformerException exception) throws TransformerException
+        {
+            System.err.println("transformation warning: ");
+            exception.printStackTrace();
+        }
+
+        public void error(TransformerException exception)
+        {
+            System.err.println("transformation error: ");
+            exception.printStackTrace();
         }
     }
 
@@ -93,6 +119,12 @@ public class Transform
         return res;
     }
 
+    public static Transformer getTransformer(InputStream in)
+    {
+        Source xslt_in = getInput(in);
+        return getTransformer(xslt_in);
+    }
+
     public static Transformer getTransformer(String fileName)
     {
         Source xslt_in = getInput(fileName);
@@ -146,6 +178,14 @@ public class Transform
         Source xml_in = getInput(Util.openURL(in));
         Result xml_out = getOutput(out);
         Transformer tf = getTransformerFromURL(xslt);
+        doTransformation(tf, xml_in, xml_out);
+    }
+
+    public static void doTransformation(InputStream xslt, InputStream in, OutputStream out)
+    {
+        Source xml_in = getInput(in);
+        Result xml_out = getOutput(out);
+        Transformer tf = getTransformer(xslt);
         doTransformation(tf, xml_in, xml_out);
     }
 
