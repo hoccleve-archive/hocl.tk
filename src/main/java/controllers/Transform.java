@@ -46,7 +46,7 @@ public class Transform
     {
         public void fatalError(TransformerException exception) throws TransformerException
         {
-            //throw exception;
+            throw exception;
         }
 
         public void warning(TransformerException exception) throws TransformerException
