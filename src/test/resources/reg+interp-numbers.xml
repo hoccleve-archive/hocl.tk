@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Regiment of Princes</title>
+            </titleStmt>
+            <publicationStmt>
+                <p/>
+            </publicationStmt>
+            <sourceDesc>
+                <p>
+                    This document was composed from the text
+                    at http://d.lib.rochester.edu/teams/text/blyth-hoccleve-regiment-of-princes
+                </p>
+            </sourceDesc>
+        </fileDesc>
+    </teiHeader>
+    <text>
+    <body>
+        <head>Regiment of Princes</head>
+        <div type="poem">
+            <lg>
+                <l n="1" xml:id="line-1" >Musynge upon the restlees bysynesse</l>
+                <l n="2" xml:id="line-2" >Which that this troubly world hath ay on honde,</l>
+                <l n="3" xml:id="line-3" >That othir thyng than fruyt of bittirnesse</l>
+                <l n="4" xml:id="line-4" >Ne yildith naght, as I can undirstonde,</l>
+                <l n="5" xml:id="line-5" >At Chestres In, right faste by the Stronde,</l>
+                <l n="6" xml:id="line-6" >As I lay in my bed upon a nyght,</l>
+                <l n="7" xml:id="line-7" >Thoght me byrefte of sleep the force and might. </l>
+                <l n="8" xml:id="line-8" >And many a day and nyght that wikkid hyne</l>
+                <l n="9" xml:id="line-9" >Hadde beforn vexed my poore goost</l>
+                <l n="10" xml:id="line-10" >So grevously that of angwissh and pyne</l>
+                <l n="11" xml:id="line-11" >No rycher man was nowhere in no coost.</l>
+                <l n="12" xml:id="line-12" >This dar I seyn, may no wight make his boost</l>
+                <l n="13" xml:id="line-13" >That he with thoght was bet than I aqweynted,</l>
+                <l n="14" xml:id="line-14" >For to the deeth he wel ny hath me feynted.</l>
+                <l n="15" xml:id="line-15" >Bysyly in my mynde I gan revolve</l>
+                <l n="16" xml:id="line-16" >The welthe unseur of every creature,</l>
+                <l n="17" xml:id="line-17" >How lightly that Fortune it can dissolve</l>
+                <l n="18" xml:id="line-18" >Whan that hir list that it no lenger dure;</l>
+                <l n="19" xml:id="line-19" >And of the brotilnesse of hir nature</l>
+                <l n="20" xml:id="line-20" >My tremblynge herte so greet gastnesse hadde</l>
+                <l n="21" xml:id="line-21" >That my spirites were of my lyf sadde.</l>
+                <l n="22" xml:id="line-22" >Me fil to mynde how that nat longe agoo</l>
+                <l n="23" xml:id="line-23" >Fortunes strook doun thraste estat rial</l>
+                <l n="24" xml:id="line-24" >Into mescheef, and I took heede also</l>
+                <l n="25" xml:id="line-25" >Of many anothir lord that hadde a fal.</l>
+                <l n="26" xml:id="line-26" >In mene estat eek sikirnesse at al</l>
+                <l n="27" xml:id="line-27" >Ne saw I noon, but I sy atte laste</l>
+                <l n="28" xml:id="line-28" >Wher seuretee for to abyde hir caste.</l>
+                <l n="29" xml:id="line-29" >In poore estat shee pighte hir pavyloun</l>
+                <l n="30" xml:id="line-30" >To kevere hir fro the storm of descendynge</l>
+                <l n="31" xml:id="line-31" >For shee kneew no lower descencion</l>
+                <l n="32" xml:id="line-32" >Sauf oonly deeth, fro which no wight lyvynge</l>
+                <l n="33" xml:id="line-33" >Deffende him may; and thus in my musynge</l>
+                <l n="34" xml:id="line-34" >I destitut was of joie and good hope,</l>
+                <l n="35" xml:id="line-35" >And to myn ese nothyng cowde I grope.</l>
+                <l n="36" xml:id="line-36" >For right as blyve ran it in my thoght,</l>
+                <l n="37" xml:id="line-37" >Thogh poore I be, yit sumwhat leese I may.</l>
+                <l n="38" xml:id="line-38" >Than deemed I that seurtee wolde noght</l>
+                <l n="39" xml:id="line-39" >With me abyde; it is nat to hir pay</l>
+                <l n="40" xml:id="line-40" >Ther to sojourne as shee descende may.</l>
+                <l n="41" xml:id="line-41" >And thus unsikir of my smal lyflode,</l>
+                <l n="42" xml:id="line-42" >Thoght leide on me ful many an hevy lode.</l>
+                <l n="43" xml:id="line-43" >I thoghte eek, if I into povert creepe,</l>
+                <l n="44" xml:id="line-44" >Than am I entred into sikirnesse;</l>
+                <l n="45" xml:id="line-45" >But swich seurtee mighte I ay waille and weepe,</l>
+                <l n="46" xml:id="line-46" >For povert breedith naght but hevynesse.</l>
+                <l n="47" xml:id="line-47" >Allas, wher is this worldes stablenesse?</l>
+                <l n="48" xml:id="line-48" >Heer up, heer doun; heer honour, heer repreef;</l>
+                <l n="49" xml:id="line-49" >Now hool, now seek; now bountee, now mescheef.</l>
+                <l n="50" xml:id="line-50" >And whan I hadde rollid up and doun</l>
+                <l n="51" xml:id="line-51" >This worldes stormy wawes in my mynde,</l>
+                <l n="52" xml:id="line-52" >I sy wel povert was exclusioun</l>
+                <l n="53" xml:id="line-53" >Of al welfare regnynge in mankynde;</l>
+                <l n="54" xml:id="line-54" >And how in bookes thus writen I fynde,</l>
+                <l n="55" xml:id="line-55" >"The werste kynde of wrecchidnesse is</l>
+                <l n="56" xml:id="line-56" >A man to han be weleful or this."</l>
+                <l n="57" xml:id="line-57" >Allas, thoghte I, what sikirnesse is that</l>
+                <l n="58" xml:id="line-58" >To lyve ay seur of greef and of nusance?</l>
+                <l n="59" xml:id="line-59" >What shal I do? Best is I stryve nat</l>
+                <l n="60" xml:id="line-60" >Ageyn the peys of Fortunes balance,</l>
+                <l n="61" xml:id="line-61" >For wel I woot that hir brotil constance</l>
+                <l n="62" xml:id="line-62" >A wight no whyle souffre can sojourne</l>
+                <l n="63" xml:id="line-63" >In o plyt; thus nat wiste I how to tourne.</l>
+                <l n="64" xml:id="line-64" >For whan man weeneth stonde moost constant,</l>
+                <l n="65" xml:id="line-65" >Thanne is he nexte to his overthrowynge;</l>
+                <l n="66" xml:id="line-66" >So flittynge is shee and so variant,</l>
+                <l n="67" xml:id="line-67" >Ther is no trust upon hir fair lawhynge;</l>
+                <l n="68" xml:id="line-68" >Aftir glad look, shee shapith hir to stynge.</l>
+                <l n="69" xml:id="line-69" >I was adrad so of hir gerynesse</l>
+                <l n="70" xml:id="line-70" >That my lyf was but a deedly gladnesse.</l>
+                <l n="71" xml:id="line-71" >This ilke nyght I walwid to and fro</l>
+                <l n="72" xml:id="line-72" >Seekynge reste, but certeynly shee</l>
+                <l n="73" xml:id="line-73" >Appeerid nat, for thoght, my cruel fo,</l>
+                <l n="74" xml:id="line-74" >Chaced had hir and sleep away fro me.</l>
+                <l n="75" xml:id="line-75" >And for I sholde nat allone be,</l>
+                <l n="76" xml:id="line-76" >Ageyn my lust wach proferred his servyse,</l>
+                <l n="77" xml:id="line-77" >And I admittid him in hevy wyse.</l>
+                <l n="78" xml:id="line-78" >So long a nyght ne felte I nevere noon</l>
+                <l n="79" xml:id="line-79" >As was that same, to my jugement.</l>
+                <l n="80" xml:id="line-80" >Whoso that thoghty is, is wo begoon;</l>
+                <l n="81" xml:id="line-81" >The thoghtful wight is vessel of torment;</l>
+                <l n="82" xml:id="line-82" >Ther nis no greef to him equipollent.</l>
+                <l n="83" xml:id="line-83" >He graveth deepest of seeknesses alle:</l>
+                <l n="84" xml:id="line-84" >Ful wo is him that in swich thoght is falle.</l>
+                <l n="85" xml:id="line-85" >What wight that inly pensyf is, I trowe,</l>
+                <l n="86" xml:id="line-86" >His moost desir is to be solitarie.</l>
+                <l n="87" xml:id="line-87" >That this is sooth, in my persone I knowe,</l>
+                <l n="88" xml:id="line-88" >For evere whyl that fretynge adversarie</l>
+                <l n="89" xml:id="line-89" >Myn herte made to him tributarie</l>
+                <l n="90" xml:id="line-90" >In sowkynge of the fressheste of my blood;</l>
+                <l n="91" xml:id="line-91" >To sorwe soul me thoghte it dide me good.</l>
+                <l n="92" xml:id="line-92" >For the nature of hevynesse is this:</l>
+                <l n="93" xml:id="line-93" >If it habownde greetly in a wight,</l>
+                <l n="94" xml:id="line-94" >The place eschueth he whereas joie is,</l>
+                <l n="95" xml:id="line-95" >For joie and he nat mowe accorde aright.</l>
+                <l n="96" xml:id="line-96" >As discordant as day is unto nyght,</l>
+                <l n="97" xml:id="line-97" >And honour adversarie is unto shame,</l>
+                <l n="98" xml:id="line-98" >Is hevynesse so to joie and game.</l>
+                <l n="99" xml:id="line-99" >Whan to the thoghtful wight is told a tale,</l>
+                <l n="100" xml:id="line-100" >He heerith it as thogh he thennes were;</l>
+                <l n="101" xml:id="line-101" >His hevy thoghtes him so plukke and hale</l>
+                <l n="102" xml:id="line-102" >Hidir and thidir, and him greeve and dere,</l>
+                <l n="103" xml:id="line-103" >That his eres availle him nat a pere;</l>
+                <l n="104" xml:id="line-104" >He undirstandith nothyng what men seye,</l>
+                <l n="105" xml:id="line-105" >So been his wittes fer goon hem to pleye.</l>
+                <l n="106" xml:id="line-106" >The smert of thoght I by experience</l>
+                <l n="107" xml:id="line-107" >Knowe as wel as any man dooth lyvynge.</l>
+                <l n="108" xml:id="line-108" >His frosty swoot and fyry hoot fervence,</l>
+                <l n="109" xml:id="line-109" >And troubly dremes drempt al in wakynge,</l>
+                <l n="110" xml:id="line-110" >My mazid heed sleeplees han of konnynge</l>
+                <l n="111" xml:id="line-111" >And wit despoillid, and so me bejapid</l>
+                <l n="112" xml:id="line-112" >That aftir deeth ful often have I gapid.</l>
+                <l n="113" xml:id="line-113" >Passe over; whan this stormy nyght was goon</l>
+                <l n="114" xml:id="line-114" >And day gan at my wyndowe in to prye,</l>
+                <l n="115" xml:id="line-115" >I roos me up, for boote fond I noon</l>
+                <l n="116" xml:id="line-116" >In myn unresty bed lenger to lye.</l>
+                <l n="117" xml:id="line-117" >Into the feeld I dressid me in hye,</l>
+                <l n="118" xml:id="line-118" >And in my wo I herte-deep gan wade,</l>
+                <l n="119" xml:id="line-119" >As he that was bareyne of thoghtes glade.</l>
+                <l n="120" xml:id="line-120" >By that I walkid hadde a certeyn tyme,</l>
+                <l n="121" xml:id="line-121" >Were it an hour I not, or more or lesse,</l>
+                <l n="122" xml:id="line-122" >A poore old hoor man cam walkynge by me,</l>
+                <l n="123" xml:id="line-123" >And seide, "Good day, sire, and God yow blesse!"</l>
+                <l n="124" xml:id="line-124" >But I no word, for my seekly distresse</l>
+                <l n="125" xml:id="line-125" >Forbad myn eres usen hir office,</l>
+                <l n="126" xml:id="line-126" >For which this old man heeld me lewde and nyce,</l>
+                <l n="127" xml:id="line-127" >Til he took heede to my drery cheere,</l>
+                <l n="128" xml:id="line-128" >And to my deedly colour pale and wan.</l>
+                <l n="129" xml:id="line-129" >Than thoghte he thus: "This man that I see heere</l>
+                <l n="130" xml:id="line-130" >Al wrong is wrestid, by aght I see can."</l>
+                <l n="131" xml:id="line-131" >He stirte unto me and seide, "Sleepstow, man?</l>
+                <l n="132" xml:id="line-132" >Awake!" and gan me shake wondir faste,</l>
+                <l n="133" xml:id="line-133" >And with a sigh I answerde atte laste:</l>
+            </lg>
+            <trailer>Explicit</trailer>
+        </div>
+        <spanGrp type="time-referents">
+            <span target="#line-6" type="abstract-moment">Specific place (Chester Inn) and time creates narrative context of entering dream.</span>
+            <span target="#line-8" type="abstract-duration">Recollection of past duration starts to merge past and present times, acting as a descriptive tool of thought processes.</span>
+            <span target="#line-22" type="memory">Remembers Richard II’s fall, setting political time of narrative.</span>
+            <span from="#line-47" to="#line-48" type="universal-temporality">To emphasise transitory nature of secular fortune</span>
+            <span target="#line-54" type="past-authority">Authenticating strategy of narrative voice</span>
+            <span target="#line-71" type="precise-moment">Links back to opening of narrative, bringing reader into presence of the narrative moment that is a recollection</span>
+            <span target="#line-78" type="abstract-duration">Narrator’s inability to sleep, due to dream setting</span>
+            <span target="#line-96" type="subjective-units">
+                <note>of the temporal hours</note>Speech on opposites, as narrator wants solitude not joy, analogy to discordant relationship between night and day
+            </span>
+            <span from="#line-113" to="#line-114" type="time-duration-and-abstract-moment"> Narrative return to L 78, the moment after the abstract duration of the night</span>
+        </spanGrp>
+        </body>
+    </text>
+</TEI>
+
