@@ -25,9 +25,10 @@ public class XSLTest
 
     @Test
     public void testAnalysisToHTML ()
+
     {
-        assertTrue("Simple",
-                test_transformation0("tei-numbers.xslt", "short-poem.xml", "short-poem-numbers.xml"));
+        String[] xslts = new String[] { "tei-numbers.xslt", "tei-html.xslt"};
+        assertTrue("Simple", test_transformation0(xslts, "reg+interp.xml", "reg+interp-html.xml"));
     }
 
     private boolean test_transformation (String stylesheetFile, String sourceFile)
