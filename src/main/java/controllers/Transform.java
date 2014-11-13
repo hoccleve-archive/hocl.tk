@@ -5,6 +5,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.OutputStream;
 import java.io.FileOutputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.ByteArrayInputStream;
 import java.io.Writer;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
@@ -179,6 +181,46 @@ public class Transform
         Result xml_out = getOutput(out);
         Transformer tf = getTransformerFromURL(xslt);
         doTransformation(tf, xml_in, xml_out);
+    }
+
+    public static void doTransformation(String[] xslts, InputStream in, OutputStream out)
+    {
+        /* Perform a series of transformations */
+        Transformer[] ts = new Transformer[xslts.length];
+        for (int i = 0; i < xslts.length; i++)
+        {
+             ts[i] = getTransformerFromURL(xslts[i]);
+        }
+        doTransformation(ts, getInput(in), getOutput(out));
+    }
+
+    public static void doTransformation(Transformer[] ts, Source in, Result out)
+    {
+        /* This loop performs 1 or more transformations given in the array `tfs` */
+        Source xml_in = in;
+        ByteArrayOutputStream tmp = null;
+        for (int i = 0; i < ts.length; i++)
+        {
+             Result xml_out = null;
+             if (i != 0)
+             {
+                 xml_in = getInput(new ByteArrayInputStream(tmp.toByteArray()));
+             }
+
+             tmp = new ByteArrayOutputStream();
+
+             if (i == (ts.length - 1))
+             {
+                 xml_out = out;
+             }
+             else
+             {
+                 xml_out = getOutput(tmp);
+             }
+
+             doTransformation(ts[i], xml_in, xml_out);
+        }
+
     }
 
     public static void doTransformation(InputStream xslt, InputStream in, OutputStream out)
