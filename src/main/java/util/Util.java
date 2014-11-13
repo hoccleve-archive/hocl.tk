@@ -1,6 +1,8 @@
 package util;
 
 import java.io.InputStream;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -22,5 +24,26 @@ public class Util {
         }
         return res;
     }
+
+    public static InputStream getResourceStream (String name)
+    {
+        /** Resources are those stored in the class path (e.g., src/main/resources). */
+        ClassLoader loader = Thread.currentThread().getContextClassLoader();
+        InputStream file = loader.getResourceAsStream(name);
+        return file;
+    }
+
+    public static URL getResource (String name)
+    {
+        /** Resources are those stored in the class path (e.g., src/main/resources). */
+        ClassLoader loader = Thread.currentThread().getContextClassLoader();
+        return loader.getResource(name);
+    }
+
+    public static ByteArrayInputStream copyOutputByteStreamToInput(ByteArrayOutputStream os)
+    {
+        return new ByteArrayInputStream(os.toByteArray());
+    }
+
 
 }

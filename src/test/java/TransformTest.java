@@ -1,86 +1,37 @@
 package tests;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import org.junit.*; // Test, Before, After, etc.
 import static org.junit.Assert.*; // test assertions
-import java.io.InputStream;
-import java.io.IOException;
-import java.io.ByteArrayOutputStream;
-import java.io.ByteArrayInputStream;
-import org.xml.sax.InputSource;
+import static util.Util.*;
+import static util.TestUtil.*;
 import org.xml.sax.SAXException;
-
-import java.net.URL;
 import controllers.Transform;
-//import net.sf.xmlunit.diff.*;
-import org.custommonkey.xmlunit.*;
+import org.custommonkey.xmlunit.XMLTestCase;
+import org.custommonkey.xmlunit.exceptions.XpathException;
 
-public class TransformTest
+public class TransformTest extends XMLTestCase
 {
-    /* Things to test:
-     *   Transform functionality
-     *   - Test XInclude processing
-     *   Stylesheets
-     *   - Test addition of line numbers to a TEI document
-     *   - Test translation of internalized analytical markup
-     *     into HTML
+    /** This test suite is for testing the Transform module.
+     *
+     * This test suite is NOT for testing stylesheets that Transform operates on.
      */
-
     @Test
-    public void testLineNumbers1 ()
+    public void testMultipleTransformations ()
     {
-        assertTrue("line numbers correct", test_transformation("tei-numbers.xslt", "reg+interp.xml"));
-    }
-
-    private boolean test_transformation (String stylesheetFile, String sourceFile)
-    {
-        return test_transformation0(stylesheetFile, sourceFile, sourceFile +".expected");
-    }
-
-    private boolean test_transformation0 (String stylesheetFile, String sourceFile, String expectedFile)
-    {
-        /** Tests if a transformation succeeds or not
-        */
-        InputStream source = getResourceStream(sourceFile);
-        InputStream expected = getResourceStream(expectedFile);
-        InputStream stylesheet = getResourceStream(stylesheetFile);
-
-        ByteArrayOutputStream transformResult = new ByteArrayOutputStream();
-        Transform.doTransformation(stylesheet, source, transformResult);
-
-        InputStream result = copyOutputByteStreamToInput(transformResult);
-
-        InputSource is = new InputSource(expected);
-        InputSource resultSource = new InputSource(result);
-
-        boolean diffStatus = false;
+        /* performs the transformation, which adds an n to /a/b, twice */
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        String stylesheet_file = getResource("simple1.xslt").toString();
+        Transform.doTransformation(new String[] {stylesheet_file, stylesheet_file, stylesheet_file}, getResourceStream("simple1.xml"), os);
         try
         {
-            Diff myDiff = new Diff(is, resultSource);
-            diffStatus = myDiff.similar();
+            assertXpathEvaluatesTo("nnn", "/a/b", os.toString());
         }
-        catch (SAXException|IOException e)
+        catch (XpathException|SAXException|IOException e)
         {
-            e.printStackTrace();
-            diffStatus = false;
+            fail();
         }
-        return diffStatus;
     }
 
-    private InputStream getResourceStream (String name)
-    {
-        ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        InputStream file = loader.getResourceAsStream(name);
-        return file;
-    }
-
-    private URL getResource (String name)
-    {
-        ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        return loader.getResource(name);
-    }
-
-    private ByteArrayInputStream copyOutputByteStreamToInput(ByteArrayOutputStream os)
-    {
-        return new ByteArrayInputStream(os.toByteArray());
-    }
 
 }
