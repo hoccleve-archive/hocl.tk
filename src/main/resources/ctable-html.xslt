@@ -3,8 +3,8 @@
     <xsl:template match="table">
         <html>
             <head>
-                <meta name="viewport" content="width=device-width" />
-                <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+                <meta name="viewport" content="width=device-width"></meta>
+                <meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta>
                 <title>Time referents concordance table demo</title>
 
                 <script src="jquery-1.11.1.min.js"></script>

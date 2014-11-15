@@ -56,6 +56,10 @@ public class TestUtil
         {
             Diff myDiff = new Diff(is, resultSource);
             diffStatus = myDiff.similar();
+            if ( !diffStatus )
+            {
+                System.err.println(myDiff.toString());
+            }
         }
         catch (SAXException|IOException e)
         {

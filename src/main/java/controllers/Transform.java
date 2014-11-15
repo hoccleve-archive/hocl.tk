@@ -183,6 +183,14 @@ public class Transform
         doTransformation(tf, xml_in, xml_out);
     }
 
+    public static void doTransformation(String xslt, InputStream in, Writer out)
+    {
+        Source xml_in = getInput(in);
+        Result xml_out = getOutput(out);
+        Transformer tf = getTransformerFromURL(xslt);
+        doTransformation(tf, xml_in, xml_out);
+    }
+
     public static void doTransformation(String[] xslts, InputStream in, OutputStream out)
     {
         /* Perform a series of transformations */

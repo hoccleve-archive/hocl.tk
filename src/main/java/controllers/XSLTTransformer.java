@@ -6,6 +6,7 @@ import javax.servlet.*;
 import javax.servlet.annotation.*;
 import javax.servlet.http.*;
 import controllers.Transform;
+import static util.Util.*;
 
 @WebServlet("/transform")
 public class XSLTTransformer extends HttpServlet
@@ -33,19 +34,18 @@ public class XSLTTransformer extends HttpServlet
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         response.setCharacterEncoding("UTF-8");
-        response.setBufferSize(8192);/* I'm not even sure what this buffer size does... */
+        response.setBufferSize(8192);
         try (PrintWriter out = response.getWriter())
         {
             String xml = request.getParameter("q");
             String xsl = null;
-            ServletContext ctx = request.getServletContext();
             if (xsltResourceName == null)
             {
                 xsl = request.getParameter("xsl");
             }
             else
             {
-                xsl = ctx.getResource(xsltResourceName).toString();
+                xsl = getResource(xsltResourceName).toString();
             }
 
             if (xml == null || xsl == null)
@@ -62,6 +62,53 @@ public class XSLTTransformer extends HttpServlet
                 catch (Transform.MyTransformerException e)
                 {
                     response.setContentType("text/plain");
+                    out.println(e.exc.getMessageAndLocation());
+                }
+            }
+        }
+    }
+
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
+        response.setCharacterEncoding("UTF-8");
+        try (PrintWriter out = response.getWriter())
+        {
+            /* Unlike the GET, this is the actual XML text */
+            String xml = request.getParameter("text");
+            String xsl = null;
+            if (xsltResourceName == null)
+            {
+                xsl = request.getParameter("xsl");
+            }
+            else
+            {
+                try
+                {
+                    xsl = getResource(xsltResourceName).toString();
+                }
+                catch (Exception e)
+                {
+                    System.out.println("This shouldn't be possible");
+                    out.println(e);
+                }
+            }
+
+            if (xml == null || xsl == null)
+            {
+                response.setContentType("text/plain");
+                out.printf("You must provide an XSL and XML to transform. Got %s and %s.\n", xsl, xml);
+            }
+            else
+            {
+                try
+                {
+                    InputStream xml_stream = new ByteArrayInputStream(xml.getBytes("UTF-8"));
+                    Transform.doTransformation(xsl, xml_stream, out);
+                }
+                catch (Transform.MyTransformerException e)
+                {
+                    response.setContentType("text/plain");
+                    out.println("ERROR:");
                     out.println(e.exc.getMessageAndLocation());
                 }
             }

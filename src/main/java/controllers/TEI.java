@@ -16,6 +16,6 @@ public class TEI extends XSLTTransformer
     @Override
     public void init ()
     {
-        xsltResourceName = "/tei-numbers.xslt";
+        xsltResourceName = "tei-numbers.xslt";
     }
 }

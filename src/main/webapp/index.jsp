@@ -1,34 +1,27 @@
 <html>
     <head>
-        <link href="main.css" rel=stylesheet type="text/css">
+        <%@include file="resources/html-head-includes" %>
         <title>Demo page</title>
     </head>
     <body>
-        <form action="transform.jsp" method="get" id="main-xsl-input" class="input-box">
-            <label for="xsl-url">xslt</label> <input id="xsl-url" value="http://localhost:8080/ctable.xslt" type="text" name="xsl"><br/>
-            <label for="xml-url">xml</label> <input id="xml-url" value="http://localhost:8080/reg.xml" type="text" name="q"><br/>
-            <input type="submit" value="Send">
+        <form id="main-input" class="input-box">
+            <textarea id="input-xml" name="text" cols=60 rows=20><jsp:include page="resources/reg+interp.xml" /></textarea>
+            <input type="submit" value="Add line numbers" />
         </form>
-        <ul>
-            <% 
-            final File folder = new File("/var/lib/tomcat7/webapps/ROOT");
-            for (final File fileEntry : folder.listFiles()) {
-
-                if (!fileEntry.isDirectory())
-                {
-                    String s = fileEntry.getName();
-                    if (s.matches(".*\\.xslt|.*\\.xml"))
-                    {
-                        %>
-                        <li>
-                            <%= s %>
-                        </li>
-                        <%
-                    }
-                }
-            }
-            %>
-        </ul>
+        <div id="result">
+        </div>
     </body>
+    <script>
+        $(document).ready(function()
+        {
+            $( "#main-input" ).submit(function( event ) {
+                alert( "Handler for .submit() called." );
+                $.post("/my-webapp/tei-line-numbers", {"text": $("input-xml").html()}, function (res) {
+                    $("result").html(res);
+                });
+                event.preventDefault();
+            });
+        });
+    </script>
 </html>
 <%@ page import="java.io.*" %>
