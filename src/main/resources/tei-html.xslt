@@ -1,6 +1,8 @@
 <xsl:stylesheet
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:tei="http://www.tei-c.org/ns/1.0"  
+    xmlns="http://www.w3.org/1999/xhtml"
+    method="xhtml"
     version="2.0"
     >
     <!--
@@ -11,7 +13,6 @@
     <xsl:template match="/tei:TEI">
         <html>
             <head>
-                <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
                 <title>
                     <xsl:apply-templates select="tei:teiHeader/tei:fileDesc/tei:titleStmt/tei:title/text()" />
                 </title>

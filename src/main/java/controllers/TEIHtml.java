@@ -13,7 +13,7 @@ public class TEIHtml extends XSLTTransformer
     @Override
     public void init ()
     {
-        xsltResourceName = "/tei-poem.xslt";
+        xsltResourceName = "/tei-html.xslt";
         contentType = "text/html";
     }
 }
