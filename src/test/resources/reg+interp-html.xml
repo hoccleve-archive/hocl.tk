@@ -1,4 +1,3 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -34,7 +33,7 @@
             <tr id="line-19"><td>And of the brotilnesse of hir nature</td></tr>
             <tr id="line-20"><td>My tremblynge herte so greet gastnesse hadde</td></tr>
             <tr id="line-21"><td>That my spirites were of my lyf sadde.</td></tr>
-            <tr id="line-22"><td>Me fil to mynde how that nat longe agoo</td>
+            <tr id="line-22"><td><div class="note">of the temporal hours</div>Me fil to mynde how that nat longe agoo</td>
                 <td class="time-referents.memory">Remembers Richard II’s fall, setting political time of narrative.</td>
             </tr>
             <tr id="line-23"><td>Fortunes strook doun thraste estat rial</td></tr>
@@ -62,98 +61,8 @@
             <tr id="line-45"><td>But swich seurtee mighte I ay waille and weepe,</td></tr>
             <tr id="line-46"><td>For povert breedith naght but hevynesse.</td></tr>
             <tr id="line-47"><td>Allas, wher is this worldes stablenesse?</td>
-                <td rowspan="2" class="time-referents.universal-temporality">To emphasise transitory nature of secular fortune</td></tr>
+                <td rowspan="2" class="time-referents.universal-temporality"><div class="note">of time</div>To emphasise transitory nature of secular fortune</td></tr>
             <tr id="line-48"><td>Heer up, heer doun; heer honour, heer repreef;</td></tr>
-            <tr id="line-49"><td>Now hool, now seek; now bountee, now mescheef.</td></tr>
-            <tr id="line-50"><td>And whan I hadde rollid up and doun</td></tr>
-            <tr id="line-51"><td>This worldes stormy wawes in my mynde,</td></tr>
-            <tr id="line-52"><td>I sy wel povert was exclusioun</td></tr>
-            <tr id="line-53"><td>Of al welfare regnynge in mankynde;</td></tr>
-            <tr id="line-54"><td>And how in bookes thus writen I fynde,</td>
-                <td class="time-referents.past-authority">Authenticating strategy of narrative voice</td></tr>
-            <tr id="line-55"><td>"The werste kynde of wrecchidnesse is</td></tr>
-            <tr id="line-56"><td>A man to han be weleful or this."</td></tr>
-            <tr id="line-57"><td>Allas, thoghte I, what sikirnesse is that</td></tr>
-            <tr id="line-58"><td>To lyve ay seur of greef and of nusance?</td></tr>
-            <tr id="line-59"><td>What shal I do? Best is I stryve nat</td></tr>
-            <tr id="line-60"><td>Ageyn the peys of Fortunes balance,</td></tr>
-            <tr id="line-61"><td>For wel I woot that hir brotil constance</td></tr>
-            <tr id="line-62"><td>A wight no whyle souffre can sojourne</td></tr>
-            <tr id="line-63"><td>In o plyt; thus nat wiste I how to tourne.</td></tr>
-            <tr id="line-64"><td>For whan man weeneth stonde moost constant,</td></tr>
-            <tr id="line-65"><td>Thanne is he nexte to his overthrowynge;</td></tr>
-            <tr id="line-66"><td>So flittynge is shee and so variant,</td></tr>
-            <tr id="line-67"><td>Ther is no trust upon hir fair lawhynge;</td></tr>
-            <tr id="line-68"><td>Aftir glad look, shee shapith hir to stynge.</td></tr>
-            <tr id="line-69"><td>I was adrad so of hir gerynesse</td></tr>
-            <tr id="line-70"><td>That my lyf was but a deedly gladnesse.</td></tr>
-            <tr id="line-71"><td>This ilke nyght I walwid to and fro</td>
-                <td class="time-referents.precise-moment">Links back to opening of narrative, bringing reader into presence of the narrative moment that is a recollection</td></tr>
-            <tr id="line-72"><td>Seekynge reste, but certeynly shee</td></tr>
-            <tr id="line-73"><td>Appeerid nat, for thoght, my cruel fo,</td></tr>
-            <tr id="line-74"><td>Chaced had hir and sleep away fro me.</td></tr>
-            <tr id="line-75"><td>And for I sholde nat allone be,</td></tr>
-            <tr id="line-76"><td>Ageyn my lust wach proferred his servyse,</td></tr>
-            <tr id="line-77"><td>And I admittid him in hevy wyse.</td></tr>
-            <tr id="line-78"><td>So long a nyght ne felte I nevere noon</td>
-                <td class="time-referents.abstract-duration">Narrator’s inability to sleep, due to dream setting</td></tr>
-            <tr id="line-79"><td>As was that same, to my jugement.</td></tr>
-            <tr id="line-80"><td>Whoso that thoghty is, is wo begoon;</td></tr>
-            <tr id="line-81"><td>The thoghtful wight is vessel of torment;</td></tr>
-            <tr id="line-82"><td>Ther nis no greef to him equipollent.</td></tr>
-            <tr id="line-83"><td>He graveth deepest of seeknesses alle:</td></tr>
-            <tr id="line-84"><td>Ful wo is him that in swich thoght is falle.</td></tr>
-            <tr id="line-85"><td>What wight that inly pensyf is, I trowe,</td></tr>
-            <tr id="line-86"><td>His moost desir is to be solitarie.</td></tr>
-            <tr id="line-87"><td>That this is sooth, in my persone I knowe,</td></tr>
-            <tr id="line-88"><td>For evere whyl that fretynge adversarie</td></tr>
-            <tr id="line-89"><td>Myn herte made to him tributarie</td></tr>
-            <tr id="line-90"><td>In sowkynge of the fressheste of my blood;</td></tr>
-            <tr id="line-91"><td>To sorwe soul me thoghte it dide me good.</td></tr>
-            <tr id="line-92"><td>For the nature of hevynesse is this:</td></tr>
-            <tr id="line-93"><td>If it habownde greetly in a wight,</td></tr>
-            <tr id="line-94"><td>The place eschueth he whereas joie is,</td></tr>
-            <tr id="line-95"><td>For joie and he nat mowe accorde aright.</td></tr>
-            <tr id="line-96"><td>As discordant as day is unto nyght,</td>
-                <td class="time-referents.subjective-units"><div class="note">of the temporal hours</div>Speech on opposites, as narrator wants solitude not joy, analogy to discordant relationship between night and day</td></tr>
-            <tr id="line-97"><td>And honour adversarie is unto shame,</td></tr>
-            <tr id="line-98"><td>Is hevynesse so to joie and game.</td></tr>
-            <tr id="line-99"><td>Whan to the thoghtful wight is told a tale,</td></tr>
-            <tr id="line-100"><td>He heerith it as thogh he thennes were;</td></tr>
-            <tr id="line-101"><td>His hevy thoghtes him so plukke and hale</td></tr>
-            <tr id="line-102"><td>Hidir and thidir, and him greeve and dere,</td></tr>
-            <tr id="line-103"><td>That his eres availle him nat a pere;</td></tr>
-            <tr id="line-104"><td>He undirstandith nothyng what men seye,</td></tr>
-            <tr id="line-105"><td>So been his wittes fer goon hem to pleye.</td></tr>
-            <tr id="line-106"><td>The smert of thoght I by experience</td></tr>
-            <tr id="line-107"><td>Knowe as wel as any man dooth lyvynge.</td></tr>
-            <tr id="line-108"><td>His frosty swoot and fyry hoot fervence,</td></tr>
-            <tr id="line-109"><td>And troubly dremes drempt al in wakynge,</td></tr>
-            <tr id="line-110"><td>My mazid heed sleeplees han of konnynge</td></tr>
-            <tr id="line-111"><td>And wit despoillid, and so me bejapid</td></tr>
-            <tr id="line-112"><td>That aftir deeth ful often have I gapid.</td></tr>
-            <tr id="line-113"><td>Passe over; whan this stormy nyght was goon</td>
-            <td rowspan="2" class="time-referents.time-duration-and-abstract-moment"> Narrative return to L 78, the moment after the abstract duration of the night</td></tr>
-            <tr id="line-114"><td>And day gan at my wyndowe in to prye,</td></tr>
-            <tr id="line-115"><td>I roos me up, for boote fond I noon</td></tr>
-            <tr id="line-116"><td>In myn unresty bed lenger to lye.</td></tr>
-            <tr id="line-117"><td>Into the feeld I dressid me in hye,</td></tr>
-            <tr id="line-118"><td>And in my wo I herte-deep gan wade,</td></tr>
-            <tr id="line-119"><td>As he that was bareyne of thoghtes glade.</td></tr>
-            <tr id="line-120"><td>By that I walkid hadde a certeyn tyme,</td></tr>
-            <tr id="line-121"><td>Were it an hour I not, or more or lesse,</td></tr>
-            <tr id="line-122"><td>A poore old hoor man cam walkynge by me,</td></tr>
-            <tr id="line-123"><td>And seide, "Good day, sire, and God yow blesse!"</td></tr>
-            <tr id="line-124"><td>But I no word, for my seekly distresse</td></tr>
-            <tr id="line-125"><td>Forbad myn eres usen hir office,</td></tr>
-            <tr id="line-126"><td>For which this old man heeld me lewde and nyce,</td></tr>
-            <tr id="line-127"><td>Til he took heede to my drery cheere,</td></tr>
-            <tr id="line-128"><td>And to my deedly colour pale and wan.</td></tr>
-            <tr id="line-129"><td>Than thoghte he thus: "This man that I see heere</td></tr>
-            <tr id="line-130"><td>Al wrong is wrestid, by aght I see can."</td></tr>
-            <tr id="line-131"><td>He stirte unto me and seide, "Sleepstow, man?</td></tr>
-            <tr id="line-132"><td>Awake!" and gan me shake wondir faste,</td></tr>
-            <tr id="line-133"><td>And with a sigh I answerde atte laste:</td></tr>
         </table>
     </body>
 </html>

@@ -29,6 +29,8 @@ public class TransformTest extends XMLTestCase
         }
         catch (XpathException|SAXException|IOException e)
         {
+            System.err.println("The test failed with an exception: ");
+            e.printStackTrace();
             fail();
         }
     }
