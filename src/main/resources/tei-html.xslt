@@ -26,7 +26,7 @@
                                 <tr>
                                     <xsl:if test="@n">
                                         <td>
-                                            <xsl:value-of select="@n/text()" />
+                                            <xsl:value-of select="@n" />
                                         </td>
                                     </xsl:if>
                                     <td>
