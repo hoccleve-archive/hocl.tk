@@ -2,7 +2,6 @@
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:tei="http://www.tei-c.org/ns/1.0"  
     xmlns="http://www.w3.org/1999/xhtml"
-    method="xhtml"
     version="2.0"
     >
     <!--
@@ -25,6 +24,11 @@
                             <xsl:for-each select="tei:lg">
                                 <xsl:for-each select="tei:l">
                                 <tr>
+                                    <xsl:if test="@n">
+                                        <td>
+                                            <xsl:value-of select="@n/text()" />
+                                        </td>
+                                    </xsl:if>
                                     <td>
                                         <xsl:value-of select="text()" />
                                     </td>
