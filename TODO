@@ -1,0 +1,50 @@
+- `tidy` HTML cleaner suggests adding a summary element to our HTML. Apparently it helps non-visual readers.
+- There's a test in XSLTest.java for transforming poems and analysis to HTML. The expected output is currently missing line numbers. The HTML should present the analysis in a side bar on mouse-over and maybe pin it on click. Either Javascript or CSS is acceptable for doing that (I have no idea if that's possible with CSS though). Also, the actual transformation still doesn't show the analysis at all. By analysis, I mean the spanGrp at the bottom of the source XML document, of course.
+- Our first use case was to get out a concordance table from a document. There aren't any tests for this now, but the ctable*xslt files have to do with that. A sort of planned document from an earlier iteration is below:
+    <table xmlns="http://hocl.tk/schema/"
+           xmlns:hocc="http://hocl.tk/html/reg.xml#"
+           subject="http://hocl.tk/html/reg.xml"
+        >
+        <!-- As this is a stand-off document, the subject is meant to indicate the document this table is based on -->
+    <!--TODO:The schema isn't yet written down-->
+
+        <entry>
+            <!--XXX: Is this the right way to make references?-->
+            <!--`from' and `to' are xml ids.
+                 When there is only one line, either from or to
+                 may be used.
+                 -->
+            <reference from="hocc:l6" />
+            <!-- The type isn't an attribute since I'm already thinking it could be extended like::
+
+                     <type name="food-bar">
+                         <typeClass name="foo" />
+                         <typeClass name="bar" />
+                         Something about the shades of foobar-ness
+                     </type>
+
+                 to arbitrarily create types that have a name distinct from the aggregation of tags. The
+                 inner-text is intended to be a comment on the type itself. This is distinct from
+                 the `function`, does not follow the `name`, and dosen't distinguish the type in any way.
+                 -->
+            <!--One tag-->
+            <type class="abstract" />
+            <!--Another tag-->
+            <type class="moment" />
+            <!--The citation text included in the original table is omitted since
+                 the whole line is the subject of the entry. It is expected that
+                 the document can be accessed for display purposes
+                 -->
+            <function>Specific place (Chester Inn) and time creates narrative context of entering dream.</function>
+        </entry>
+        <entry>
+            <reference from="hocc:l8" />
+
+            <type class="abstract duration" />
+            <!--The text can be included anyway-->
+            <text>And many a day and nyght that wikkid hyne</text>
+            <function>Recollection of past duration starts to merge past and present times, acting as a descriptive tool of thought processes.</function>
+        </entry>
+    </table>
+    This format basically has nothing to do with TEI (except that we should be able to make these from <spanGrp>s), but is intended to make it easier to get the table we want. We want to turn this into a *printable* attractive table.
+
