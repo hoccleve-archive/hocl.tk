@@ -29,6 +29,7 @@ public class XSLTTransformer extends HttpServlet
     /* MUST be a local resource starting with "/"
      * rather than a full URI */
     public String xsltResourceName = null;
+    public String[] xsltResourceNames = null;
     public String contentType = "text/xml";
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
@@ -76,11 +77,7 @@ public class XSLTTransformer extends HttpServlet
             /* Unlike the GET, this is the actual XML text */
             String xml = request.getParameter("text");
             String xsl = null;
-            if (xsltResourceName == null)
-            {
-                xsl = request.getParameter("xsl");
-            }
-            else
+            if (xsltResourceName != null)
             {
                 try
                 {
@@ -91,6 +88,10 @@ public class XSLTTransformer extends HttpServlet
                     System.out.println("This shouldn't be possible");
                     out.println(e);
                 }
+            }
+            else
+            {
+                xsl = request.getParameter("xsl");
             }
 
             if (xml == null || xsl == null)

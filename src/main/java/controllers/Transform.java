@@ -3,28 +3,41 @@ package controllers;
 import java.io.InputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.io.FileOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.Writer;
+
 import javax.xml.transform.Transformer;
+import javax.xml.transform.Templates;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.sax.SAXTransformerFactory;
+import javax.xml.transform.sax.TransformerHandler;
+import javax.xml.transform.sax.SAXResult;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.Source;
 import javax.xml.transform.Result;
 import javax.xml.transform.ErrorListener;
+
 import util.Util;
 
 public class Transform
 {
-    static TransformerFactory tf = TransformerFactory.newInstance();
+    static SAXTransformerFactory tf;
     static ErrorListener errors = new MyErrorListener();
 
     static {
+        TransformerFactory tf_instance = TransformerFactory.newInstance();
+        if (tf_instance.getFeature(SAXTransformerFactory.FEATURE))
+        {
+            tf = (SAXTransformerFactory)tf_instance;
+        }
+
         tf.setErrorListener(errors);
     };
 
@@ -121,6 +134,22 @@ public class Transform
         return res;
     }
 
+    public static Templates getTemplatesFromURL(String url)
+    {
+        Source xslt_in = getInput(Util.openURL(url));
+        Templates res = null;
+        try
+        {
+            res = tf.newTemplates(xslt_in);
+        }
+        catch (TransformerConfigurationException e)
+        {
+            throw new MyTransformerException(e);
+        }
+        return res;
+    }
+
+
     public static Transformer getTransformer(InputStream in)
     {
         Source xslt_in = getInput(in);
@@ -194,41 +223,61 @@ public class Transform
     public static void doTransformation(String[] xslts, InputStream in, OutputStream out)
     {
         /* Perform a series of transformations */
-        Transformer[] ts = new Transformer[xslts.length];
+        Templates[] ts = new Templates[xslts.length];
         for (int i = 0; i < xslts.length; i++)
         {
-             ts[i] = getTransformerFromURL(xslts[i]);
+            ts[i] = getTemplatesFromURL(xslts[i]);
         }
         doTransformation(ts, getInput(in), getOutput(out));
     }
 
-    public static void doTransformation(Transformer[] ts, Source in, Result out)
+    public static void doTransformation(Templates[] ts, Source in, Result out)
     {
         /* This loop performs 1 or more transformations given in the array `tfs` */
-        Source xml_in = in;
-        ByteArrayOutputStream tmp = null;
-        for (int i = 0; i < ts.length; i++)
+        if (ts.length == 1)
         {
-             Result xml_out = null;
-             if (i != 0)
-             {
-                 xml_in = getInput(new ByteArrayInputStream(tmp.toByteArray()));
-             }
-
-             tmp = new ByteArrayOutputStream();
-
-             if (i == (ts.length - 1))
-             {
-                 xml_out = out;
-             }
-             else
-             {
-                 xml_out = getOutput(tmp);
-             }
-
-             doTransformation(ts[i], xml_in, xml_out);
+            try
+            {
+                doTransformation(ts[0].newTransformer(), in, out);
+            }
+            catch (TransformerConfigurationException e)
+            {
+                throw new MyTransformerException(e);
+            }
         }
+        else
+        {
+            TransformerHandler[] handlers = new TransformerHandler[ts.length];
 
+            try
+            {
+
+                for (int i = 0; i < ts.length; i++)
+                {
+                    handlers[i] = tf.newTransformerHandler(ts[i]);
+                }
+
+                for (int i = 0; i < ts.length - 1; i++)
+                {
+                    handlers[i].setResult(new SAXResult(handlers[i+1]));
+                }
+                handlers[ts.length - 1].setResult(out);
+
+                Transformer t = tf.newTransformer();
+                t.transform(in, new SAXResult(handlers[0]));
+            }
+            catch (TransformerConfigurationException e)
+            {
+                System.err.println("Error creating templates");
+                e.printStackTrace();
+            }
+            catch (TransformerException e)
+            {
+                System.err.println("Error transforming");
+                e.printStackTrace();
+            }
+
+        }
     }
 
     public static void doTransformation(InputStream xslt, InputStream in, OutputStream out)
