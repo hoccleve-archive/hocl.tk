@@ -19,6 +19,7 @@ public class TestUtil
         /* Set features for XMLUnit document parsing */
         DocumentBuilderFactory[] facs = new DocumentBuilderFactory[] {XMLUnit.getControlDocumentBuilderFactory(),
             XMLUnit.getTestDocumentBuilderFactory()};
+        XMLUnit.setIgnoreWhitespace(true);
         /* Turn off validation */
         for (DocumentBuilderFactory fac: facs)
         {
@@ -72,26 +73,31 @@ public class TestUtil
         }
 
         InputStream result = copyOutputByteStreamToInput(transformResult);
-
-        InputSource is = new InputSource(expected);
-        InputSource resultSource = new InputSource(result);
-
-        boolean diffStatus = false;
-        try
+        boolean res = simpleDiff(expected, result);
+        if ( res )
         {
-            Diff myDiff = new Diff(is, resultSource);
-            diffStatus = myDiff.similar();
-            if ( !diffStatus )
+            return true;
+        }
+        else
+        {
+            System.out.println("RESULT OF TRANSFORMATION:\n"+ transformResult);
+
+            try
             {
-                System.err.println(myDiff.toString());
+                InputStream expected2 = getResourceStream(expectedFile);
+                System.out.println("EXPECTED:\n");
+                int r = 0;
+                while ((r = expected2.read()) != -1)
+                {
+                    System.out.write(r);
+                }
             }
+            catch (IOException e)
+            {
+                System.out.println("ERROR in PRINTING");
+            }
+            return false;
         }
-        catch (SAXException|IOException e)
-        {
-            e.printStackTrace();
-            diffStatus = false;
-        }
-        return diffStatus;
     }
 
     public static boolean simpleDiff(InputStream a, InputStream b)
