@@ -1,0 +1,10 @@
+<zum>
+    <zucks>
+        <zuck xml:id="id1">flibbity-digit</zuck>
+        <zuck xml:id="id2">floopy-doo</zuck>
+    </zucks>
+    <as>
+        <a ref="#id1">corra<soap /></a>
+        <a ref="#id2">corra</a>
+    </as>
+</zum>
