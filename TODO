@@ -49,4 +49,4 @@ These are various things that Mark is planning to do that don't fit well into is
         </entry>
     </table>
     This format basically has nothing to do with TEI (except that we should be able to make these from <spanGrp>s), but is intended to make it easier to get the table we want. We want to turn this into a *printable* attractive table.
-- It would be good to have the tests run automatically on a push and to 'deploy' to a test server (like hocl.tk/test) at the same time.
+- It would be good to have the tests run automatically on a `git push` and to 'deploy' to a test server (like hocl.tk/test) at the same time.

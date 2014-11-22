@@ -18,4 +18,6 @@ This project is largely composed of XSLT documents. The most useful and authorit
 
 1. The stylesheet should have a basename, excluding the extension, matching the last element of the associated URL path. The URL path is determined by the WebServlet annotation on a XSLTTransformer subclass.
 
-
+HTML Recommendations
+--------------------
+For HTML used in the project, try to make the pages readable without extensive use of Javascript and CSS. In general, it is better to support a wide range of readers, some of which may not be modern personal computers or which may have Javascript disabled or which just display differently.
