@@ -23,7 +23,7 @@ public class XSLTest
                 test_transformation0("tei-numbers.xslt", "short-poem.xml", "short-poem-numbers.xml"));
     }
 
-    @Test
+    //@Test
     public void testAnalysisToHTML ()
 
     {

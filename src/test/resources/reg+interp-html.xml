@@ -1,68 +1,162 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>Regiment of Princes</title>
     </head>
     <body>
         <h1>Regiment of Princes</h1>
         <table>
-            <tr id="line-1"><td>Musynge upon the restlees bysynesse</td></tr>
-            <tr id="line-2"><td>Which that this troubly world hath ay on honde,</td></tr>
-            <tr id="line-3"><td>That othir thyng than fruyt of bittirnesse</td></tr>
-            <tr id="line-4"><td>Ne yildith naght, as I can undirstonde,</td></tr>
-            <tr id="line-5"><td>At Chestres In, right faste by the Stronde,</td></tr>
+            <tr id="line-1">
+                <td>Musynge upon the restlees bysynesse</td>
+            </tr>
+            <tr id="line-2">
+                <td>Which that this troubly world hath ay on honde,</td>
+            </tr>
+            <tr id="line-3">
+                <td>That othir thyng than fruyt of bittirnesse</td>
+            </tr>
+            <tr id="line-4">
+                <td>Ne yildith naght, as I can undirstonde,</td>
+            </tr>
+            <tr id="line-5">
+                <td>At Chestres In, right faste by the Stronde,</td>
+            </tr>
             <tr id="line-6">
                 <td>As I lay in my bed upon a nyght,</td>
                 <td class="time-referents.abstract-moment">Specific place (Chester Inn) and time creates narrative context of entering dream.</td>
             </tr>
-            <tr id="line-7"><td>Thoght me byrefte of sleep the force and might. </td></tr>
+            <tr id="line-7">
+                <td>Thoght me byrefte of sleep the force and might. </td>
+            </tr>
             <tr id="line-8">
                 <td>And many a day and nyght that wikkid hyne</td>
                 <td class="time-referents.abstract-duration">Recollection of past duration starts to merge past and present times, acting as a descriptive tool of thought processes.</td>
             </tr>
-            <tr id="line-9"><td>Hadde beforn vexed my poore goost</td></tr>
-            <tr id="line-10"><td>So grevously that of angwissh and pyne</td></tr>
-            <tr id="line-11"><td>No rycher man was nowhere in no coost.</td></tr>
-            <tr id="line-12"><td>This dar I seyn, may no wight make his boost</td></tr>
-            <tr id="line-13"><td>That he with thoght was bet than I aqweynted,</td></tr>
-            <tr id="line-14"><td>For to the deeth he wel ny hath me feynted.</td></tr>
-            <tr id="line-15"><td>Bysyly in my mynde I gan revolve</td></tr>
-            <tr id="line-16"><td>The welthe unseur of every creature,</td></tr>
-            <tr id="line-17"><td>How lightly that Fortune it can dissolve</td></tr>
-            <tr id="line-18"><td>Whan that hir list that it no lenger dure;</td></tr>
-            <tr id="line-19"><td>And of the brotilnesse of hir nature</td></tr>
-            <tr id="line-20"><td>My tremblynge herte so greet gastnesse hadde</td></tr>
-            <tr id="line-21"><td>That my spirites were of my lyf sadde.</td></tr>
-            <tr id="line-22"><td><div class="note">of the temporal hours</div>Me fil to mynde how that nat longe agoo</td>
-                <td class="time-referents.memory">Remembers Richard II’s fall, setting political time of narrative.</td>
+            <tr id="line-9">
+                <td>Hadde beforn vexed my poore goost</td>
             </tr>
-            <tr id="line-23"><td>Fortunes strook doun thraste estat rial</td></tr>
-            <tr id="line-24"><td>Into mescheef, and I took heede also</td></tr>
-            <tr id="line-25"><td>Of many anothir lord that hadde a fal.</td></tr>
-            <tr id="line-26"><td>In mene estat eek sikirnesse at al</td></tr>
-            <tr id="line-27"><td>Ne saw I noon, but I sy atte laste</td></tr>
-            <tr id="line-28"><td>Wher seuretee for to abyde hir caste.</td></tr>
-            <tr id="line-29"><td>In poore estat shee pighte hir pavyloun</td></tr>
-            <tr id="line-30"><td>To kevere hir fro the storm of descendynge</td></tr>
-            <tr id="line-31"><td>For shee kneew no lower descencion</td></tr>
-            <tr id="line-32"><td>Sauf oonly deeth, fro which no wight lyvynge</td></tr>
-            <tr id="line-33"><td>Deffende him may; and thus in my musynge</td></tr>
-            <tr id="line-34"><td>I destitut was of joie and good hope,</td></tr>
-            <tr id="line-35"><td>And to myn ese nothyng cowde I grope.</td></tr>
-            <tr id="line-36"><td>For right as blyve ran it in my thoght,</td></tr>
-            <tr id="line-37"><td>Thogh poore I be, yit sumwhat leese I may.</td></tr>
-            <tr id="line-38"><td>Than deemed I that seurtee wolde noght</td></tr>
-            <tr id="line-39"><td>With me abyde; it is nat to hir pay</td></tr>
-            <tr id="line-40"><td>Ther to sojourne as shee descende may.</td></tr>
-            <tr id="line-41"><td>And thus unsikir of my smal lyflode,</td></tr>
-            <tr id="line-42"><td>Thoght leide on me ful many an hevy lode.</td></tr>
-            <tr id="line-43"><td>I thoghte eek, if I into povert creepe,</td></tr>
-            <tr id="line-44"><td>Than am I entred into sikirnesse;</td></tr>
-            <tr id="line-45"><td>But swich seurtee mighte I ay waille and weepe,</td></tr>
-            <tr id="line-46"><td>For povert breedith naght but hevynesse.</td></tr>
-            <tr id="line-47"><td>Allas, wher is this worldes stablenesse?</td>
-                <td rowspan="2" class="time-referents.universal-temporality"><div class="note">of time</div>To emphasise transitory nature of secular fortune</td></tr>
-            <tr id="line-48"><td>Heer up, heer doun; heer honour, heer repreef;</td></tr>
+            <tr id="line-10">
+                <td>So grevously that of angwissh and pyne</td>
+            </tr>
+            <tr id="line-11">
+                <td>No rycher man was nowhere in no coost.</td>
+            </tr>
+            <tr id="line-12">
+                <td>This dar I seyn, may no wight make his boost</td>
+            </tr>
+            <tr id="line-13">
+                <td>That he with thoght was bet than I aqweynted,</td>
+            </tr>
+            <tr id="line-14">
+                <td>For to the deeth he wel ny hath me feynted.</td>
+            </tr>
+            <tr id="line-15">
+                <td>Bysyly in my mynde I gan revolve</td>
+            </tr>
+            <tr id="line-16">
+                <td>The welthe unseur of every creature,</td>
+            </tr>
+            <tr id="line-17">
+                <td>How lightly that Fortune it can dissolve</td>
+            </tr>
+            <tr id="line-18">
+                <td>Whan that hir list that it no lenger dure;</td>
+            </tr>
+            <tr id="line-19">
+                <td>And of the brotilnesse of hir nature</td>
+            </tr>
+            <tr id="line-20">
+                <td>My tremblynge herte so greet gastnesse hadde</td>
+            </tr>
+            <tr id="line-21">
+                <td>That my spirites were of my lyf sadde.</td>
+            </tr>
+            <tr id="line-22">
+                <td>
+                    Me fil to mynde how that nat longe agoo
+                </td>
+                <td class="time-referents.memory"><div class="note">of the temporal hours</div>Remembers Richard II’s fall, setting political time of narrative.</td>
+            </tr>
+            <tr id="line-23">
+                <td>Fortunes strook doun thraste estat rial</td>
+            </tr>
+            <tr id="line-24">
+                <td>Into mescheef, and I took heede also</td>
+            </tr>
+            <tr id="line-25">
+                <td>Of many anothir lord that hadde a fal.</td>
+            </tr>
+            <tr id="line-26">
+                <td>In mene estat eek sikirnesse at al</td>
+            </tr>
+            <tr id="line-27">
+                <td>Ne saw I noon, but I sy atte laste</td>
+            </tr>
+            <tr id="line-28">
+                <td>Wher seuretee for to abyde hir caste.</td>
+            </tr>
+            <tr id="line-29">
+                <td>In poore estat shee pighte hir pavyloun</td>
+            </tr>
+            <tr id="line-30">
+                <td>To kevere hir fro the storm of descendynge</td>
+            </tr>
+            <tr id="line-31">
+                <td>For shee kneew no lower descencion</td>
+            </tr>
+            <tr id="line-32">
+                <td>Sauf oonly deeth, fro which no wight lyvynge</td>
+            </tr>
+            <tr id="line-33">
+                <td>Deffende him may; and thus in my musynge</td>
+            </tr>
+            <tr id="line-34">
+                <td>Idestitut was of joie and good hope,</td>
+            </tr>
+            <tr id="line-35">
+                <td>And to myn ese nothyng cowde I grope.</td>
+            </tr>
+            <tr id="line-36">
+                <td>For right as blyve ran it in my thoght,</td>
+            </tr>
+            <tr id="line-37">
+                <td>Thogh poore I be, yit sumwhat leese I may.</td>
+            </tr>
+            <tr id="line-38">
+                <td>Than deemed I that seurtee wolde noght</td>
+            </tr>
+            <tr id="line-39">
+                <td>With me abyde; it is nat to hir pay</td>
+            </tr>
+            <tr id="line-40">
+                <td>Ther to sojourne as shee descende may.</td>
+            </tr>
+            <tr id="line-41">
+                <td>And thus unsikir of my smal lyflode,</td>
+            </tr>
+            <tr id="line-42">
+                <td>Thoght leide on me ful many an hevy lode.</td>
+            </tr>
+            <tr id="line-43">
+                <td>Ithoghte eek, if I into povert creepe,</td>
+            </tr>
+            <tr id="line-44">
+                <td>Than am I entred into sikirnesse;</td>
+            </tr>
+            <tr id="line-45">
+                <td>But swich seurtee mighte I ay waille and weepe,</td>
+            </tr>
+            <tr id="line-46">
+                <td>For povert breedith naght but hevynesse.</td>
+            </tr>
+            <tr id="line-47">
+                <td>Allas, wher is this worldes stablenesse?</td>
+                <td rowspan="2" class="time-referents.universal-temporality">
+                    <div class="note">of time</div>To emphasise transitory nature of secular fortune
+                </td>
+            </tr>
+            <tr id="line-48">
+                <td>Heer up, heer doun; heer honour, heer repreef;</td>
+            </tr>
         </table>
     </body>
 </html>

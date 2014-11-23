@@ -2,6 +2,7 @@
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:tei="http://www.tei-c.org/ns/1.0"  
     xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
     version="1.0"
     >
     <!--
@@ -15,6 +16,11 @@
                 <title>
                     <xsl:apply-templates select="tei:teiHeader/tei:fileDesc/tei:titleStmt/tei:title/text()" />
                 </title>
+                <script src="resources/tei-html.js"/>
+                <link href="resources/tei-html.css" rel="stylesheet" type="text/css" />
+                <!-- TODO: Put this in another transform and find out how to do XInclude processing in Java
+                   -<xi:include href="html-head-includes"/>
+                   -->
             </head>
             <body>
                 <xsl:for-each select="tei:text/tei:body">
@@ -29,38 +35,55 @@
                                         select="concat('#', @xml:id)"/>
                                     <xsl:variable name="line_number"
                                         select="@n"/>
-                                <tr>
-                                    <xsl:attribute name="id">
-                                        <xsl:value-of select="$line_id" />
-                                    </xsl:attribute>
-                                    <!--<xsl:if test="@n">-->
-                                        <!--<td>-->
-                                            <!--<xsl:value-of select="@n" />-->
-                                        <!--</td>-->
-                                    <!--</xsl:if>-->
-                                    <td>
-                                        <xsl:value-of select="text()" />
-                                    </td>
-                                    <xsl:for-each select="//tei:spanGrp/tei:span">
-                                        <xsl:choose>
-                                            <xsl:when test="current()[@target=$line_id_ref]">
-                                                <xsl:call-template name="line_note"/>
-                                            </xsl:when>
-                                            <xsl:when test="current()[@from=$line_id_ref]">
-                                                <xsl:call-template name="line_note">
-                                                    <xsl:with-param name="span">2</xsl:with-param>
-                                                </xsl:call-template>
-                                            </xsl:when>
-                                            <xsl:otherwise>
-                                            </xsl:otherwise>
-                                        </xsl:choose>
-                                    </xsl:for-each>
-                                </tr>
+                                    <tr>
+                                        <xsl:attribute name="id">
+                                            <xsl:value-of select="$line_id" />
+                                        </xsl:attribute>
+                                        <xsl:attribute name="class">line</xsl:attribute>
+                                        <xsl:if test="@n">
+                                            <td>
+                                                <xsl:value-of select="@n" />
+                                            </td>
+                                        </xsl:if>
+                                        <td>
+                                            <xsl:value-of select="text()" />
+                                            <xsl:if test="//tei:spanGrp/tei:span[@target=$line_id_ref or @from=$line_id_ref]">
+                                                <span style="color:red"> <b>*</b></span>
+                                            </xsl:if>
+                                        </td>
+                                        <xsl:for-each select="//tei:spanGrp">
+                                            <xsl:variable name="interp_class" select="@type"/> 
+                                            <xsl:for-each select="tei:span">
+                                                <xsl:if test="(@target=$line_id_ref) or (@from=$line_id_ref)">
+                                                    <xsl:call-template name="line_note">
+                                                        <xsl:with-param name="interp_class" select="$interp_class" />
+                                                    </xsl:call-template>
+                                                    <xsl:if test="@from=$line_id_ref">
+                                                        <xsl:call-template name="line_note">
+                                                            <xsl:with-param name="interp_class" select="$interp_class" />
+                                                            <!--TODO: calculate the actual span-->
+                                                            <xsl:with-param name="span">2</xsl:with-param>
+                                                        </xsl:call-template>
+                                                    </xsl:if>
+                                                </xsl:if>
+                                            </xsl:for-each>
+                                        </xsl:for-each>
+                                    </tr>
                                 </xsl:for-each>
                             </xsl:for-each>
                         </xsl:for-each>
                     </table>
                 </xsl:for-each>
+                <div  id="sidebar" />
+                <script src="resources/tei-html.js"/>
+                <script>
+
+                    $(document).ready(function ()
+                    {
+                        make_sidebar_notes();
+                    });
+        
+                </script>
             </body>
         </html>
     </xsl:template>
@@ -71,6 +94,7 @@
 
     <xsl:template name="line_note">
         <xsl:param name="span">1</xsl:param>
+        <xsl:param name="interp_class"></xsl:param>
         <td>
             <xsl:if test="$span > 1">
                 <xsl:attribute name="rowspan">
@@ -78,7 +102,8 @@
                 </xsl:attribute>
             </xsl:if>
             <xsl:attribute name="class">
-                <xsl:value-of select="@type" />
+                <xsl:if test="$interp_class" ><xsl:value-of select="$interp_class" />.</xsl:if>
+                <xsl:value-of select="@type" /> note
             </xsl:attribute>
             <xsl:apply-templates select="tei:note" />
             <xsl:value-of select="text()" />
