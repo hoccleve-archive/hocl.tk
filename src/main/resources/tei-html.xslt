@@ -31,6 +31,7 @@
                                 <xsl:for-each select="tei:l">
                                     <xsl:variable name="line_id"
                                         select="@xml:id"/>
+                                    <!--TODO: Use XSLT keys for these IDs-->
                                     <xsl:variable name="line_id_ref"
                                         select="concat('#', @xml:id)"/>
                                     <xsl:variable name="line_number"

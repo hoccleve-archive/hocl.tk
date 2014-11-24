@@ -9,8 +9,9 @@ import org.xml.sax.SAXException;
 import controllers.Transform;
 import org.custommonkey.xmlunit.XMLTestCase;
 import org.custommonkey.xmlunit.exceptions.XpathException;
+import testcase.MyXMLTestCase;
 
-public class TransformTest extends XMLTestCase
+public class TransformTest extends MyXMLTestCase
 {
     /** This test suite is for testing the Transform module.
      *
@@ -23,16 +24,7 @@ public class TransformTest extends XMLTestCase
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         String stylesheet_file = getResource("simple1.xslt").toString();
         Transform.doTransformation(new String[] {stylesheet_file, stylesheet_file, stylesheet_file}, getResourceStream("simple1.xml"), os);
-        try
-        {
-            assertXpathEvaluatesTo("nnn", "/a/b", os.toString());
-        }
-        catch (XpathException|SAXException|IOException e)
-        {
-            System.err.println("The test failed with an exception: ");
-            e.printStackTrace();
-            fail();
-        }
+        assertXPath("nnn", "/a/b", os.toString());
     }
 
 

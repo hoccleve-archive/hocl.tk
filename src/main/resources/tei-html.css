@@ -1,0 +1,23 @@
+
+tr.line {
+    background: rgb(200,210,230);
+}
+
+td.note {
+    display: none;
+}
+
+#sidebar {
+    position: fixed;
+    top: 1em;
+    left: 1em;
+    width: 200px;
+}
+
+.active {
+    background: wheat;
+}
+
+tr.line.active{
+    background: wheat;
+}

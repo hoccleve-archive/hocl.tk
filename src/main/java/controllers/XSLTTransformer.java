@@ -29,8 +29,17 @@ public class XSLTTransformer extends HttpServlet
     /* MUST be a local resource starting with "/"
      * rather than a full URI */
     public String xsltResourceName = null;
-    public String[] xsltResourceNames = null;
+    /* TODO: Accept a sequence of resource names to
+     * perform multiple transformations */
+    //public String[] xsltResourceNames = null;
+    /* The content type of the response */
     public String contentType = "text/xml";
+    /* These are parameters that get passed to the transformer
+     * (e.g., using Transform::setParameter). They can be set
+     * by passing an identically named parameter in the request
+     * so don't try to pass any private parameters that way.
+     */
+    public Map<String,Object> params = new HashMap<String,Object>();
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
@@ -68,7 +77,6 @@ public class XSLTTransformer extends HttpServlet
             }
         }
     }
-
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         response.setCharacterEncoding("UTF-8");
@@ -93,6 +101,7 @@ public class XSLTTransformer extends HttpServlet
             {
                 xsl = request.getParameter("xsl");
             }
+            extractTransformParameters(request);
 
             if (xml == null || xsl == null)
             {
@@ -104,7 +113,7 @@ public class XSLTTransformer extends HttpServlet
                 try
                 {
                     InputStream xml_stream = new ByteArrayInputStream(xml.getBytes("UTF-8"));
-                    Transform.doTransformation(xsl, xml_stream, out);
+                    Transform.doTransformation(xsl, xml_stream, out, params);
                 }
                 catch (Transform.MyTransformerException e)
                 {
@@ -112,6 +121,18 @@ public class XSLTTransformer extends HttpServlet
                     out.println("ERROR:");
                     out.println(e.exc.getMessageAndLocation());
                 }
+            }
+        }
+    }
+
+    private void extractTransformParameters(HttpServletRequest request)
+    {
+        for (String p : params.keySet())
+        {
+            String requestValue = request.getParameter(p);
+            if (requestValue != null)
+            {
+                params.put(p, requestValue);
             }
         }
     }

@@ -1,9 +1,16 @@
 package tests;
+import java.util.HashMap;
+import java.util.Map;
+import java.io.ByteArrayOutputStream;
 import org.junit.*; // Test, Before, After, etc.
 import static org.junit.Assert.*; // test assertions
+import static util.Util.*;
 import static util.TestUtil.*;
+import org.custommonkey.xmlunit.XMLTestCase;
+import org.custommonkey.xmlunit.exceptions.XpathException;
+import testcase.MyXMLTestCase;
 
-public class XSLTest
+public class XSLTest extends MyXMLTestCase
 {
     /** This test suite is for testing stylesheets (XSLT files).
      *
@@ -23,12 +30,15 @@ public class XSLTest
                 test_transformation0("tei-numbers.xslt", "short-poem.xml", "short-poem-numbers.xml"));
     }
 
-    //@Test
-    public void testAnalysisToHTML ()
-
+    @Test
+    public void testIncludeDocument ()
     {
-        String[] xslts = new String[] { "tei-numbers.xslt", "tei-html.xslt"};
-        assertTrue("Simple", test_transformation0(xslts, "reg+interp.xml", "reg+interp-html.xml"));
+        String doc = "include-doc.xml";
+        String parent = "parent-doc.xml";
+        Map<String, Object> params = new HashMap<String, Object> ();
+        params.put("ana", getResource(doc));
+        //assertTransformXPath(parent, "include-interp.xslt", "Something", "/TEI/text/body/p/ab", params);
+        assertTransformXPath(parent, "include-interp.xslt", "Test parent", "/TEI/teiHeader/fileDesc/titleStmt/title", params);
     }
 
     @Test

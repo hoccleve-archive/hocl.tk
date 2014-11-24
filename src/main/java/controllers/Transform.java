@@ -9,6 +9,7 @@ import java.io.FileOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.Writer;
+import java.util.Map;
 
 import javax.xml.transform.Transformer;
 import javax.xml.transform.Templates;
@@ -176,6 +177,15 @@ public class Transform
         return res;
     }
 
+    public static void doTransformation(Transformer t, Source in, Result out, Map<String,Object> params)
+    {
+        for (String p : params.keySet())
+        {
+            t.setParameter(p, params.get(p));
+        }
+        doTransformation(t, in, out);
+    }
+
     public static void doTransformation(Transformer t, Source in, Result out)
     {
         try
@@ -198,6 +208,12 @@ public class Transform
         doTransformation(t, getInput(in), getOutput(out));
     }
 
+    public static void doTransformation(String t, InputStream in, OutputStream out, Map<String, Object> params)
+    {
+        Transformer tf = getTransformerFromURL(t);
+        doTransformation(tf, getInput(in), getOutput(out), params);
+    }
+
     public static void doTransformation(String t, InputStream in, OutputStream out)
     {
         Transformer tf = getTransformerFromURL(t);
@@ -210,6 +226,14 @@ public class Transform
         Result xml_out = getOutput(out);
         Transformer tf = getTransformerFromURL(xslt);
         doTransformation(tf, xml_in, xml_out);
+    }
+
+    public static void doTransformation(String xslt, InputStream in, Writer out, Map<String,Object> params)
+    {
+        Source xml_in = getInput(in);
+        Result xml_out = getOutput(out);
+        Transformer tf = getTransformerFromURL(xslt);
+        doTransformation(tf, xml_in, xml_out, params);
     }
 
     public static void doTransformation(String xslt, InputStream in, Writer out)
