@@ -2,6 +2,7 @@ package controllers;
 
 import java.util.*;
 import java.io.*;
+import java.net.*;
 import javax.servlet.*;
 import javax.servlet.annotation.*;
 import javax.servlet.http.*;
@@ -40,87 +41,70 @@ public class XSLTTransformer extends HttpServlet
      * so don't try to pass any private parameters that way.
      */
     public Map<String,Object> params = new HashMap<String,Object>();
+
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
+        String xml = request.getParameter("q");
+        if (xml == null)
+        {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "You must provide a parameter `q' with the URL of your XML document.");
+            return;
+        }
+        URL xml_resource = new URL(xml);
+        try (InputStream is = xml_resource.openStream())
+        {
+            doTransformation(request, response, is);
+        }
+    }
+
+    @Override
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
+        String xml = request.getParameter("text");
+        InputStream xml_stream = new ByteArrayInputStream(xml.getBytes("UTF-8"));
+        doTransformation(request, response, xml_stream);
+    }
+
+    private void doTransformation (HttpServletRequest request, HttpServletResponse response, InputStream input_xml) throws IOException
     {
         response.setCharacterEncoding("UTF-8");
         response.setBufferSize(8192);
         try (PrintWriter out = response.getWriter())
         {
-            String xml = request.getParameter("q");
             String xsl = null;
             if (xsltResourceName == null)
             {
                 xsl = request.getParameter("xsl");
+                if (xsl == null)
+                {
+                    String error_message =  "You must provide a parameter `xsl' in order to perform a transformation";
+                    response.sendError(HttpServletResponse.SC_BAD_REQUEST , error_message);
+                    return;
+                }
             }
             else
             {
                 xsl = getResource(xsltResourceName).toString();
+                if (xsl == null)
+                {
+                    String error_message =  "Couldn't find the XSLT file to perform this operation. "+
+                        "Please file a bug report about this error here: https://github.com/hoccleve-archive/hocl.tk/issues";
+                    response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR , error_message);
+                    return;
+                }
             }
 
-            if (xml == null || xsl == null)
-            {
-                response.setContentType("text/plain");
-                out.printf("You must provide an XSL and XML to transform. Got %s and %s.\n", xsl, xml);
-            }
-            else
-            {
-                try
-                {
-                    Transform.doTransformation(xsl, xml, out);
-                }
-                catch (Transform.MyTransformerException e)
-                {
-                    response.setContentType("text/plain");
-                    out.println(e.exc.getMessageAndLocation());
-                }
-            }
-        }
-    }
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
-    {
-        response.setCharacterEncoding("UTF-8");
-        try (PrintWriter out = response.getWriter())
-        {
-            /* Unlike the GET, this is the actual XML text */
-            String xml = request.getParameter("text");
-            String xsl = null;
-            if (xsltResourceName != null)
-            {
-                try
-                {
-                    xsl = getResource(xsltResourceName).toString();
-                }
-                catch (Exception e)
-                {
-                    System.out.println("This shouldn't be possible");
-                    out.println(e);
-                }
-            }
-            else
-            {
-                xsl = request.getParameter("xsl");
-            }
             extractTransformParameters(request);
 
-            if (xml == null || xsl == null)
+            try
             {
-                response.setContentType("text/plain");
-                out.printf("You must provide an XSL and XML to transform. Got %s and %s.\n", xsl, xml);
+                Transform.doTransformation(xsl, input_xml, out, params);
             }
-            else
+            catch (Transform.MyTransformerException e)
             {
-                try
-                {
-                    InputStream xml_stream = new ByteArrayInputStream(xml.getBytes("UTF-8"));
-                    Transform.doTransformation(xsl, xml_stream, out, params);
-                }
-                catch (Transform.MyTransformerException e)
-                {
-                    response.setContentType("text/plain");
-                    out.println("ERROR:");
-                    out.println(e.exc.getMessageAndLocation());
-                }
+                String error_message = "Transformer error\n"+e.exc.getMessageAndLocation();
+                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR , error_message);
             }
         }
     }

@@ -16,7 +16,7 @@
                 <title>
                     <xsl:apply-templates select="tei:teiHeader/tei:fileDesc/tei:titleStmt/tei:title/text()" />
                 </title>
-                <script src="resources/tei-html.js"/>
+                <script src="resources/tei-html.js">;</script>
                 <link href="resources/tei-html.css" rel="stylesheet" type="text/css" />
                 <!-- TODO: Put this in another transform and find out how to do XInclude processing in Java
                    -<xi:include href="html-head-includes"/>
@@ -26,57 +26,24 @@
                 <xsl:for-each select="tei:text/tei:body">
                     <h1><xsl:value-of select="tei:head/text()" /></h1>
                     <table>
+                        <!--This thead prevents the first heading in the poem from jumping up here-->
+                        <thead><tr><th></th></tr></thead>
                         <xsl:for-each select="tei:div[@type='poem']">
-                            <xsl:for-each select="tei:lg">
-                                <xsl:for-each select="tei:l">
-                                    <xsl:variable name="line_id"
-                                        select="@xml:id"/>
-                                    <!--TODO: Use XSLT keys for these IDs-->
-                                    <xsl:variable name="line_id_ref"
-                                        select="concat('#', @xml:id)"/>
-                                    <xsl:variable name="line_number"
-                                        select="@n"/>
-                                    <tr>
-                                        <xsl:attribute name="id">
-                                            <xsl:value-of select="$line_id" />
-                                        </xsl:attribute>
-                                        <xsl:attribute name="class">line</xsl:attribute>
-                                        <xsl:if test="@n">
-                                            <td>
-                                                <xsl:value-of select="@n" />
-                                            </td>
-                                        </xsl:if>
-                                        <td>
-                                            <xsl:value-of select="text()" />
-                                            <xsl:if test="//tei:spanGrp/tei:span[@target=$line_id_ref or @from=$line_id_ref]">
-                                                <span style="color:red"> <b>*</b></span>
-                                            </xsl:if>
-                                        </td>
-                                        <xsl:for-each select="//tei:spanGrp">
-                                            <xsl:variable name="interp_class" select="@type"/> 
-                                            <xsl:for-each select="tei:span">
-                                                <xsl:if test="(@target=$line_id_ref) or (@from=$line_id_ref)">
-                                                    <xsl:call-template name="line_note">
-                                                        <xsl:with-param name="interp_class" select="$interp_class" />
-                                                    </xsl:call-template>
-                                                    <xsl:if test="@from=$line_id_ref">
-                                                        <xsl:call-template name="line_note">
-                                                            <xsl:with-param name="interp_class" select="$interp_class" />
-                                                            <!--TODO: calculate the actual span-->
-                                                            <xsl:with-param name="span">2</xsl:with-param>
-                                                        </xsl:call-template>
-                                                    </xsl:if>
-                                                </xsl:if>
-                                            </xsl:for-each>
-                                        </xsl:for-each>
-                                    </tr>
-                                </xsl:for-each>
+                            <xsl:for-each select="*">
+                                <xsl:choose>
+                                    <xsl:when test="self::tei:lg">
+                                        <xsl:call-template name="poem_lines" />
+                                    </xsl:when>
+                                    <xsl:when test="self::tei:label">
+                                        <xsl:call-template name="poem_label" />
+                                    </xsl:when>
+                                </xsl:choose>
                             </xsl:for-each>
                         </xsl:for-each>
                     </table>
                 </xsl:for-each>
                 <div  id="sidebar" />
-                <script src="resources/tei-html.js"/>
+                <script src="resources/tei-html.js"></script>
                 <script>
 
                     $(document).ready(function ()
@@ -110,5 +77,56 @@
             <xsl:value-of select="text()" />
         </td>
     </xsl:template>
-
+    <xsl:template name="poem_lines" >
+        <tbody>
+            <xsl:for-each select="tei:l">
+                <xsl:variable name="line_id"
+                    select="@xml:id"/>
+                <!--TODO: Use XSLT keys for these IDs-->
+                <xsl:variable name="line_id_ref"
+                    select="concat('#', @xml:id)"/>
+                <xsl:variable name="line_number"
+                    select="@n"/>
+                <tr>
+                    <xsl:if test="@xml:id">
+                        <xsl:attribute name="id">
+                            <xsl:value-of select="$line_id" />
+                        </xsl:attribute>
+                    </xsl:if>
+                    <xsl:attribute name="class">line</xsl:attribute>
+                    <td>
+                        <xsl:if test="@n">
+                            <xsl:value-of select="@n" />
+                        </xsl:if>
+                    </td>
+                    <td>
+                        <xsl:value-of select="text()" />
+                        <xsl:if test="//tei:spanGrp/tei:span[@target=$line_id_ref or @from=$line_id_ref]">
+                            <span style="color:red"> <b>*</b></span>
+                        </xsl:if>
+                    </td>
+                    <xsl:for-each select="//tei:spanGrp">
+                        <xsl:variable name="interp_class" select="@type"/> 
+                        <xsl:for-each select="tei:span">
+                            <xsl:if test="(@target=$line_id_ref) or (@from=$line_id_ref)">
+                                <xsl:call-template name="line_note">
+                                    <xsl:with-param name="interp_class" select="$interp_class" />
+                                </xsl:call-template>
+                                <xsl:if test="@from=$line_id_ref">
+                                    <xsl:call-template name="line_note">
+                                        <xsl:with-param name="interp_class" select="$interp_class" />
+                                        <!--TODO: calculate the actual span-->
+                                        <xsl:with-param name="span">2</xsl:with-param>
+                                    </xsl:call-template>
+                                </xsl:if>
+                            </xsl:if>
+                        </xsl:for-each>
+                    </xsl:for-each>
+                </tr>
+            </xsl:for-each>
+        </tbody>
+    </xsl:template>
+    <xsl:template name="poem_label">
+        <thead><tr><td/><th style="text-align: left;"><xsl:value-of select="text()" /></th></tr></thead>
+    </xsl:template>
 </xsl:stylesheet>
