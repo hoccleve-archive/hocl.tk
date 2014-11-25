@@ -14,7 +14,7 @@ public class TEIHtml extends XSLTTransformer
     public void init ()
     {
         xsltResourceName = "/tei-html.xslt";
-        contentType = "text/html";
+        contentType = "application/xhtml+xml";
     }
 }
 

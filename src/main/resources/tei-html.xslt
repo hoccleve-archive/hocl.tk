@@ -16,7 +16,8 @@
                 <title>
                     <xsl:apply-templates select="tei:teiHeader/tei:fileDesc/tei:titleStmt/tei:title/text()" />
                 </title>
-                <script src="resources/tei-html.js">;</script>
+                <script src="jquery-2.1.1.js"></script>
+                <script src="resources/tei-html.js"></script>
                 <link href="resources/tei-html.css" rel="stylesheet" type="text/css" />
                 <!-- TODO: Put this in another transform and find out how to do XInclude processing in Java
                    -<xi:include href="html-head-includes"/>
@@ -73,8 +74,7 @@
                 <xsl:if test="$interp_class" ><xsl:value-of select="$interp_class" />.</xsl:if>
                 <xsl:value-of select="@type" /> note
             </xsl:attribute>
-            <xsl:apply-templates select="tei:note" />
-            <xsl:value-of select="text()" />
+            <xsl:apply-templates select="tei:note|text()" />
         </td>
     </xsl:template>
     <xsl:template name="poem_lines" >
@@ -109,16 +109,20 @@
                         <xsl:variable name="interp_class" select="@type"/> 
                         <xsl:for-each select="tei:span">
                             <xsl:if test="(@target=$line_id_ref) or (@from=$line_id_ref)">
-                                <xsl:call-template name="line_note">
-                                    <xsl:with-param name="interp_class" select="$interp_class" />
-                                </xsl:call-template>
-                                <xsl:if test="@from=$line_id_ref">
-                                    <xsl:call-template name="line_note">
-                                        <xsl:with-param name="interp_class" select="$interp_class" />
-                                        <!--TODO: calculate the actual span-->
-                                        <xsl:with-param name="span">2</xsl:with-param>
-                                    </xsl:call-template>
-                                </xsl:if>
+                                <xsl:choose>
+                                    <xsl:when test="@from=$line_id_ref">
+                                        <xsl:call-template name="line_note">
+                                            <xsl:with-param name="interp_class" select="$interp_class" />
+                                            <!--TODO: calculate the actual span-->
+                                            <xsl:with-param name="span">2</xsl:with-param>
+                                        </xsl:call-template>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:call-template name="line_note">
+                                            <xsl:with-param name="interp_class" select="$interp_class" />
+                                        </xsl:call-template>
+                                    </xsl:otherwise>
+                                </xsl:choose>
                             </xsl:if>
                         </xsl:for-each>
                     </xsl:for-each>
