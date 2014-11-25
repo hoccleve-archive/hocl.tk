@@ -1,7 +1,11 @@
 These are various things that Mark is planning to do that don't fit well into issues on the tracker. They aren't sorted in any way, but they can be dated by looking at the output of `git blame` on this file.
 
-- `tidy` HTML cleaner suggests adding a summary element to our HTML. Apparently it helps non-visual readers.
-- There's a test in XSLTest.java for transforming poems and analysis to HTML. The expected output is currently missing line numbers. The HTML should present the analysis in a side bar on mouse-over and maybe pin it on click. Either Javascript or CSS is acceptable for doing that (I have no idea if that's possible with CSS though). Also, the actual transformation still doesn't show the analysis at all. By analysis, I mean the spanGrp at the bottom of the source XML document, of course.
+- `tidy` HTML cleaner suggests adding a summary element to our HTML tables. Apparently it helps non-visual readers.
+[ ] There's a test in XSLTest.java for transforming poems and analysis to HTML. 
+    [X] The expected output is currently missing line numbers.
+    [X] The HTML should present the analysis in a side bar on mouse-over
+    [ ] and maybe pin it on click. Either Javascript or CSS is acceptable for doing that (I have no idea if that's possible with CSS though).
+    [X] Also, the actual transformation still doesn't show the analysis at all. By analysis, I mean the spanGrp at the bottom of the source XML document, of course.
 - Our first use case was to get out a concordance table from a document. There aren't any tests for this now, but the ctable*xslt files have to do with that. A sort of planned document from an earlier iteration is below:
     <table xmlns="http://hocl.tk/schema/"
            xmlns:hocc="http://hocl.tk/html/reg.xml#"
@@ -50,3 +54,8 @@ These are various things that Mark is planning to do that don't fit well into is
     </table>
     This format basically has nothing to do with TEI (except that we should be able to make these from <spanGrp>s), but is intended to make it easier to get the table we want. We want to turn this into a *printable* attractive table.
 - It would be good to have the tests run automatically on a `git push` and to 'deploy' to a test server (like hocl.tk/test) at the same time.
+[ ] The "sidebar" element in the TEI-poem HTML should present the class of the note in addition to the text of the note. 
+    [ ] In addition to that, some notes have an extra bit of description which modifies the class, but which is specific to the note. This is currently rendered in an unappealing manner (just the text is shown). It would be good to find a way to present that nicely.
+    [ ] Related to the previous issue, we would like to encode some more information about the class of a note beyond the simple identifier we use now. There should be a way to elaborate using semantical TEI, but there's always tei:ab if it comes to that.
+    [ ] One of the things which we'd like to describe about classes are the relationships between them: some classes are modifications of other classes. We'd like to store these either with the analysis document or in a separate TEI document 
+    [ ] so that such relationships can be used for querying, sorting, and aggregating.
