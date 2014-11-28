@@ -1,4 +1,4 @@
-package util;
+package com.mycompany.app.util;
 
 import java.io.InputStream;
 import java.io.ByteArrayInputStream;

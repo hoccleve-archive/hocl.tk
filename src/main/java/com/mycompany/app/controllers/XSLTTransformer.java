@@ -1,4 +1,4 @@
-package controllers;
+package com.mycompany.app.controllers;
 
 import java.util.*;
 import java.security.MessageDigest;
@@ -6,12 +6,10 @@ import java.security.DigestInputStream;
 import java.io.*;
 import java.net.*;
 import javax.servlet.*;
-import javax.servlet.annotation.*;
 import javax.servlet.http.*;
-import controllers.Transform;
-import static util.Util.*;
+import com.mycompany.app.controllers.Transform;
+import static com.mycompany.app.util.Util.*;
 
-@WebServlet("/transform")
 public class XSLTTransformer extends HttpServlet
 {
     /** This is the base for most of the XSLT transformations.
@@ -94,6 +92,7 @@ public class XSLTTransformer extends HttpServlet
     private void doTransformation (HttpServletRequest request, HttpServletResponse response, InputStream input_xml) throws IOException
     {
         response.setCharacterEncoding("UTF-8");
+        response.setContentType(contentType);
         response.setBufferSize(8192);
 
         long ifmod = request.getDateHeader("If-Modified-Since");

@@ -1,4 +1,4 @@
-package controllers;
+package com.mycompany.app.controllers;
 
 import java.io.InputStream;
 import java.io.FileInputStream;
@@ -25,7 +25,7 @@ import javax.xml.transform.Source;
 import javax.xml.transform.Result;
 import javax.xml.transform.ErrorListener;
 
-import util.Util;
+import com.mycompany.app.util.Util;
 
 public class Transform
 {

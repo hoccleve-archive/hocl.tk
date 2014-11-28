@@ -1,15 +1,15 @@
-package tests;
+package com.mycompany.app.tests;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import org.junit.*; // Test, Before, After, etc.
 import static org.junit.Assert.*; // test assertions
-import static util.Util.*;
-import static util.TestUtil.*;
+import static com.mycompany.app.util.Util.*;
+import static com.mycompany.app.util.TestUtil.*;
 import org.xml.sax.SAXException;
-import controllers.Transform;
+import com.mycompany.app.controllers.Transform;
 import org.custommonkey.xmlunit.XMLTestCase;
 import org.custommonkey.xmlunit.exceptions.XpathException;
-import testcase.MyXMLTestCase;
+import com.mycompany.app.testcase.MyXMLTestCase;
 
 public class TransformTest extends MyXMLTestCase
 {

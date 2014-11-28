@@ -1,15 +1,23 @@
 <xsl:stylesheet
+    method="html"
+    omit-xml-declaration="yes"
+    indent="yes"
+    version="1.0"
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:tei="http://www.tei-c.org/ns/1.0"  
-    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:extra="http://hocl.tk/extra/"
     xmlns:xi="http://www.w3.org/2001/XInclude"
-    version="1.0"
     >
     <!--
        - There *is* a TEI->HTML XSLT-based converter provided by TEI-C, but it
        - basically just wraps everything in divs. It doesn't support line numbers
        - out of the box. It isn't any prettier...
        -->
+    <xsl:template match="/">
+        <xsl:text disable-output-escaping='yes'>&lt;!DOCTYPE html></xsl:text>
+        <xsl:apply-templates select="node()"/>
+    </xsl:template>
+
     <xsl:template match="/tei:TEI">
         <html>
             <head>
@@ -43,7 +51,11 @@
                         </xsl:for-each>
                     </table>
                 </xsl:for-each>
-                <div  id="sidebar" />
+                <xsl:for-each select="//tei:spanGrp">
+                    <div id="sidebar">
+                        <xsl:attribute name="class" ><xsl:value-of select="@type" /></xsl:attribute>
+                    </div>
+                </xsl:for-each>
                 <script src="resources/tei-html.js"></script>
                 <script>
 
@@ -72,8 +84,7 @@
             </xsl:if>
             <xsl:attribute name="class">
                 <xsl:if test="$interp_class" ><xsl:value-of select="$interp_class" />.</xsl:if>
-                <xsl:value-of select="@type" /> note
-            </xsl:attribute>
+                <xsl:value-of select="@type" /> note</xsl:attribute>
             <xsl:apply-templates select="tei:note|text()" />
         </td>
     </xsl:template>

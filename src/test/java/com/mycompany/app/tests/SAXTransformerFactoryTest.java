@@ -1,4 +1,4 @@
-package tests;
+package com.mycompany.app.tests;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -25,9 +25,10 @@ import org.xml.sax.SAXException;
 
 import org.junit.*; // Test, Before, After, etc.
 import static org.junit.Assert.*; // test assertions
-import static util.Util.*;
-import static util.TestUtil.*;
+import static com.mycompany.app.util.Util.*;
+import static com.mycompany.app.util.TestUtil.*;
 
+/* These are primarily learning tests */
 public class SAXTransformerFactoryTest extends XMLTestCase
 {
     @Test

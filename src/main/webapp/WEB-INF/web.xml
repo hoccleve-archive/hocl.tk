@@ -4,4 +4,47 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+  <servlet>
+      <servlet-name>tei-html</servlet-name>
+      <servlet-class>com.mycompany.app.controllers.TEIHtml</servlet-class>
+  </servlet>
+  <servlet>
+      <servlet-name>transform</servlet-name>
+      <servlet-class>com.mycompany.app.controllers.XSLTTransformer</servlet-class>
+  </servlet>
+  <servlet>
+      <servlet-name>tei-numbers</servlet-name>
+      <servlet-class>com.mycompany.app.controllers.TEINumbers</servlet-class>
+  </servlet>
+  <servlet>
+      <servlet-name>include-interp</servlet-name>
+      <servlet-class>com.mycompany.app.controllers.IncludeInterp</servlet-class>
+  </servlet>
+  <servlet>
+      <servlet-name>server-info</servlet-name>
+      <servlet-class>com.mycompany.app.controllers.ServerInfo</servlet-class>
+  </servlet>
+  <servlet-mapping>
+      <servlet-name>transform</servlet-name>
+      <url-pattern>/transform</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+      <servlet-name>tei-html</servlet-name>
+      <url-pattern>/tei-html</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+      <servlet-name>tei-numbers</servlet-name>
+      <url-pattern>/tei-numbers</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+      <servlet-name>include-interp</servlet-name>
+      <url-pattern>/include-interp</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+      <servlet-name>server-info</servlet-name>
+      <url-pattern>/server-info</url-pattern>
+  </servlet-mapping>
+  <welcome-file-list>
+      <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
 </web-app>

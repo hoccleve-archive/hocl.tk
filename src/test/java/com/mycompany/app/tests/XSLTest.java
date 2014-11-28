@@ -1,14 +1,14 @@
-package tests;
+package com.mycompany.app.tests;
 import java.util.HashMap;
 import java.util.Map;
 import java.io.ByteArrayOutputStream;
 import org.junit.*; // Test, Before, After, etc.
 import static org.junit.Assert.*; // test assertions
-import static util.Util.*;
-import static util.TestUtil.*;
+import static com.mycompany.app.util.Util.*;
+import static com.mycompany.app.util.TestUtil.*;
 import org.custommonkey.xmlunit.XMLTestCase;
 import org.custommonkey.xmlunit.exceptions.XpathException;
-import testcase.MyXMLTestCase;
+import com.mycompany.app.testcase.MyXMLTestCase;
 
 public class XSLTest extends MyXMLTestCase
 {

@@ -1,17 +1,11 @@
-package controllers;
+package com.mycompany.app.controllers;
 
 import java.util.*;
 import java.io.*;
 import javax.servlet.*;
-import javax.servlet.annotation.*;
 import javax.servlet.http.*;
-import controllers.Transform;
 
-/* TODO: Make automatic mappings like this based on
- * the names of xslt files
- */
-@WebServlet("/info")
-public class MyServlet extends HttpServlet
+public class ServerInfo extends HttpServlet
 {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -30,7 +24,7 @@ public class MyServlet extends HttpServlet
                 out.println(x +": " +request.getAttribute(x));
             }
             out.println("----");
-            ServletContext ctx = request.getServletContext();
+            ServletContext ctx = this.getServletContext();
             out.println("server name: " + request.getServerName());
             out.println("server port: " + request.getServerPort());
 
@@ -38,9 +32,9 @@ public class MyServlet extends HttpServlet
             out.println("context path: " + ctx.getContextPath());
             out.println("real path of tei-numbers.xslt: " + ctx.getRealPath("tei-numbers.xslt"));
             out.println("resource paths: ");
-            for (String s : ctx.getResourcePaths("/"))
+            for (Object s : ctx.getResourcePaths("/"))
             {
-                out.println("  "+s);
+                out.println("  "+s.toString());
             }
             out.println("----");
         }
