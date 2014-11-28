@@ -21,13 +21,22 @@
         {
             $( "#add-line-numbers-button" ).click(function( event ) {
                 console.log(event);
-                $.post("/my-webapp/tei-line-numbers", {"text": $("#input-xml").val()}, function (res) {
-                    $("#input-xml").val(res);
+                $.ajax({
+                    url: "/tei-numbers",
+                    cache: true,
+                    data: {"text": $("#input-xml").val()},
+                    type: "POST",
+                    datatype: "text"
+                })
+                .done(function (res) {
+                    var str = (new XMLSerializer()).serializeToString(res);
+                    $("#input-xml").val(str);
                 });
             });
+
             $( "#render-html-button" ).click(function( event ) {
                 console.log(event);
-                $.post("/my-webapp/tei-html", {"text": $("#input-xml").val()}, function (res) {
+                $.post("/tei-html", {"text": $("#input-xml").val()}, function (res) {
                     $("#result").html(res);
                 });
             });
