@@ -22,7 +22,7 @@
             $( "#add-line-numbers-button" ).click(function( event ) {
                 console.log(event);
                 $.ajax({
-                    url: "/tei-numbers",
+                    url: "tei-numbers",
                     cache: true,
                     data: {"text": $("#input-xml").val()},
                     type: "POST",
@@ -36,7 +36,7 @@
 
             $( "#render-html-button" ).click(function( event ) {
                 console.log(event);
-                $.post("/tei-html", {"text": $("#input-xml").val()}, function (res) {
+                $.post("tei-html", {"text": $("#input-xml").val()}, function (res) {
                     $("#result").html(res);
                 });
             });
