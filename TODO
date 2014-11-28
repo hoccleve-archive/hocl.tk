@@ -1,6 +1,7 @@
 These are various things that Mark is planning to do that don't fit well into issues on the tracker. They aren't sorted in any way, but they can be dated by looking at the output of `git blame` on this file.
 
-- `tidy` HTML cleaner suggests adding a summary element to our HTML tables. Apparently it helps non-visual readers.
+THINGS THAT ARE RELEVANT NOW
+
 [ ] There's a test in XSLTest.java for transforming poems and analysis to HTML. 
     [X] The expected output is currently missing line numbers.
     [X] The HTML should present the analysis in a side bar on mouse-over
@@ -55,7 +56,16 @@ These are various things that Mark is planning to do that don't fit well into is
     This format basically has nothing to do with TEI (except that we should be able to make these from <spanGrp>s), but is intended to make it easier to get the table we want. We want to turn this into a *printable* attractive table.
 - It would be good to have the tests run automatically on a `git push` and to 'deploy' to a test server (like hocl.tk/test) at the same time.
 [ ] The "sidebar" element in the TEI-poem HTML should present the class of the note in addition to the text of the note. 
-    [ ] In addition to that, some notes have an extra bit of description which modifies the class, but which is specific to the note. This is currently rendered in an unappealing manner (just the text is shown). It would be good to find a way to present that nicely.
-    [ ] Related to the previous issue, we would like to encode some more information about the class of a note beyond the simple identifier we use now. There should be a way to elaborate using semantical TEI, but there's always tei:ab if it comes to that.
-    [ ] One of the things which we'd like to describe about classes are the relationships between them: some classes are modifications of other classes. We'd like to store these either with the analysis document or in a separate TEI document 
-    [ ] so that such relationships can be used for querying, sorting, and aggregating.
+[ ] In addition to that, some notes have an extra bit of description which modifies the class, but which is specific to the note. This is currently rendered in an unappealing manner (just the text is shown). It would be good to find a way to present that nicely.
+[ ] Related to the previous issue, we would like to encode some more information about the class of a note beyond the simple identifier we use now. There should be a way to elaborate using semantical TEI, but there's always tei:ab if it comes to that.
+[ ] One of the things which we'd like to describe about classes are the relationships between them: some classes are modifications of other classes. We'd like to store these either with the analysis document or in a separate TEI document 
+[ ] so that such relationships can be used for querying, sorting, and aggregating.
+
+- (Not really a task) More expressive sorting and aggregation tools are missing from the initial concordance table demo created -- currently hosted at http://hocl.tk/html/concordance.html. A first step for exploring these capabilities would be plugging in the concordance table with the interactive poem
+
+THINGS THAT WOULD BE NICE BUT AREN'T ESSENTIAL
+- `tidy` HTML cleaner suggests adding a summary element to our HTML tables. Apparently it helps non-visual readers.
+
+THINGS WAY OFF IN THE FUTURE
+- It would be interesting to handle partial documents. It's not yet obvious to me how to identify discontinuities in the poems using XSL or whether that information should be incoded in the TEI document itself.
+  - Related to that, it would be nice to extract document parts to look at everything tied to a "type" in a concordance. You can do this with the demo at http://hocl.tk/html/concordance.html (also in https://github.com/hoccleve-archive/concordance-demo) 
