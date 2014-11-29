@@ -85,6 +85,13 @@ public class XSLTTransformer extends HttpServlet
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         String xml = request.getParameter("text");
+
+        if (xml == null)
+        {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "You must provide a parameter `text` with the text of your XML document.");
+            return;
+        }
+
         InputStream xml_stream = new ByteArrayInputStream(xml.getBytes("UTF-8"));
         doTransformation(request, response, xml_stream);
     }
@@ -145,6 +152,10 @@ public class XSLTTransformer extends HttpServlet
                 catch (Transform.MyTransformerException e)
                 {
                     String error_message = "Transformer error\n"+e.exc.getMessageAndLocation();
+                    ByteArrayOutputStream backtrace_stream = new ByteArrayOutputStream();
+                    PrintStream backtrace_print_stream = new PrintStream(backtrace_stream);
+                    e.printStackTrace(backtrace_print_stream);
+                    error_message += backtrace_stream.toString();
                     response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR , error_message);
                 }
             }
