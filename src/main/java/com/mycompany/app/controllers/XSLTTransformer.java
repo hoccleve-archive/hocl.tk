@@ -53,10 +53,17 @@ public class XSLTTransformer extends HttpServlet
     /* This is the if-modified-since date provided in the request */
     private Date ifModifiedSince = new Date(0);
 
+    /**
+     * Executes a GET request.
+     *
+     * A `q' parameter provided in the request will be interpreted as the URL of an XML resource on which the transformation will
+     * be performed. URLs relative to the WebServlet's context or to the host name will not be resolved, but must be fully specified.
+     */
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         String xml = request.getParameter("q");
+        URL xml_resource = null;
 
         if (xml == null)
         {
@@ -64,7 +71,16 @@ public class XSLTTransformer extends HttpServlet
             return;
         }
 
-        URL xml_resource = new URL(xml);
+        try
+        {
+            xml_resource = new URL(xml);
+        }
+        catch (MalformedURLException e)
+        {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "The URL that you provided ("+xml+") is invalid. Reason: "+e.toString());
+            return;
+        }
+
         URLConnection conn = xml_resource.openConnection();
         if (conn.getLastModified() != 0)
         {
@@ -81,6 +97,12 @@ public class XSLTTransformer extends HttpServlet
         }
     }
 
+    /**
+     * Executes a POST request.
+     *
+     * A `text` parameter provided in the request will be interpreted as the text of an XML resource on which the transformation will
+     * be performed.
+     */
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
@@ -96,6 +118,19 @@ public class XSLTTransformer extends HttpServlet
         doTransformation(request, response, xml_stream);
     }
 
+    /**
+     * Performs the transformation for a GET or a POST.
+     *
+     * Performs the transformation specified by xsltResourceName variable or the xsl request parameter
+     * on the input_xml stream which is typically provided by doGet or doPost. The content type will
+     * be that specified by the contentType variable.
+     *
+     * Stylesheet parameters can be set through the request as well as parameters or set using the params
+     * member variable.
+     *
+     * See the documentation for a subclass of XSLTTransformer and the stylsheet associated with that
+     * subclass for a full description of the transformation performed.
+     */
     private void doTransformation (HttpServletRequest request, HttpServletResponse response, InputStream input_xml) throws IOException
     {
         response.setCharacterEncoding("UTF-8");
@@ -151,7 +186,7 @@ public class XSLTTransformer extends HttpServlet
                 }
                 catch (Transform.MyTransformerException e)
                 {
-                    String error_message = "Transformer error\n"+e.exc.getMessageAndLocation();
+                    String error_message = "Transformer error:\n"+e.exc.getMessageAndLocation();
                     ByteArrayOutputStream backtrace_stream = new ByteArrayOutputStream();
                     PrintStream backtrace_print_stream = new PrintStream(backtrace_stream);
                     e.printStackTrace(backtrace_print_stream);

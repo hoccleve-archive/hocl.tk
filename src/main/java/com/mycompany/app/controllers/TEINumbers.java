@@ -6,8 +6,10 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import com.mycompany.app.controllers.XSLTTransformer;
 
-/* TODO: Make automatic mappings like this based on
- * the names of xslt files
+/** Adds line numbers to a TEI document.
+ *
+ * Line numbers are added as n attributes to tei:l elements.
+ * An xml:id is also added to the element like line-${line_number}
  */
 public class TEINumbers extends XSLTTransformer
 {

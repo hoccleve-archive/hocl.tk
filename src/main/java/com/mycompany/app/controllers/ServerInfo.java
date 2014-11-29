@@ -5,6 +5,7 @@ import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
+/** Prints out some information about the server and servlet context */
 public class ServerInfo extends HttpServlet
 {
     @Override

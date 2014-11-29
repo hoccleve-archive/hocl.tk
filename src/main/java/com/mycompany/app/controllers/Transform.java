@@ -27,6 +27,7 @@ import javax.xml.transform.ErrorListener;
 
 import com.mycompany.app.util.Util;
 
+/** A utility class for performing XSL transformations */
 public class Transform
 {
     static SAXTransformerFactory tf;
@@ -42,8 +43,8 @@ public class Transform
         tf.setErrorListener(errors);
     };
 
-    /* A wrapper around a checked exception, TransformerException,
-     * so it can pass through the to top level methods
+    /** A wrapper around a checked exception, TransformerException,
+     * so it can pass through the to top level methods.
      */
     public static class MyTransformerException extends RuntimeException
     {
@@ -76,6 +77,10 @@ public class Transform
         }
     }
 
+    /** Creates a Source from the named file.
+     * @param fileName The absolute name of the file containing the resource
+     * @see Transform#getInput(InputStream)
+     */
     public static Source getInput(String fileName)
     {
         Source res = null;
@@ -88,16 +93,25 @@ public class Transform
         return res;
     }
 
+    /** Creates a Source by opening a connection to the provided url
+     * @param url The URL to the intended resource. Must be not be a relative path.
+     * @see Transform#getInput(InputStream)
+     */
     public static Source getInputFromURL(String url)
     {
         return getInput(Util.openURL(url));
     }
 
+    /** Returns a Source suitable for passing to {@link Transform#doTransformation(Transformer,Source,Result)}. */
     public static Source getInput(InputStream is)
     {
         return new StreamSource(is);
     }
 
+    /** Creates a Result from the named file
+     * @param fileName The absolute name of the file containing the resource
+     * @see Transform#getOutput(OutputStream)
+     */
     public static Result getOutput(String fileName)
     {
         Result res = null;
@@ -110,16 +124,24 @@ public class Transform
         return res;
     }
 
+    /** Returns a Result suitable for passing to {@link Transform#doTransformation(Transformer,Source,Result)}. */
     public static Result getOutput(OutputStream os)
     {
         return new StreamResult(os);
     }
 
+    /**
+     * @see Transform#getOutput(OutputStream)
+     */
     public static Result getOutput(Writer w)
     {
         return new StreamResult(w);
     }
 
+    /** Creates a Transformer from the XSLT at the provided URL
+     * @param url The URL pointing to an XSLT resource
+     * @see Transform#doTransformation(Transformer,Source,Result)
+     */
     public static Transformer getTransformerFromURL(String url)
     {
         Source xslt_in = getInput(Util.openURL(url));
@@ -177,6 +199,11 @@ public class Transform
         return res;
     }
 
+    /** Performs an XSL transformation.
+     *
+     * The transformation is described by t and takes in to out. The params provided are passed on
+     * to the transformation.
+     */
     public static void doTransformation(Transformer t, Source in, Result out, Map<String,Object> params)
     {
         for (String p : params.keySet())
@@ -186,6 +213,11 @@ public class Transform
         doTransformation(t, in, out);
     }
 
+    /** Performs an XSL transformation.
+     *
+     * The transformation is described by t and takes in to out.
+     * @see Transform#doTransformation(Transformer,Source,Result,Map)
+     */
     public static void doTransformation(Transformer t, Source in, Result out)
     {
         try
@@ -208,18 +240,32 @@ public class Transform
         doTransformation(t, getInput(in), getOutput(out));
     }
 
+    /** Performs a transformation using the stylesheet provided.
+     * @param t The URL of the stylesheet
+     * @see Transform#doTransformation(Transformer,Source,Result,Map)
+     */
     public static void doTransformation(String t, InputStream in, OutputStream out, Map<String, Object> params)
     {
         Transformer tf = getTransformerFromURL(t);
         doTransformation(tf, getInput(in), getOutput(out), params);
     }
 
+    /** Performs a transformation using the stylesheet provided.
+     * @param t The URL of the stylesheet
+     * @see Transform#doTransformation(Transformer,Source,Result)
+     */
     public static void doTransformation(String t, InputStream in, OutputStream out)
     {
         Transformer tf = getTransformerFromURL(t);
         doTransformation(tf, getInput(in), getOutput(out));
     }
 
+    /** Performs a transformation using the stylesheet provided.
+     * @param xslt The URL of the stylesheet
+     * @param in The URL of the source document
+     * @param out A writer for the result
+     * @see Transform#doTransformation(Transformer,Source,Result)
+     */
     public static void doTransformation(String xslt, String in, Writer out)
     {
         Source xml_in = getInput(Util.openURL(in));
@@ -228,6 +274,12 @@ public class Transform
         doTransformation(tf, xml_in, xml_out);
     }
 
+    /** Performs a transformation using the stylesheet provided.
+     * @param xslt The URL of the stylesheet
+     * @param in A stream for the source document
+     * @param out A writer for the result
+     * @see Transform#doTransformation(Transformer,Source,Result,Map)
+     */
     public static void doTransformation(String xslt, InputStream in, Writer out, Map<String,Object> params)
     {
         Source xml_in = getInput(in);
@@ -244,9 +296,11 @@ public class Transform
         doTransformation(tf, xml_in, xml_out);
     }
 
+    /** Perform a series of transformations.
+     * @param xslts The URLs of the transformations to perform
+     */
     public static void doTransformation(String[] xslts, InputStream in, OutputStream out)
     {
-        /* Perform a series of transformations */
         Templates[] ts = new Templates[xslts.length];
         for (int i = 0; i < xslts.length; i++)
         {
@@ -255,6 +309,10 @@ public class Transform
         doTransformation(ts, getInput(in), getOutput(out));
     }
 
+
+    /** Perform a series of transformations.
+     * @param ts The templates of the transformations to perform
+     */
     public static void doTransformation(Templates[] ts, Source in, Result out)
     {
         /* This loop performs 1 or more transformations given in the array `tfs` */
@@ -304,6 +362,9 @@ public class Transform
         }
     }
 
+    /** Perform a transformation
+     * @param xslt A stream of the XSLT for the transformation
+     */
     public static void doTransformation(InputStream xslt, InputStream in, OutputStream out)
     {
         Source xml_in = getInput(in);
