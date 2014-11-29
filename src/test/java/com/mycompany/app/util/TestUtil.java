@@ -1,4 +1,4 @@
-package util;
+package com.mycompany.app.util;
 import java.io.InputStream;
 import java.io.IOException;
 import java.io.ByteArrayOutputStream;
@@ -10,8 +10,8 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.custommonkey.xmlunit.*;
 
 import java.net.URL;
-import controllers.Transform;
-import static util.Util.*;
+import com.mycompany.app.controllers.Transform;
+import static com.mycompany.app.util.Util.*;
 
 public class TestUtil
 {

@@ -1,8 +1,8 @@
-package testcase;
-import static util.Util.*;
-import static util.TestUtil.*;
+package com.mycompany.app.testcase;
+import static com.mycompany.app.util.Util.*;
+import static com.mycompany.app.util.TestUtil.*;
 import org.xml.sax.SAXException;
-import controllers.Transform;
+import com.mycompany.app.controllers.Transform;
 import org.custommonkey.xmlunit.XMLTestCase;
 import org.custommonkey.xmlunit.exceptions.XpathException;
 import java.util.Map;
