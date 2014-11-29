@@ -69,3 +69,4 @@ THINGS THAT WOULD BE NICE BUT AREN'T ESSENTIAL
 THINGS WAY OFF IN THE FUTURE
 - It would be interesting to handle partial documents. It's not yet obvious to me how to identify discontinuities in the poems using XSL or whether that information should be incoded in the TEI document itself.
   - Related to that, it would be nice to extract document parts to look at everything tied to a "type" in a concordance. You can do this with the demo at http://hocl.tk/html/concordance.html (also in https://github.com/hoccleve-archive/concordance-demo) 
+- The XSLTTransformer sub-classes generally don't include any functionality, so they can be represented in a simple object description like `{"stylesheet": "do-something.xslt", "content-type": "text/plain"}`. Adding this functionality would make things a *tiny* bit simpler. 
