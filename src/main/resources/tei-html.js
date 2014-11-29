@@ -2,37 +2,64 @@
 // jquery is available
 
 // XXX: This only works for one kind of note
-function make_sidebar_notes_old ()
+function make_sidebar_notes ()
 {
-    var all_notes_class = $("#sidebar").attr("class");
-    var re = new RegExp("^"+all_notes_class +"\\.");
+    /* Each sidebar corresponds to a class of notes.
+     * For class of notes, we go through the poem and
+     * set a mouse-enter event to update the sidebar if
+     * there is a note
+     */
+    $(".sidebar.active").removeClass("active");
+    $("table.poem").each( function () {
+        /* Hide the note headers */
+        $("th.note").css("display", "none");
+        $("tr.line > td.note").each(function () {
+            var note = this;
+            /* Hide the notes themselves */
+            $(note).css("display","none");
 
-    $("tr.line td.note").mouseenter( function () {
-        var note_part = this;
-        var classes = $(note_part).attr("class");
-        console.log(classes);
-        var note_class = "";
-        for (var x in classes)
-        {
-            if (re.exec(x) != null)
-            {
-                note_class = x;
-            }
-        }
-
-        var text = note_part.text();
-        if (text)
-        {
-                console.log("notes class = "+notes_class);
-                $("#sidebar").html(notes_class +"<br/>"+text);
-                $("#sidebar").addClass("active");
-                $("tr.active").removeClass("active");
-                $(this).parent().addClass("active");
-        }
+            $($(note).parent()).mouseenter(function () {
+                register_side_bar_event(note)
+                $(this).addClass("active");
+            });
+        });
     });
 }
 
-function make_sidebar_notes ()
+var note_class_regex = new RegExp("^([^.]+)\\.(.*)");
+function register_side_bar_event (note)
+{
+    var classes = $(note).attr("class");
+
+    var classes_list = classes.split(" ");
+    // The whole name of the class;
+    var note_class = "";
+    // The group that the note belongs to;
+    var note_group = "";
+    // The type of the note, without the note_group
+    var note_type = "";
+
+    for (var i = 0; i < classes_list.length; i++)
+    {
+        var res = note_class_regex.exec(classes_list[i]);
+        if (res != null)
+        {
+            note_class = classes_list[i];
+            note_group = res[1];
+            note_type = res[2];
+        }
+    }
+
+    var text = $(note).html();
+    if (text)
+    {
+        console.log("notes class = "+note_class);
+        $(".sidebar."+note_group).addClass("active");
+        $(".sidebar."+note_group).html("<em>"+note_type + "</em>" + "<br/>" + text);
+        $("tr.active").removeClass("active");
+    }
+}
+function make_sidebar_notes_ ()
 {
     // Get the ones with notes
     $("tr.line").mouseenter( function () {

@@ -34,26 +34,32 @@
             <body>
                 <xsl:for-each select="tei:text/tei:body">
                     <h1><xsl:value-of select="tei:head/text()" /></h1>
-                    <table>
-                        <!--This thead prevents the first heading in the poem from jumping up here-->
-                        <thead><tr><th></th></tr></thead>
                         <xsl:for-each select="tei:div[@type='poem']">
-                            <xsl:for-each select="*">
-                                <xsl:choose>
-                                    <xsl:when test="self::tei:lg">
-                                        <xsl:call-template name="poem_lines" />
-                                    </xsl:when>
-                                    <xsl:when test="self::tei:label">
-                                        <xsl:call-template name="poem_label" />
-                                    </xsl:when>
-                                </xsl:choose>
-                            </xsl:for-each>
-                        </xsl:for-each>
-                    </table>
+                            <table class="poem">
+                                <!--This thead prevents the first heading in the poem from jumping up here-->
+                                <thead><tr><th></th><th></th>
+                                        <xsl:for-each select="//tei:spanGrp">
+                                            <th class="note">
+                                                <xsl:value-of select="@type" />
+                                            </th>
+                                        </xsl:for-each>
+                                </tr></thead>
+                                <xsl:for-each select="*">
+                                    <xsl:choose>
+                                        <xsl:when test="self::tei:lg">
+                                            <xsl:call-template name="poem_lines" />
+                                        </xsl:when>
+                                        <xsl:when test="self::tei:label">
+                                            <xsl:call-template name="poem_label" />
+                                        </xsl:when>
+                                    </xsl:choose>
+                                </xsl:for-each>
+                        </table>
+                    </xsl:for-each>
                 </xsl:for-each>
                 <xsl:for-each select="//tei:spanGrp">
-                    <div id="sidebar">
-                        <xsl:attribute name="class" ><xsl:value-of select="@type" /></xsl:attribute>
+                    <div>
+                        <xsl:attribute name="class" >sidebar <xsl:value-of select="@type" /></xsl:attribute>
                     </div>
                 </xsl:for-each>
                 <script src="resources/tei-html.js"></script>

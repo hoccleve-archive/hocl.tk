@@ -4,10 +4,10 @@ tr.line {
 }
 
 td.note {
-    display: none;
+    /*display: none;*/
 }
 
-#sidebar {
+.sidebar {
     position: fixed;
     top: 1em;
     right: 1em;
