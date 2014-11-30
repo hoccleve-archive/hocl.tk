@@ -1,0 +1,21 @@
+resources:
+    - &reg "http://hocl.tk:8080/my-webapp/reg.xml"
+    - &time-refs "http://hocl.tk:8080/my-webapp/time-refs.xml"
+
+servers:
+    - &app-engine "silver-nova-778.appspot.com"
+    - &local-dev-server "localhost:8081"
+    - &local-tomcat-server "localhost:8080/my-webapp"
+
+tests:
+    # relative URIs are resolved to the current server URL
+    - path: "/tei-html"
+      params: 
+          q: *reg
+    - path: "/tei-numbers"
+      params: 
+          q: *reg
+    - path: "/include-interp"
+      params: 
+          q: *reg
+          ana: *time-refs
