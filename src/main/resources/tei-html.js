@@ -9,7 +9,6 @@ function make_sidebar_notes ()
      * set a mouse-enter event to update the sidebar if
      * there is a note
      */
-    $(".sidebar.active").removeClass("active");
     $("table.poem").each( function () {
         /* Hide the note headers */
         $("th.note").css("display", "none");
@@ -18,8 +17,16 @@ function make_sidebar_notes ()
             /* Hide the notes themselves */
             $(note).css("display","none");
 
-            $($(note).parent()).mouseenter(function () {
-                register_side_bar_event(note)
+            var length = $(note).attr("rowspan");
+            if (!length)
+            {
+                length = 1;
+            }
+            /* I've never written such a jquery selector yet */
+            $($(note).parent()).nextAll().addBack().slice(0,length).mouseenter(function () {
+                $(".sidebar.active").removeClass("active");
+                $("tr.active").removeClass("active");
+                register_side_bar_event(note);
                 $(this).addClass("active");
             });
         });
@@ -55,8 +62,7 @@ function register_side_bar_event (note)
     {
         console.log("notes class = "+note_class);
         $(".sidebar."+note_group).addClass("active");
-        $(".sidebar."+note_group).html("<em>"+note_type + "</em>" + "<br/>" + text);
-        $("tr.active").removeClass("active");
+        $(".sidebar."+note_group).html(note_group+"<br/><em>"+note_type + "</em>" + "<br/>" + text);
     }
 }
 function make_sidebar_notes_ ()
