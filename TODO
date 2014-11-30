@@ -55,7 +55,7 @@ THINGS THAT ARE RELEVANT NOW
     </table>
     This format basically has nothing to do with TEI (except that we should be able to make these from <spanGrp>s), but is intended to make it easier to get the table we want. We want to turn this into a *printable* attractive table.
 - It would be good to have the tests run automatically on a `git push` and to 'deploy' to a test server (like hocl.tk/test) at the same time.
-[ ] The "sidebar" element in the TEI-poem HTML should present the class of the note in addition to the text of the note. 
+[X] The "sidebar" element in the TEI-poem HTML should present the class of the note in addition to the text of the note. 
 [ ] In addition to that, some notes have an extra bit of description which modifies the class, but which is specific to the note. This is currently rendered in an unappealing manner (just the text is shown). It would be good to find a way to present that nicely.
 [ ] Related to the previous issue, we would like to encode some more information about the class of a note beyond the simple identifier we use now. There should be a way to elaborate using semantical TEI, but there's always tei:ab if it comes to that.
 [ ] One of the things which we'd like to describe about classes are the relationships between them: some classes are modifications of other classes. We'd like to store these either with the analysis document or in a separate TEI document 

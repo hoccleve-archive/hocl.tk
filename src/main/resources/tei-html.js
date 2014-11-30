@@ -14,6 +14,7 @@ function make_sidebar_notes ()
         $("th.note").css("display", "none");
         $("tr.line > td.note").each(function () {
             var note = this;
+            var line = $(note).parent();
             /* Hide the notes themselves */
             $(note).css("display","none");
 
@@ -22,19 +23,20 @@ function make_sidebar_notes ()
             {
                 length = 1;
             }
+            var referenced_lines = $(line).nextAll().addBack().slice(0,length);
             /* I've never written such a jquery selector yet */
-            $($(note).parent()).nextAll().addBack().slice(0,length).mouseenter(function () {
+            referenced_lines.mouseenter(function () {
                 $(".sidebar.active").removeClass("active");
                 $("tr.active").removeClass("active");
-                register_side_bar_event(note);
-                $(this).addClass("active");
+                side_bar_event(note);
+                referenced_lines.addClass("active");
             });
         });
     });
 }
 
 var note_class_regex = new RegExp("^([^.]+)\\.(.*)");
-function register_side_bar_event (note)
+function side_bar_event (note)
 {
     var classes = $(note).attr("class");
 
@@ -60,24 +62,7 @@ function register_side_bar_event (note)
     var text = $(note).html();
     if (text)
     {
-        console.log("notes class = "+note_class);
         $(".sidebar."+note_group).addClass("active");
         $(".sidebar."+note_group).html(note_group+"<br/><em>"+note_type + "</em>" + "<br/>" + text);
     }
-}
-function make_sidebar_notes_ ()
-{
-    // Get the ones with notes
-    $("tr.line").mouseenter( function () {
-        var note_part = $(this).children("td.note");
-        var text = note_part.text();
-        if (text)
-        {
-            $("#sidebar").text(text);
-            $("#sidebar").addClass("active");
-            $("tr.active").removeClass("active");
-            $(this).addClass("active");
-        }
-    });
-    // Make mouseover events
 }
