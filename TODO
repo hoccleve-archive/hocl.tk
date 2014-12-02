@@ -66,11 +66,16 @@ THINGS THAT ARE RELEVANT NOW
 [ ] Find a way to test against a relax-ng schema in Java.
 
 - (Not really a task) More expressive sorting and aggregation tools are missing from the initial concordance table demo created -- currently hosted at http://hocl.tk/html/concordance.html. A first step for exploring these capabilities would be plugging in the concordance table with the interactive poem
+- There are quite a few stylesheets on the TEI Consortium's Github account: https://github.com/TEIC/Stylesheets/
+  I didn't give attention to them because the stylesheets we have were simpler to write than it would have been to evaluate theirs. That said, some of the ones in that repository may be useful and worth trying out. Other TEI projects worth looking at:
+  - For creating ODD (schema) files, LaTeX output, docx files, and Open Document Text files: http://wiki.tei-c.org/index.php/Tei-xsl
+  - Web publishing application. Apparently only supports P4: http://omeka.org/codex/Documentation
  
 
 THINGS THAT WOULD BE NICE BUT AREN'T ESSENTIAL
 - `tidy` HTML cleaner suggests adding a summary element to our HTML tables. Apparently it helps non-visual readers.
 - Automated tests to make sure static documents match schema. Alternatively, a policy of manually checking them after changes are made, though not ideal, may be acceptable.
+- Add our stylsheets to the TEI wiki: http://wiki.tei-c.org/index.php/Category:XSLT
 
 THINGS WAY OFF IN THE FUTURE
 - It would be interesting to handle partial documents. It's not yet obvious to me how to identify discontinuities in the poems using XSL or whether that information should be incoded in the TEI document itself.
