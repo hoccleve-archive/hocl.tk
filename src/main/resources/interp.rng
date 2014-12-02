@@ -1,0 +1,22 @@
+<element name="tei:spanGrp" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns="http://relaxng.org/ns/structure/1.0">
+    <attribute name="type" />
+    <oneOrMore>
+        <element name="tei:span">
+            <attribute name="type" />
+            <choice>
+                <attribute name="target" />
+                <attribute name="from" />
+                <group>
+                    <attribute name="from" />
+                    <attribute name="to" />
+                </group>
+            </choice>
+            <optional>
+                <element name="tei:note">
+                    <text />
+                </element>
+            </optional>
+            <text/>
+        </element>
+    </oneOrMore>
+</element>
