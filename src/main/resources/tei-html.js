@@ -35,11 +35,13 @@ function make_sidebar_notes ()
     });
 }
 
+// Matches up to the first '.'
 var note_class_regex = new RegExp("^([^.]+)\\.(.*)");
 function side_bar_event (note)
 {
     var classes = $(note).attr("class");
 
+    // Classes on the note
     var classes_list = classes.split(" ");
     // The whole name of the class;
     var note_class = "";
@@ -48,6 +50,7 @@ function side_bar_event (note)
     // The type of the note, without the note_group
     var note_type = "";
 
+    // There should be only *one* class that matches
     for (var i = 0; i < classes_list.length; i++)
     {
         var res = note_class_regex.exec(classes_list[i]);
@@ -56,6 +59,7 @@ function side_bar_event (note)
             note_class = classes_list[i];
             note_group = res[1];
             note_type = res[2];
+            break;
         }
     }
 

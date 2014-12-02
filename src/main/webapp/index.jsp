@@ -25,17 +25,6 @@
         // The If-Modified-Since dates for each URL.
         var inputIfMod = {};
 
-        // From: http://stackoverflow.com/a/22179984/638671
-        function update_text_time (elt){
-            var currentVal = $(elt).val();
-            if(currentVal == oldVal) {
-                return; //check to prevent multiple simultaneous triggers
-            }
-
-            oldVal = currentVal;
-            changedTime = new Date();
-        }
-
         // Gets the last-modified from a jQuery XMLHttpResponse or if there
         // isn't one set, then defaults to epoch
         function response_last_modified (jqXHR)
@@ -62,19 +51,32 @@
             var ifmod = inputIfMod[uri] ? inputIfMod[uri] : new Date(0);
             $.ajax({
                 url: uri,
-                //ifModified: true,
-                //headers : {"Last-Modified": changedTime.toUTCString(),
-                    //"If-Modified-Since": ifmod.toUTCString()
-                //},
+                ifModified: true,
+                headers : {"Last-Modified": changedTime.toUTCString(),
+                    "If-Modified-Since": ifmod.toUTCString()
+                },
                 data: {"text": $(elt).val()},
                 type: "POST",
                 datatype: "text/xml"
-            })
-            .done(fn);
+            }).done(fn);
         }
 
         $(document).ready(function()
         {
+            // From: http://stackoverflow.com/a/22179984/638671
+            function update_text_time (elt){
+                var currentVal = $(elt).val();
+                if(currentVal == oldVal) {
+                    return; //check to prevent multiple simultaneous triggers
+                }
+
+                oldVal = currentVal;
+                changedTime = new Date();
+            }
+
+            function force_update_text_time (elt, date){
+                changedTime = new Date(date);
+            }
 
             $( "#add-line-numbers-button" ).click(function( event ) {
                 console.log(event);
@@ -84,8 +86,9 @@
                     {
                         var str = (new XMLSerializer()).serializeToString(res);
                         $("#input-xml").val(str);
-                        inputIfMod["tei-numbers"] = response_last_modified(jqXHR);
-                        update_text_time("#input_xml");
+                        var server_last_modified = response_last_modified(jqXHR)
+                        inputIfMod["tei-numbers"] = server_last_modified;
+                        force_update_text_time("#input_xml", server_last_modified);
                     }
                 });
             });
@@ -103,13 +106,13 @@
             });
             $( "#reload-document-button" ).click(function( event ) {
                 console.log(event);
-                text = $("#input-xml").text();
+                var text = $("#input-xml").text();
                 $("#input-xml").val(text);
-                update_text_time("#input_xml");
+                force_update_text_time("#input_xml", new Date());
             });
 
             $("#input-xml").on("change keyup paste", function() {
-                update_text_time(this);
+                update_text_time("#input-xml");
             });
         });
     </script>

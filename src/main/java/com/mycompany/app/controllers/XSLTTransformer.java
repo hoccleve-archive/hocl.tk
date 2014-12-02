@@ -113,6 +113,16 @@ public class XSLTTransformer extends HttpServlet
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "You must provide a parameter `text` with the text of your XML document.");
             return;
         }
+        long xml_date_seconds = request.getDateHeader("Last-Modified");
+        if (xml_date_seconds != 0)
+        {
+            Date xml_date = new Date(xml_date_seconds);
+            if (xml_date.compareTo(lastModified) > 0)
+            {
+                lastModified = xml_date;
+            }
+        }
+
 
         InputStream xml_stream = new ByteArrayInputStream(xml.getBytes("UTF-8"));
         doTransformation(request, response, xml_stream);
@@ -179,7 +189,7 @@ public class XSLTTransformer extends HttpServlet
 
             if (lastModified.compareTo(ifModifiedSince) > 0)
             {
-                response.setDateHeader("Last-Modified", lastModified.getTime());
+                response.setDateHeader("Last-Modified", lastModified.getTime() + 1);
                 try
                 {
                     Transform.doTransformation(xsl, input_xml, out, params);
