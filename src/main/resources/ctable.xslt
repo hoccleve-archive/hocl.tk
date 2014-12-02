@@ -3,7 +3,7 @@
     xmlns:tei="http://www.tei-c.org/ns/1.0"  
     >
 <!--This guy is for extracting a table from an annotated poem-->
-<xsl:template match="tei:text">
+<xsl:template match="/">
     <ct:table xmlns:ct="http://hocl.tk/schema/">
         <xsl:for-each select="tei:spanGrp/tei:span">
             <ct:entry>
