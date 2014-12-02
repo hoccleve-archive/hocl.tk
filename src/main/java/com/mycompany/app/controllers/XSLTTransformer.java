@@ -231,7 +231,7 @@ public class XSLTTransformer extends HttpServlet
             if ((ParamValue.class).isInstance(params.get(p)))
             {
                 ParamValue pv = (ParamValue)(params.get(p));
-                request.getParameter(pv.getName());
+                params.put(p, request.getParameter(pv.getName()));
             }
             String requestValue = request.getParameter(p);
             if (requestValue != null)

@@ -6,8 +6,10 @@
     version="1.0"
     >
     <!--
-       -`ana` is the analyitcal markup to include
-       -->
+    Includes a doucument at the end of the text body. It can actually be 
+    any kind of document.
+    `ana` is the analyitcal markup to include
+    -->
     <xsl:param name="ana"></xsl:param>
     <xsl:template match="@*|node()">
         <xsl:copy>
