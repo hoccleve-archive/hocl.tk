@@ -1,5 +1,6 @@
 resources:
     - &reg "http://hocl.tk:8080/my-webapp/reg.xml"
+    #- &reg "https://raw.githubusercontent.com/hoccleve-archive/data/master/reg.xml"
     - &time-refs "http://hocl.tk:8080/my-webapp/time-refs.xml"
 
 servers:

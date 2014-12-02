@@ -24,6 +24,10 @@
       <servlet-name>server-info</servlet-name>
       <servlet-class>com.mycompany.app.controllers.ServerInfo</servlet-class>
   </servlet>
+  <servlet>
+      <servlet-name>ctable</servlet-name>
+      <servlet-class>com.mycompany.app.controllers.CTable</servlet-class>
+  </servlet>
   <servlet-mapping>
       <servlet-name>transform</servlet-name>
       <url-pattern>/transform</url-pattern>
@@ -43,6 +47,10 @@
   <servlet-mapping>
       <servlet-name>server-info</servlet-name>
       <url-pattern>/server-info</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+      <servlet-name>ctable</servlet-name>
+      <url-pattern>/ctable</url-pattern>
   </servlet-mapping>
   <welcome-file-list>
       <welcome-file>index.jsp</welcome-file>

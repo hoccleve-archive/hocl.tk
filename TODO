@@ -1,11 +1,14 @@
-These are various things that Mark is planning to do that don't fit well into issues on the tracker. They aren't sorted in any way, but they can be dated by looking at the output of `git blame` on this file.
+These are various things that Mark is planning to do that don't fit well into issues on the tracker (github.com/hoccleve-archive/hocl.tk). They aren't sorted in any way, but they can be dated by looking at the output of `git blame` on this file.
+
+Key to [ ] : X == Done, - == Won't do/Invalid
 
 THINGS THAT ARE RELEVANT NOW
 
-[ ] There's a test in XSLTest.java for transforming poems and analysis to HTML. 
+[ ] Turn a ctable xml file into HTML
+[X] There's a test in XSLTest.java for transforming poems and analysis to HTML. 
     [X] The expected output is currently missing line numbers.
     [X] The HTML should present the analysis in a side bar on mouse-over
-    [ ] and maybe pin it on click. Either Javascript or CSS is acceptable for doing that (I have no idea if that's possible with CSS though).
+    [-] and maybe pin it on click. Either Javascript or CSS is acceptable for doing that (I have no idea if that's possible with CSS though).
     [X] Also, the actual transformation still doesn't show the analysis at all. By analysis, I mean the spanGrp at the bottom of the source XML document, of course.
 - Our first use case was to get out a concordance table from a document. There aren't any tests for this now, but the ctable*xslt files have to do with that. A sort of planned document from an earlier iteration is below:
     <table xmlns="http://hocl.tk/schema/"
@@ -60,13 +63,17 @@ THINGS THAT ARE RELEVANT NOW
 [ ] Related to the previous issue, we would like to encode some more information about the class of a note beyond the simple identifier we use now. There should be a way to elaborate using semantical TEI, but there's always tei:ab if it comes to that.
 [ ] One of the things which we'd like to describe about classes are the relationships between them: some classes are modifications of other classes. We'd like to store these either with the analysis document or in a separate TEI document 
 [ ] so that such relationships can be used for querying, sorting, and aggregating.
+[ ] Find a way to test against a relax-ng schema in Java.
 
 - (Not really a task) More expressive sorting and aggregation tools are missing from the initial concordance table demo created -- currently hosted at http://hocl.tk/html/concordance.html. A first step for exploring these capabilities would be plugging in the concordance table with the interactive poem
+ 
 
 THINGS THAT WOULD BE NICE BUT AREN'T ESSENTIAL
 - `tidy` HTML cleaner suggests adding a summary element to our HTML tables. Apparently it helps non-visual readers.
+- Automated tests to make sure static documents match schema. Alternatively, a policy of manually checking them after changes are made, though not ideal, may be acceptable.
 
 THINGS WAY OFF IN THE FUTURE
 - It would be interesting to handle partial documents. It's not yet obvious to me how to identify discontinuities in the poems using XSL or whether that information should be incoded in the TEI document itself.
   - Related to that, it would be nice to extract document parts to look at everything tied to a "type" in a concordance. You can do this with the demo at http://hocl.tk/html/concordance.html (also in https://github.com/hoccleve-archive/concordance-demo) 
 - The XSLTTransformer sub-classes generally don't include any functionality, so they can be represented in a simple object description like `{"stylesheet": "do-something.xslt", "content-type": "text/plain"}`. Adding this functionality would make things a *tiny* bit simpler. 
+

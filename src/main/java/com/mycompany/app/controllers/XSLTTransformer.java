@@ -211,10 +211,28 @@ public class XSLTTransformer extends HttpServlet
         }
     }
 
+    public static class ParamValue
+    {
+        private String _n = "";
+        ParamValue(String paramName)
+        {
+            _n = paramName;
+        }
+        String getName()
+        {
+            return _n;
+        }
+    }
+
     private void extractTransformParameters(HttpServletRequest request)
     {
         for (String p : params.keySet())
         {
+            if ((ParamValue.class).isInstance(params.get(p)))
+            {
+                ParamValue pv = (ParamValue)(params.get(p));
+                request.getParameter(pv.getName());
+            }
             String requestValue = request.getParameter(p);
             if (requestValue != null)
             {

@@ -11,93 +11,92 @@
     </attribute>
     <oneOrMore>
         <element name="ct:entry">
-            <attribute name="type">
-                <data type="NCName" />
-            </attribute>
-            <element name="reference">
-                <choice>
-                    <attribute name="target" >
-                        <data type="anyURI"/>
-                    </attribute>
-                    <group>
-                        <attribute name="from" >
+            <interleave>
+                <element name="ct:reference">
+                    <choice>
+                        <attribute name="target" >
                             <data type="anyURI"/>
                         </attribute>
-                        <attribute name="to">
-                            <data type="anyURI"/>
-                        </attribute>
-                    </group>
-                </choice>
-            </element>
-            <oneOrMore>
-                <!--
-                In processing type elements, the first occurence of a type name should create
-                a class (e.g., a Python class, or a class-object) for the type. Subsequent
-                occurences of the type should be interpreted as references to the original
-                type. A typeClass element, if it occurs with a previously defined type, should
-                simply add to the typeClasses of that type.
-                -->
-                <element name="type">
-                    <attribute name="name">
-                        <data type="NCName"/>
-                    </attribute>
-
-
-                    <!--
-                    The typeClass elements are related classes (defined elsewhere) of which
-                    this type is a kind. For instance, if in an analysis of color, the
-                    analyst identified "dark" and "red" as interesting types, but also noted
-                    that "dark red", while having the qualities of the other two, was a thing
-                    all its own, she might make a "dark-red" type with typeClass elements
-                    "dark" and "red".
-
-                    Following from the above example, if there weren't a need to distinguish
-                    "dark-red", it would be better to specify "dark" and "red" types as two
-                    type elements for the entries
-                    -->
-                    <zeroOrMore>
-                        <element name="typeClass" >
-                            <attribute name="name">
-                                <data type="NCName"/>
+                        <group>
+                            <attribute name="from" >
+                                <data type="anyURI"/>
                             </attribute>
-                        </element>
-                    </zeroOrMore>
-                    <optional>
-                        <element name="note">
-                            <!--
-                             This is a free-form description of this *instance* of the type.
-                             For instance, if there's qualifying information about the
-                             analysist's use of the type, it can be put here.
-                             -->
-                            <text/>
-                        </element>
-                    </optional>
-                    <optional>
-                        <!--This is a free-form description of the type-->
-                        <text/>
-                    </optional>
+                            <attribute name="to">
+                                <data type="anyURI"/>
+                            </attribute>
+                        </group>
+                    </choice>
                 </element>
-            </oneOrMore>
-            <optional>
-                <!--This is the text of the document that is being refered to-->
-                <element name="text">
-                    <text/>
-                </element>
-            </optional>
-            <optional>
-                <element name="function">
-                    <!--This is a more nuanced description of the way that this entry
-                         functions within the text. In contrast to the description of
-                         the type, the function should indiate how the portion of text
-                         being cited relates to the surrounding text.
+                <oneOrMore>
+                    <!--
+                    In processing type elements, the first occurence of a type name should create
+                    a class (e.g., a Python class, or a class-object) for the type. Subsequent
+                    occurences of the type should be interpreted as references to the original
+                    type. A typeClass element, if it occurs with a previously defined type, should
+                    simply add to the typeClasses of that type.
+                    -->
+                    <element name="ct:type">
+                        <attribute name="name">
+                            <data type="NCName"/>
+                        </attribute>
 
-                         In other words, it's whatever the author wanted to include by
-                         way of analysis.
-                         -->
-                    <text/>
-                </element>
-            </optional>
-            <text/>
+
+                        <!--
+                        The typeClass elements are related classes (defined elsewhere) of which
+                        this type is a kind. For instance, if in an analysis of color, the
+                        analyst identified "dark" and "red" as interesting types, but also noted
+                        that "dark red", while having the qualities of the other two, was a thing
+                        all its own, she might make a "dark-red" type with typeClass elements
+                        "dark" and "red".
+
+                        Following from the above example, if there weren't a need to distinguish
+                        "dark-red", it would be better to specify "dark" and "red" types as two
+                        type elements for the entries
+                        -->
+                        <zeroOrMore>
+                            <element name="ct:typeClass" >
+                                <attribute name="name">
+                                    <data type="NCName"/>
+                                </attribute>
+                            </element>
+                        </zeroOrMore>
+                        <optional>
+                            <element name="ct:note">
+                                <!--
+                                 This is a free-form description of this *instance* of the type.
+                                 For instance, if there's qualifying information about the
+                                 analysist's use of the type, it can be put here.
+                                 -->
+                                <text/>
+                            </element>
+                        </optional>
+                        <optional>
+                            <!--This is a free-form description of the type-->
+                            <text/>
+                        </optional>
+                    </element>
+                </oneOrMore>
+                <optional>
+                    <!--This is the text of the document that is being refered to-->
+                    <element name="ct:text">
+                        <text/>
+                    </element>
+                </optional>
+                <optional>
+                    <element name="ct:function">
+                        <!--This is a more nuanced description of the way that this entry
+                             functions within the text. In contrast to the description of
+                             the type, the function should indiate how the portion of text
+                             being cited relates to the surrounding text.
+
+                             In other words, it's whatever the author wanted to include by
+                             way of analysis.
+                             -->
+                        <text/>
+                    </element>
+                </optional>
+                <text/>
+            </interleave>
         </element>
     </oneOrMore>
 </element>

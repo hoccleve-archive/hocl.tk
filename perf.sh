@@ -16,7 +16,11 @@ with open("perf_tests.yml", "r") as f:
             qs = UP.urlencode(t["params"])
             urlparts = UP.urlparse(UP.urlunsplit(("http", s, t["path"], qs, "")))
             port = urlparts.port if urlparts.port is not None else 80
-            perf = HP.Httperf(server=urlparts.hostname, port=port, uri=urlparts.path+"?"+urlparts.query)
+            perf = HP.Httperf(server=urlparts.hostname,
+                    port=port,
+                    uri=urlparts.path+"?"+urlparts.query,
+                    num_calls=50)
             perf.parser=True # XXX: What does this do??
             res = perf.run()
-            print(res['connection_time_median'])
+            print('response_time', res['reply_time_response'])
+            print('successful_replies', res['reply_status_2xx'])
