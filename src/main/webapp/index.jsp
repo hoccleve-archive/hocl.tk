@@ -85,10 +85,13 @@
                     if (stat == "success")
                     {
                         var str = (new XMLSerializer()).serializeToString(res);
-                        $("#input-xml").val(str);
+                        if ($("#input-xml").val() != str)
+                        {
+                            $("#input-xml").val(str);
+                            force_update_text_time("#input_xml", new Date());
+                        }
                         var server_last_modified = response_last_modified(jqXHR)
                         inputIfMod["tei-numbers"] = server_last_modified;
-                        force_update_text_time("#input_xml", server_last_modified);
                     }
                 });
             });
