@@ -116,7 +116,7 @@
                     <xsl:attribute name="class">line</xsl:attribute>
                     <td>
                         <xsl:if test="(@n mod $line_number_interval) = 0">
-                            <xsl:value-of select="@n" />
+                            <xsl:value-of select="@n" />]
                         </xsl:if>
                     </td>
                     <td>

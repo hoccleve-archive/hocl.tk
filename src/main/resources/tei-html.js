@@ -27,9 +27,9 @@ function make_sidebar_notes ()
             /* I've never written such a jquery selector yet */
             referenced_lines.mouseenter(function () {
                 $(".sidebar.active").removeClass("active");
-                $("tr.active").removeClass("active");
+                $("td.active").removeClass("active");
                 side_bar_event(note);
-                referenced_lines.addClass("active");
+                referenced_lines.find("td:nth-child(2)").addClass("active");
             });
         });
     });
