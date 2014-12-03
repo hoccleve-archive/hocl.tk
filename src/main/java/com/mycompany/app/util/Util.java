@@ -10,6 +10,11 @@ import java.net.MalformedURLException;
 
 public class Util {
 
+    /** This is for opening URLs only provided by the programmer.
+     * URLs provided by the user should be checked for errors and the
+     * user notified. Only use this if you have a single response to
+     * any non-content situation on opening a URL
+     */
     public static InputStream openURL(String url) {
         URL urlObject;
         InputStream res = null;
@@ -29,8 +34,7 @@ public class Util {
     {
         /** Resources are those stored in the class path (e.g., src/main/resources). */
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        InputStream file = loader.getResourceAsStream(name);
-        return file;
+        return loader.getResourceAsStream(name);
     }
 
     public static URL getResource (String name)

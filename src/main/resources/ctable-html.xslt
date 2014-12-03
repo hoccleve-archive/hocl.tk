@@ -8,8 +8,16 @@
    -    linked to a line, then the entry in the lines column defaults to the xml-id reference
    -    for whatever the element is.
    -
-   -    TODO: Change the 'lines' column to a reference column, identify the element and label the
-   -    reference text with an appropriate indicator.
+   -    TODO:
+   -    [ ] Display multiple the lines of multiple ct:references in an entry
+   -    [ ] Change the 'lines' column to a reference column, identify the element and label the,
+   -        reference text with an appropriate indicator. Like if an identifier is on a <p> element,
+   -        then you might have "paragraph: It was the best of times...". If there's a "@n" 
+   -        attribute or similar label, then that could take the place of the text snippet.
+   -    [ ] Add an <html:a> hyperlink to the subject document.
+   -        [ ] Link to the referenced lines in the subject document
+   -        [ ] Make the link resolve to a TEI-HTML page
+   -    
    -->
     <xsl:template match="/">
         <xsl:text disable-output-escaping='yes'>&lt;!DOCTYPE html></xsl:text>

@@ -5,6 +5,7 @@
     <!--This is the URI of the document that this table is concerned with
     It must be resolvable to an actual TEI XML document to work with ctable
     tools.
+    TODO: Perhaps support a TEIHeader fragment for author and context
     -->
     <attribute name="subject" />
     <!--This is the kind of thing being analysed, like "color", or "time",
@@ -12,7 +13,11 @@
     <attribute name="type">
         <data type="NCName" />
     </attribute>
+    <!-- This is a label for the table -->
+    <attribute name="label" />
     <oneOrMore>
+        <!--This is the kind of thing being analysed, like "color", or "time",
+         or "light-and-dark" -->
         <element name="ct:entry">
             <interleave>
                 <!--
@@ -27,11 +32,12 @@
                             <attribute name="target" >
                                 <data type="anyURI"/>
                             </attribute>
+
+                            <!-- This is is a start and end of a reference within a single document.
+                            All elements of any type between the from and to elements are considered
+                            to be part of the reference
+                            -->
                             <group>
-                                <!-- This is is a start and end of a reference within a single document.
-                                All elements of any type between the from and to elements are considered
-                                to be part of the reference
-                                -->
                                 <attribute name="from" >
                                     <data type="anyURI"/>
                                 </attribute>
@@ -51,9 +57,19 @@
                     simply add to the typeClasses of that type.
                     -->
                     <element name="ct:type">
+                        <!--
+                        This is a name which can be used in references to the type such as in the
+                        typeClass element or as an HTML "class" attribute value
+                        -->
                         <attribute name="name">
                             <data type="NCName"/>
                         </attribute>
+
+                        <!--
+                        This is a label made for human consumption and may contain any kind of
+                        punctuation or whitespace desired
+                        -->
+                        <attribute name="label" />
 
 
                         <!--
@@ -76,12 +92,12 @@
                             </element>
                         </zeroOrMore>
                         <optional>
+                            <!--
+                             This is a free-form description of this *instance* of the type.
+                             For instance, if there's qualifying information about the
+                             analysist's use of the type, it can be put here.
+                             -->
                             <element name="ct:note">
-                                <!--
-                                 This is a free-form description of this *instance* of the type.
-                                 For instance, if there's qualifying information about the
-                                 analysist's use of the type, it can be put here.
-                                 -->
                                 <text/>
                             </element>
                         </optional>
@@ -92,22 +108,25 @@
                     </element>
                 </oneOrMore>
                 <optional>
-                    <!--This is the text of the document that is being refered to-->
+                    <!--This is the text of the portion of the document that is being refered to.
+                    Something similar could be generated from a CTable reader given the source
+                    document
+                    -->
                     <element name="ct:text">
                         <text/>
                     </element>
                 </optional>
                 <optional>
-                    <element name="ct:function">
-                        <!--
-                        This is a more nuanced description of the way that this entry
-                        functions within the text. In contrast to the description of
-                        the type, the function should indiate how the portion of text
-                        being cited relates to the surrounding text.
+                    <!--
+                    This is a more nuanced description of the way that this entry
+                    functions within the text. Also, in contrast to the description
+                    of the type, the function should indiate how the portion of
+                    text being cited relates to the surrounding text.
 
-                        In other words, it's whatever the author wanted to include by
-                        way of analysis.
-                        -->
+                    In other words, it's whatever the author wanted to include by
+                    way of analysis.
+                    -->
+                    <element name="ct:function">
                         <text/>
                     </element>
                 </optional>
