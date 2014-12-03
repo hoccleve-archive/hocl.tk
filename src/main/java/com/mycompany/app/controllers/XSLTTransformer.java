@@ -107,7 +107,7 @@ public class XSLTTransformer extends HttpServlet
 
         if (xml == null)
         {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "You must provide a parameter `text` with the text of your XML document.");
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "You must provide a parameter `q' with the text of your XML document.");
             return;
         }
         long xml_date_seconds = request.getDateHeader("Last-Modified");
@@ -272,8 +272,16 @@ public class XSLTTransformer extends HttpServlet
             return _n;
         }
     }
+    /** A callback for a subclass to provide any value it wants for a parameter.
+     */
+    public abstract static class RequestValue
+    {
+        public abstract Object get(HttpServletRequest req);
+    }
 
     /** Copies string parameters from the HTTP request for the Transformation.
+     *
+     * Also allows for subclasses to do special processing on the parameters.
      */
     private void extractTransformParameters(HttpServletRequest request)
     {
@@ -284,10 +292,17 @@ public class XSLTTransformer extends HttpServlet
                 ParamValue pv = (ParamValue)(params.get(p));
                 params.put(p, request.getParameter(pv.getName()));
             }
-            String requestValue = request.getParameter(p);
-            if (requestValue != null)
+            else if ((RequestValue.class).isInstance(params.get(p)))
             {
-                params.put(p, requestValue);
+                params.put(p, ((RequestValue)params.get(p)).get(request));
+            }
+            else
+            {
+                String requestValue = request.getParameter(p);
+                if (requestValue != null)
+                {
+                    params.put(p, requestValue);
+                }
             }
         }
     }

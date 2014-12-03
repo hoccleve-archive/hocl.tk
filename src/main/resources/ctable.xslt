@@ -5,15 +5,38 @@
     >
 <!--This guy is for extracting a table from an annotated poem-->
     <xsl:param name="subject"></xsl:param>
+    <xsl:param name="subjectDocument"></xsl:param>
     <xsl:template match="/">
-        <xsl:for-each select="tei:spanGrp">
+        <xsl:for-each select="//tei:spanGrp">
             <ct:table xmlns:ct="http://hocl.tk/schema/">
                 <xsl:attribute name="type">
                     <xsl:value-of select="@type" />
                 </xsl:attribute>
-                <xsl:attribute name="subject">
-                    <xsl:value-of select="$subject" />
-                </xsl:attribute>
+
+                <xsl:choose>
+                    <xsl:when test="$subject or @corresp">
+                        <xsl:attribute name="subject">
+                            <xsl:choose>
+                                <xsl:when test="$subject" >
+                                    <xsl:value-of select="$subject" />
+                                </xsl:when>
+                                <xsl:when test="@corresp" >
+                                    <xsl:value-of select="@corresp" />
+                                </xsl:when>
+                            </xsl:choose>
+                        </xsl:attribute>
+                    </xsl:when>
+                    <xsl:when test="$subjectDocument">
+                        <ct:subjectDocument>
+                            <xsl:value-of select="$subjectDocument" />
+                        </ct:subjectDocument>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <ct:subjectDocument>
+                            <xsl:copy-of select="/" />
+                        </ct:subjectDocument>
+                    </xsl:otherwise>
+                </xsl:choose>
                 <xsl:for-each select="tei:span">
                     <ct:entry>
                         <xsl:if test="@type">

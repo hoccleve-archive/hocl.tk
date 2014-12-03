@@ -2,6 +2,8 @@
     xmlns:tei="http://www.tei-c.org/ns/1.0"  
     xmlns:ct="http://hocl.tk/schema/"
     version="1.0"
+    xmlns:exsl="http://exslt.org/common" 
+    extension-element-prefixes="exsl"
     >
 <!--
    -    This stylsheet should be able to present any *lined* text. If the referenced text isn't
@@ -38,7 +40,16 @@
 
             <body>
                 <xsl:for-each select="ct:table" >
-                    <xsl:variable select="document(@subject)" name="subject" />
+                    <xsl:variable name="subject">
+                        <xsl:choose>
+                            <xsl:when test="@subject">
+                                <xsl:copy-of select="document(@subject)" />
+                            </xsl:when>
+                            <xsl:when test="ct:subjectDocument">
+                                <xsl:copy-of select="ct:subjectDocument" />
+                            </xsl:when>
+                        </xsl:choose>
+                    </xsl:variable>
                     <table border="1" width="50%" align="center" class="sortable">
                         <caption>Concordance for <xsl:call-template name="tei-title">
                                 <xsl:with-param name="tei-doc" select="$subject" />
@@ -76,12 +87,12 @@
     </xsl:template>
     <xsl:template name="tei-title">
         <xsl:param name="tei-doc" />
-        <xsl:apply-templates select="$tei-doc//tei:teiHeader/tei:fileDesc/tei:titleStmt/tei:title/text()" />
+        <xsl:apply-templates select="exsl:node-set($tei-doc)//tei:teiHeader/tei:fileDesc/tei:titleStmt/tei:title/text()" />
     </xsl:template>
     <xsl:template name="tei-line-number">
         <xsl:param name="tei-doc" />
         <xsl:param name="reference" />
-        <xsl:value-of select="$tei-doc//tei:l[@xml:id=substring-after($reference, '#')]/@n" />
+        <xsl:value-of select="exsl:node-set($tei-doc)//tei:l[@xml:id=substring-after($reference, '#')]/@n" />
     </xsl:template>
 
 </xsl:stylesheet>

@@ -19,7 +19,9 @@
             </div>
         </div>
         <note>Virtually no error handling is done on this page other than to make it basically function. YMMV.</note>
-        <div style="float: right;" id="result">
+        <div style="float: right;" class="result" id="poem">
+        </div>
+        <div style="float: right;" class="result" id="ctable">
         </div>
         
     </body>
@@ -63,7 +65,6 @@
         {
             var ifmod = inputIfMod[uri] ? inputIfMod[uri] : new Date(0);
             var postdata = "";
-            console.debug(elt_or_postdata);
             if (elt_or_postdata instanceof XMLDocument)
             {
                 var str = xmlToString(elt_or_postdata);
@@ -73,8 +74,6 @@
             {
                 postdata = $(elt_or_postdata).val();
             }
-
-            console.debug(postdata);
 
             $.ajax({
                 url: uri,
@@ -128,14 +127,16 @@
 
             $( "#render-html-button" ).click(function( event ) {
                 console.log(event);
+                $(".result").css("display", "none");
+                $("#poem").css("display","");
                 // XXX: Stream the result rather than waiting for the whole thing
                 //      to load
                 post_input("#input-xml", "tei-html", function (res,stat,jqXHR) {
                     console.log("status = " + stat);
                     if (stat == "success")
                     {
+                        $("#poem").html(res);
                         inputIfMod["tei-html"] = response_last_modified(jqXHR);
-                        $("#result").html(res);
                     }
                 });
             });
@@ -145,22 +146,22 @@
                 // XXX: Stream the result rather than waiting for the whole thing
                 //      to load
                 post_input("#input-xml", "ctable", function (res, stat) {
-                    console.log("status: " + stat);
-                    console.log("res: " + xmlToString(res));
+                    $(".result").css("display", "none");
+                    $("#ctable").css("display","");
                     if (stat == "success")
                     {
                         post_input(res, "ctable-html", function (htmlres,stat,jqXHR)
                         {
                             if (stat == "success")
                             {
-                                $("#result").html(htmlres);
+                                $("#ctable").html(htmlres);
+                                
+                                sorttable.init();/* Sorttable seems not to funtion if this isn't called after setting the html */
                                 inputIfMod["ctable"] = response_last_modified(jqXHR);
-                                /* Sorttable seems not to funtion if this isn't called after setting the html */
-                                sorttable.init();
                             }
                         });
                     }
-                }, { "subjectDocument": new DOMParser($("#input-xml").val()});
+                });
             });
 
             $( "#reload-document-button" ).click(function( event ) {

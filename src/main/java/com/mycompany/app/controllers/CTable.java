@@ -1,6 +1,7 @@
 package com.mycompany.app.controllers;
 
 import com.mycompany.app.controllers.XSLTTransformer;
+import javax.servlet.http.HttpServletRequest;
 
 /** Transforms a TEI document into an HTML page.
  *
@@ -14,7 +15,8 @@ public class CTable extends XSLTTransformer
     {
         xsltResourceName = "ctable.xslt";
         contentType = "text/xml";
-        params.put("subject", new XSLTTransformer.ParamValue("q"));
+        params.put("subject", "");
+        params.put("subjectDocument", "");
     }
 }
 

@@ -15,6 +15,15 @@
     </attribute>
     <!-- This is a label for the table -->
     <attribute name="label" />
+    <optional>
+        <element name="ct:subjectDocument" >
+            <!--
+            XXX: It might be better to just ignore what is in this document to allow CTable readers
+            to handle any kind of document. I'm not sure how to do that in RELAX NG
+            -->
+            <externalRef href="tei.rng"/>
+        </element>
+    </optional>
     <oneOrMore>
         <!--This is the kind of thing being analysed, like "color", or "time",
          or "light-and-dark" -->
