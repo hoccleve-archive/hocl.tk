@@ -10,6 +10,10 @@
        - basically just wraps everything in divs. It doesn't support line numbers
        - out of the box. It isn't any prettier...
        -->
+
+    <!--The interval between numbered lines-->
+    <xsl:param name="line_number_interval">1</xsl:param>
+
     <xsl:template match="/">
         <xsl:text disable-output-escaping='yes'>&lt;!DOCTYPE html></xsl:text>
         <xsl:apply-templates select="node()"/>
@@ -102,8 +106,7 @@
                 <!--TODO: Use XSLT keys for these IDs-->
                 <xsl:variable name="line_id_ref"
                     select="concat('#', @xml:id)"/>
-                <xsl:variable name="line_number"
-                    select="@n"/>
+                <xsl:variable name="line_number" select="@n"/>
                 <tr>
                     <xsl:if test="@xml:id">
                         <xsl:attribute name="id">
@@ -112,7 +115,7 @@
                     </xsl:if>
                     <xsl:attribute name="class">line</xsl:attribute>
                     <td>
-                        <xsl:if test="@n">
+                        <xsl:if test="(@n mod $line_number_interval) = 0">
                             <xsl:value-of select="@n" />
                         </xsl:if>
                     </td>

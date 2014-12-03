@@ -18,6 +18,7 @@ public class TEIHtml extends XSLTTransformer
     {
         xsltResourceName = "tei-html.xslt";
         contentType = "text/html";
+        params.put("line_number_interval", "5");
     }
 }
 
