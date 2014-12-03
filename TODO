@@ -1,10 +1,10 @@
-These are various things that Mark is planning to do that don't fit well into issues on the tracker (github.com/hoccleve-archive/hocl.tk). They aren't sorted in any way, but they can be dated by looking at the output of `git blame` on this file.
+These are various things that Mark is planning to do that don't fit well into issues on the tracker (github.com/hoccleve-archive/hocl.tk). They aren't sorted in any way, but they can be dated by looking at the output of `git blame` on this file. Also, various source files may have TODOs in them: grep around for "TODO" to find them. I also use "Note:" or "XXX" to mark areas of interest that might need more concern than others.
 
 Key to [ ] : X == Done, - == Won't do/Invalid
 
 THINGS THAT ARE RELEVANT NOW
 
-[ ] Turn a ctable xml file into HTML
+[X] Turn a ctable xml file into HTML
 [X] There's a test in XSLTest.java for transforming poems and analysis to HTML. 
     [X] The expected output is currently missing line numbers.
     [X] The HTML should present the analysis in a side bar on mouse-over
@@ -76,6 +76,7 @@ THINGS THAT WOULD BE NICE BUT AREN'T ESSENTIAL
 - `tidy` HTML cleaner suggests adding a summary element to our HTML tables. Apparently it helps non-visual readers.
 - Automated tests to make sure static documents match schema. Alternatively, a policy of manually checking them after changes are made, though not ideal, may be acceptable.
 - Add our stylsheets to the TEI wiki: http://wiki.tei-c.org/index.php/Category:XSLT
+- Set some project-wide variables in the configuration and use them in the code. For example: the location of our bug tracker or our project name.
 
 THINGS WAY OFF IN THE FUTURE
 - It would be interesting to handle partial documents. It's not yet obvious to me how to identify discontinuities in the poems using XSL or whether that information should be incoded in the TEI document itself.
