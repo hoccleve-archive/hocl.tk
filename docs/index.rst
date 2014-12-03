@@ -36,6 +36,11 @@ In other words:
 
 For a stylesheet which takes parameters, a particular ``XSLTTransformer`` may be a parameterized version of that stylesheet. In this case, the name of the ``XSLTTransformer`` does not need to have the correspondence with the stylesheet like that described above.
 
+Testing and Debugging
+=====================
+
+I strongly recommend using a command line tool, or a simple GUI if you prefer, to develop and debug stylesheets. Re-deploying the application just to test simple changes to a stylesheet is huge waste of time. As long as you make sure any extensions you use are supported by your command line tool and the Java XSLT library (they may even be the same), then you shouldn't have any problems. I use xsltproc for this purpose.
+
 
 HTML Recommendations
 --------------------

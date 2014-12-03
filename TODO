@@ -77,6 +77,8 @@ THINGS THAT WOULD BE NICE BUT AREN'T ESSENTIAL
 - Automated tests to make sure static documents match schema. Alternatively, a policy of manually checking them after changes are made, though not ideal, may be acceptable.
 - Add our stylsheets to the TEI wiki: http://wiki.tei-c.org/index.php/Category:XSLT
 - Set some project-wide variables in the configuration and use them in the code. For example: the location of our bug tracker or our project name.
+- Using PrimeFaces (http://primefaces.org/) might work well for a server interface. I have mostly avoided JSP/Facelets in favor of Javascript.
+- Enable CORS since we're running a public service.
 
 THINGS WAY OFF IN THE FUTURE
 - It would be interesting to handle partial documents. It's not yet obvious to me how to identify discontinuities in the poems using XSL or whether that information should be incoded in the TEI document itself.
