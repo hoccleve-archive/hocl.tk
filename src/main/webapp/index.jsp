@@ -5,13 +5,20 @@
     </head>
     <body>
         <div style="float: left;" >
-            <textarea id="input-xml" name="text" cols=60 rows=20><jsp:include page="resources/reg+interp.xml" /></textarea>
+            <textarea id="input-xml" name="q" cols=60 rows=20><jsp:include page="resources/reg+interp.xml" /></textarea>
             <div id="buttons">
                 <button id="add-line-numbers-button" type="submit">Add line numbers</button>
                 <button id="render-html-button" type="submit">Render HTML</button>
                 <button id="reload-document-button" type="submit">Reload original document</button>
+                <br/>
+                <button id="load-document-from-web" type="submit">Load Document from URL</button><input id="document-url" type="text" />
+                <br/>
+                <button id="add-analysis-button" type="submit">Include analysis document</button><input id="analysis-url" type="text" />
+                <br/>
+                <button id="render-ctable-button" type="submit">Render concordance table</button>
             </div>
         </div>
+        <note>Virtually no error handling is done on this page other than to make it basically function. YMMV.</note>
         <div style="float: right;" id="result">
         </div>
         
@@ -42,25 +49,44 @@
             return new Date(server_date);
         }
 
+        xmlser = new XMLSerializer();
+        function xmlToString(xml)
+        {
+            return xmlser.serializeToString(xml);
+        }
+
         // Runs an AJAX HTTP POST and runs the function 'fn'
         // when complete.
         // Uses the date/time variables defined above for 
         // caching.
-        function post_input (elt, uri, fn)
+        function post_input (elt_or_postdata, uri, fn, params)
         {
             var ifmod = inputIfMod[uri] ? inputIfMod[uri] : new Date(0);
+            var postdata = "";
+            console.debug(elt_or_postdata);
+            if (elt_or_postdata instanceof XMLDocument)
+            {
+                var str = xmlToString(elt_or_postdata);
+                postdata = str;
+            }
+            else
+            {
+                postdata = $(elt_or_postdata).val();
+            }
+
+            console.debug(postdata);
+
             $.ajax({
                 url: uri,
                 ifModified: true,
                 headers : {"Last-Modified": changedTime.toUTCString(),
                     "If-Modified-Since": ifmod.toUTCString()
                 },
-                data: {"text": $(elt).val()},
+                data: $.extend({"q": postdata}, params),
                 type: "POST",
                 datatype: "text/xml"
             }).done(fn);
         }
-
         $(document).ready(function()
         {
             // From: http://stackoverflow.com/a/22179984/638671
@@ -78,26 +104,32 @@
                 changedTime = new Date(date);
             }
 
-            $( "#add-line-numbers-button" ).click(function( event ) {
-                console.log(event);
-                post_input("#input-xml", "tei-numbers", function (res,stat,jqXHR) {
-                    console.log("status = " + stat);
+            function transform_input (uri, params)
+            {
+                post_input("#input-xml", uri, function (res,stat,jqXHR) {
                     if (stat == "success")
                     {
-                        var str = (new XMLSerializer()).serializeToString(res);
+                        var str = xmlToString(res);
                         if ($("#input-xml").val() != str)
                         {
                             $("#input-xml").val(str);
                             force_update_text_time("#input_xml", new Date());
                         }
                         var server_last_modified = response_last_modified(jqXHR)
-                        inputIfMod["tei-numbers"] = server_last_modified;
+                        inputIfMod[uri] = server_last_modified;
                     }
-                });
+                }, params);
+            }
+
+            $( "#add-line-numbers-button" ).click(function( event ) {
+                console.log(event);
+                transform_input("tei-numbers");
             });
 
             $( "#render-html-button" ).click(function( event ) {
                 console.log(event);
+                // XXX: Stream the result rather than waiting for the whole thing
+                //      to load
                 post_input("#input-xml", "tei-html", function (res,stat,jqXHR) {
                     console.log("status = " + stat);
                     if (stat == "success")
@@ -107,11 +139,51 @@
                     }
                 });
             });
+
+            $( "#render-ctable-button" ).click(function( event ) {
+                console.log(event);
+                // XXX: Stream the result rather than waiting for the whole thing
+                //      to load
+                post_input("#input-xml", "ctable", function (res, stat) {
+                    console.log("status: " + stat);
+                    console.log("res: " + xmlToString(res));
+                    if (stat == "success")
+                    {
+                        post_input(res, "ctable-html", function (htmlres,stat,jqXHR)
+                        {
+                            if (stat == "success")
+                            {
+                                $("#result").html(htmlres);
+                                inputIfMod["ctable"] = response_last_modified(jqXHR);
+                                /* Sorttable seems not to funtion if this isn't called after setting the html */
+                                sorttable.init();
+                            }
+                        });
+                    }
+                }, { "subjectDocument": new DOMParser($("#input-xml").val()});
+            });
+
             $( "#reload-document-button" ).click(function( event ) {
                 console.log(event);
                 var text = $("#input-xml").text();
                 $("#input-xml").val(text);
                 force_update_text_time("#input_xml", new Date());
+            });
+
+            $( "#load-document-from-web" ).click(function( event ) {
+                console.log(event);
+                var url = $("#document-url").val();
+                $.get(url, function (res) { 
+                    var str = xmlToString(res);
+                    $("#input-xml").val(str);
+                    force_update_text_time("#input_xml", new Date());
+                });
+            });
+
+            $( "#add-analysis-button" ).click(function( event ) {
+                console.log(event);
+                var url = $("#analysis-url").val();
+                transform_input("include-interp", {"ana": url});
             });
 
             $("#input-xml").on("change keyup paste", function() {
