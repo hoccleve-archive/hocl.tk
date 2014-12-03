@@ -85,10 +85,7 @@ public class XSLTTransformer extends HttpServlet
         if (conn.getLastModified() != 0)
         {
             Date xml_date = new Date(conn.getLastModified());
-            if (xml_date.compareTo(lastModified) > 0)
-            {
-                lastModified = xml_date;
-            }
+            updateLastModified(xml_date);
         }
 
         try (InputStream is = xml_resource.openStream())
@@ -117,10 +114,7 @@ public class XSLTTransformer extends HttpServlet
         if (xml_date_seconds != 0)
         {
             Date xml_date = new Date(xml_date_seconds);
-            if (xml_date.compareTo(lastModified) > 0)
-            {
-                lastModified = xml_date;
-            }
+            updateLastModified(xml_date);
         }
 
 
@@ -150,67 +144,122 @@ public class XSLTTransformer extends HttpServlet
         long ifmod = request.getDateHeader("If-Modified-Since");
         ifModifiedSince = new Date(ifmod);
 
-        try (PrintWriter out = response.getWriter())
+        String xsl = null;
+        if (xsltResourceName == null)
         {
-            String xsl = null;
-            if (xsltResourceName == null)
+            xsl = request.getParameter("xsl");
+            if (xsl == null)
             {
-                xsl = request.getParameter("xsl");
-                if (xsl == null)
-                {
-                    String error_message =  "You must provide a parameter `xsl' in order to perform a transformation";
-                    response.sendError(HttpServletResponse.SC_BAD_REQUEST , error_message);
-                    return;
-                }
+                sendUserError(response, "You must provide a parameter `xsl' in order to perform a transformation");
+                return;
+            }
+        }
+        else
+        {
+            URL xslt_url = getResource(xsltResourceName);
+            if (xslt_url != null)
+            {
+                URLConnection conn = xslt_url.openConnection();
+                Date xslt_date = new Date(conn.getLastModified());
+                updateLastModified(xslt_date);
+                xsl = xslt_url.toString();
             }
             else
             {
-                URL xslt_url = getResource(xsltResourceName);
-                if (xslt_url != null)
-                {
-                    URLConnection conn = xslt_url.openConnection();
-                    Date xslt_date = new Date(conn.getLastModified());
-                    if (xslt_date.compareTo(lastModified) > 0)
-                    {
-                        lastModified = xslt_date;
-                    }
-                    xsl = xslt_url.toString();
-                }
-                else
-                {
-                    String error_message =  "Couldn't find the XSLT file to perform this operation. "+
-                        "Please file a bug report about this error here: https://github.com/hoccleve-archive/hocl.tk/issues";
-                    response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR , error_message);
-                    return;
-                }
+                String error_message =  "Couldn't find the XSLT file to perform this operation. "+
+                    "Please file a bug report about this error here: https://github.com/hoccleve-archive/hocl.tk/issues";
+                sendServerError(response, error_message);
+                return;
             }
+        }
 
-            extractTransformParameters(request);
+        extractTransformParameters(request);
+        doTransformation0(response,xsl,input_xml);
+    }
 
-            if (lastModified.compareTo(ifModifiedSince) > 0)
-            {
-                response.setDateHeader("Last-Modified", lastModified.getTime() + 1);
-                try
-                {
-                    Transform.doTransformation(xsl, input_xml, out, params);
-                }
-                catch (Transform.MyTransformerException e)
-                {
-                    String error_message = "Transformer error:\n"+e.exc.getMessageAndLocation();
-                    ByteArrayOutputStream backtrace_stream = new ByteArrayOutputStream();
-                    PrintStream backtrace_print_stream = new PrintStream(backtrace_stream);
-                    e.printStackTrace(backtrace_print_stream);
-                    error_message += backtrace_stream.toString();
-                    response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR , error_message);
-                }
-            }
-            else
-            {
-                response.setStatus(HttpServletResponse.SC_NOT_MODIFIED);
-            }
+    private void sendUserError(HttpServletResponse response, String error_message)
+    {
+        try
+        {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, error_message);
+        }
+        catch (IOException e)
+        {/* If we can't send an error back to the user, there's nothing else to do */}
+    }
+
+    private void sendServerError(HttpServletResponse response, String error_message)
+    {
+        try
+        {
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, error_message);
+        }
+        catch (IOException e)
+        {
+            System.out.println("Got an error while trying to send a server error. Error message:\n"+error_message);
         }
     }
 
+    /** Performs the actual transformation, if necessary.
+     */
+    private void doTransformation0 (HttpServletResponse response, String xsl, InputStream input_xml)
+    {
+        if (lastModified.compareTo(ifModifiedSince) > 0)
+        {
+            response.setDateHeader("Last-Modified", lastModified.getTime() + 1);
+            try
+            {
+                try (PrintWriter out = response.getWriter())
+                {
+                    Transform.doTransformation(xsl, input_xml, out, params);
+                }
+            }
+            catch (Transform.MyTransformerException e)
+            {
+                sendTransformerError(response, e);
+            }
+            catch (IOException e)
+            {
+                sendServerError(response, "Couldn't open the page writer."+
+                        " Please file a bug report with this message at: https://github.com/hoccleve-archive/hocl.tk/issues");
+            }
+        }
+        else
+        {
+            response.setStatus(HttpServletResponse.SC_NOT_MODIFIED);
+        }
+    }
+
+    private void sendTransformerError(HttpServletResponse response, Transform.MyTransformerException e)
+    {
+        ByteArrayOutputStream backtrace_stream;
+        PrintStream backtrace_print_stream;
+
+        String error_message = "Transformer error:\n"+e.exc.getMessageAndLocation();
+
+        backtrace_stream = new ByteArrayOutputStream();
+        backtrace_print_stream = new PrintStream(backtrace_stream);
+
+        e.exc.printStackTrace(backtrace_print_stream);
+        error_message += "\n"+backtrace_stream.toString();
+
+        sendServerError(response, error_message);
+    }
+
+    /** Updates the lastModified if the given date is newer
+     */
+    private void updateLastModified(Date dt)
+    {
+        if (dt.compareTo(lastModified) > 0)
+        {
+            lastModified = dt;
+        }
+    }
+
+    /** A deferred request parameter used by subclasses of XSLTTransformer.
+     *
+     * In setting the {@code params} variable, a ParamValue indicates that the HTTP request parameter
+     * given as paramName holds the value for the XSLT parameter
+     */
     public static class ParamValue
     {
         private String _n = "";
@@ -224,6 +273,8 @@ public class XSLTTransformer extends HttpServlet
         }
     }
 
+    /** Copies string parameters from the HTTP request for the Transformation.
+     */
     private void extractTransformParameters(HttpServletRequest request)
     {
         for (String p : params.keySet())
