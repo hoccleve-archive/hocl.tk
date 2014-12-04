@@ -16,13 +16,16 @@
    -        reference text with an appropriate indicator. Like if an identifier is on a <p> element,
    -        then you might have "paragraph: It was the best of times...". If there's a "@n" 
    -        attribute or similar label, then that could take the place of the text snippet.
-   -    [ ] Add an <html:a> hyperlink to the subject document.
+   -    [X] Add an <html:a> hyperlink to the subject document.
    -        [ ] Link to the referenced lines in the subject document
    -        [ ] Make the link resolve to a TEI-HTML page
    -    
    -->
+    <xsl:import href="url-encode.xslt" />
+    <xsl:output method="html" />
     <xsl:template match="/">
-        <xsl:text disable-output-escaping='yes'>&lt;!DOCTYPE html></xsl:text>
+        <xsl:text disable-output-escaping='yes'>&lt;!DOCTYPE html>
+</xsl:text>
         <html>
             <head>
                 <meta name="viewport" content="width=device-width"></meta>
@@ -50,12 +53,39 @@
                             </xsl:when>
                         </xsl:choose>
                     </xsl:variable>
+                    <xsl:variable name="doc-title">
+                        <xsl:call-template name="tei-title">
+                            <xsl:with-param name="tei-doc" select="$subject" />
+                        </xsl:call-template>
+                    </xsl:variable>
+                    <!--<xsl:copy-of select="$subject" />-->
                     <table border="1" width="50%" align="center" class="sortable">
-                        <caption>Concordance for <xsl:call-template name="tei-title">
-                                <xsl:with-param name="tei-doc" select="$subject" />
-                            </xsl:call-template>
+                        <caption>Concordance for <xsl:choose>
+                                <xsl:when test="@subject">
+                                    <a>
+                                        <xsl:attribute name="href">
+                                            <xsl:text>tei-html?q=</xsl:text><xsl:call-template name="url-encode">
+                                                <xsl:with-param name="str" select="@subject"/>
+                                            </xsl:call-template>
+                                        </xsl:attribute>
+                                        <xsl:value-of select="$doc-title"/>
+                                    </a>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:value-of select="$doc-title"/>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                            <br/>
+                            <xsl:choose>
+                                <xsl:when test="@label">
+                                    <xsl:value-of select="@label"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:value-of select="@type"/>
+                                </xsl:otherwise>
+                            </xsl:choose>
                         </caption>
-                        <tr><th>Lines</th><th>Note</th></tr>
+                        <tr><th>Lines</th><th>Type</th><th>Note</th></tr>
                         <xsl:for-each select="ct:entry">
                             <tr>
                                 <td>
@@ -77,10 +107,29 @@
                                         </xsl:when>
                                     </xsl:choose>
                                 </td>
+                                <td>
+                                    <xsl:choose>
+                                        <xsl:when test="ct:type/@label">
+                                            <xsl:value-of select="ct:type/@label"/>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <xsl:value-of select="ct:type/@name"/>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </td>
                                 <td><xsl:apply-templates select="ct:function/text()" /></td>
                             </tr>
                         </xsl:for-each>
                     </table>
+                    <!--<xsl:if test="@subject">-->
+                        <!--This document was generated from: -->
+                        <!--<a>-->
+                            <!--<xsl:attribute name="href">-->
+                                <!--<xsl:value-of select="@subject"/>-->
+                            <!--</xsl:attribute>-->
+                            <!--<xsl:value-of select="@subject"/>-->
+                        <!--</a>-->
+                    <!--</xsl:if>-->
                 </xsl:for-each>
             </body>
         </html>

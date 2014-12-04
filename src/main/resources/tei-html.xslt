@@ -12,6 +12,7 @@
        -->
 
     <!--The interval between numbered lines-->
+   <xsl:output method="html" />
     <xsl:param name="line_number_interval">1</xsl:param>
 
     <xsl:template match="/">

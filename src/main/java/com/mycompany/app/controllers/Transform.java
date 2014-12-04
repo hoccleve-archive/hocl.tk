@@ -12,6 +12,7 @@ import java.io.Writer;
 import java.util.Map;
 
 import javax.xml.transform.Transformer;
+import javax.xml.transform.URIResolver;
 import javax.xml.transform.Templates;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerFactory;
@@ -25,12 +26,16 @@ import javax.xml.transform.Source;
 import javax.xml.transform.Result;
 import javax.xml.transform.ErrorListener;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+
 import com.mycompany.app.util.Util;
 
 /** A utility class for performing XSL transformations */
 public class Transform
 {
     static SAXTransformerFactory tf;
+    /** Custom ErrorListener. */
     static ErrorListener errors = new MyErrorListener();
 
     static {
@@ -39,7 +44,7 @@ public class Transform
         {
             tf = (SAXTransformerFactory)tf_instance;
         }
-
+        tf.setURIResolver(new MyURIResolver());
         tf.setErrorListener(errors);
     };
 
@@ -57,6 +62,42 @@ public class Transform
         }
     }
 
+    /** The URI resolver to use with the transformer.
+     *
+     * Looks in the classpath for relative URIs and uses java.net.URL
+     * for absolute URIs
+     */
+    public static class MyURIResolver implements URIResolver
+    {
+        public Source resolve (String href, String base_IGNORED) throws TransformerException
+        {
+            try
+            {
+                URI uri = new URI(href);
+                Source res = null;
+                if (uri.isAbsolute())
+                {
+                    res = getInputFromURL(uri.toString());
+                }
+                else
+                {
+                    // XXX: As a web resource, it might also make sense to resolve
+                    // relative URIs against the servlet context
+                    res = getInput(Util.getResourceStream(uri.toString()));
+                }
+                res.setSystemId(href);
+                return res;
+            }
+            catch (URISyntaxException e)
+            {
+                throw new TransformerException("Incorrect URI", e);
+            }
+            catch (Exception e)
+            {
+                throw new TransformerException("Error resolving document URI", e);
+            }
+        }
+    }
     public static class MyErrorListener implements ErrorListener
     {
         public void fatalError(TransformerException exception) throws TransformerException

@@ -14,7 +14,9 @@
         <data type="NCName" />
     </attribute>
     <!-- This is a label for the table -->
-    <attribute name="label" />
+    <optional>
+        <attribute name="label" />
+    </optional>
     <optional>
         <element name="ct:subjectDocument" >
             <!--

@@ -30,16 +30,16 @@ public class Util {
         return res;
     }
 
+    /** Resources are those stored in the class path (e.g., src/main/resources). */
     public static InputStream getResourceStream (String name)
     {
-        /** Resources are those stored in the class path (e.g., src/main/resources). */
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         return loader.getResourceAsStream(name);
     }
 
+    /** Resources are those stored in the class path (e.g., src/main/resources). */
     public static URL getResource (String name)
     {
-        /** Resources are those stored in the class path (e.g., src/main/resources). */
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         return loader.getResource(name);
     }

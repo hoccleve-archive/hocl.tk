@@ -287,6 +287,7 @@ public class XSLTTransformer extends HttpServlet
     {
         for (String p : params.keySet())
         {
+            System.out.println("Parameter = "+p);
             if ((ParamValue.class).isInstance(params.get(p)))
             {
                 ParamValue pv = (ParamValue)(params.get(p));
