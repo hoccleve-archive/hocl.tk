@@ -56,8 +56,8 @@ To add a document transformation, you have to do three things:
 
 .. _stylesheet: https://github.com/hoccleve-archive/hocl.tk/blob/master/src/main/resources/tei-html.xslt
 .. _resources folder: https://github.com/hoccleve-archive/hocl.tk/tree/master/src/main/resources
-.. _servlet: https://github.com/hoccleve-archive/hocl.tk/blob/master/src/main/java/controllers/TEIHtml.java
-.. _controllers folder: https://github.com/hoccleve-archive/hocl.tk/tree/master/src/main/java/controllers
+.. _servlet: https://github.com/hoccleve-archive/hocl.tk/tree/master/src/main/java/com/mycompany/app/controllers/TEIHtml.java
+.. _controllers folder: https://github.com/hoccleve-archive/hocl.tk/tree/master/src/main/java/com/mycompany/app/controllers
 .. _WebServlet Annotation: https://github.com/hoccleve-archive/hocl.tk/blob/0e4d1fe57da912575b528074bab5be5eeda51d45/src/main/java/controllers/TEIHtml.java#L10
 .. _servlet API version: https://github.com/hoccleve-archive/hocl.tk/blob/0e4d1fe57da912575b528074bab5be5eeda51d45/pom.xml#L20
 .. _web.xml: https://github.com/hoccleve-archive/hocl.tk/blob/master/src/main/webapp/WEB-INF/web.xml

@@ -130,11 +130,14 @@
                         <xsl:variable name="interp_class" select="@type"/> 
                         <xsl:for-each select="tei:span[(@target=$line_id_ref) or (@from=$line_id_ref)]">
                             <xsl:choose>
-                                <!--XXX:The id function doesn't work in Java, so you the line-* format is required.-->
+                                <!-- XXX:The id function, properly, requires a DTD. Consider using another query
+                                     or using XSLT keys. The method used below is a hack and only works with
+                                     specially named targets. -->
                                 <xsl:when test="@from=$line_id_ref">
                                     <!--<xsl:variable name="start_" select="substring-after(@from,'#')" />-->
                                     <!--<xsl:variable name="start_node" select="id($start_)" />-->
                                     <!--<xsl:variable name="start" select="$start_node/@n" />-->
+
                                     <xsl:variable name="start" select="substring-after(@from,'#line-')" />
                                     <xsl:variable name="end" select="substring-after(@to,'#line-')" />
                                     <!--<xsl:variable name="end_" select="substring-after(@to,'#')" />-->

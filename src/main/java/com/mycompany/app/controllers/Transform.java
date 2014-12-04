@@ -82,7 +82,9 @@ public class Transform
                 else
                 {
                     // XXX: As a web resource, it might also make sense to resolve
-                    // relative URIs against the servlet context
+                    // relative URIs against the servlet context.
+                    // Note that this allows a user to access *anything* that lies
+                    // in the classpath
                     res = getInput(Util.getResourceStream(uri.toString()));
                 }
                 res.setSystemId(href);
