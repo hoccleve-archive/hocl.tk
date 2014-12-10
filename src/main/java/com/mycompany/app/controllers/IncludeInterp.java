@@ -12,8 +12,6 @@ import com.mycompany.app.controllers.XSLTTransformer;
  */
 public class IncludeInterp extends XSLTTransformer
 {
-    @Override
-    public void init ()
     {
         xsltResourceName = "include-interp.xslt";
         contentType = "text/xml";

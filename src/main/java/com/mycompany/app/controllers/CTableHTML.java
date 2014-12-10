@@ -6,11 +6,9 @@ import com.mycompany.app.controllers.XSLTTransformer;
  */
 public class CTableHTML extends XSLTTransformer
 {
-
     {
         xsltResourceName = "ctable-html.xslt";
         contentType = "text/html";
     }
-
 }
 

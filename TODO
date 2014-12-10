@@ -10,7 +10,7 @@ THINGS THAT ARE RELEVANT NOW
     [X] The HTML should present the analysis in a side bar on mouse-over
     [-] and maybe pin it on click. Either Javascript or CSS is acceptable for doing that (I have no idea if that's possible with CSS though).
     [X] Also, the actual transformation still doesn't show the analysis at all. By analysis, I mean the spanGrp at the bottom of the source XML document, of course.
-- Our first use case was to get out a concordance table from a document. There aren't any tests for this now, but the ctable*xslt files have to do with that. A sort of planned document from an earlier iteration is below:
+[X] Our first use case was to get out a concordance table from a document. There aren't any tests for this now, but the ctable*xslt files have to do with that. A sort of planned document from an earlier iteration is below:
     <table xmlns="http://hocl.tk/schema/"
            xmlns:hocc="http://hocl.tk/html/reg.xml#"
            subject="http://hocl.tk/html/reg.xml"
@@ -57,7 +57,7 @@ THINGS THAT ARE RELEVANT NOW
         </entry>
     </table>
     This format basically has nothing to do with TEI (except that we should be able to make these from <spanGrp>s), but is intended to make it easier to get the table we want. We want to turn this into a *printable* attractive table.
-- It would be good to have the tests run automatically on a `git push` and to 'deploy' to a test server (like hocl.tk/test) at the same time.
+[ ] It would be good to have tests against the REST API run automatically on a `git push` and to 'deploy' to a test server (like hocl.tk/test) at the same time.
 [X] The "sidebar" element in the TEI-poem HTML should present the class of the note in addition to the text of the note. 
 [ ] In addition to that, some notes have an extra bit of description which modifies the class, but which is specific to the note. This is currently rendered in an unappealing manner (just the text is shown). It would be good to find a way to present that nicely.
 [ ] Related to the previous issue, we would like to encode some more information about the class of a note beyond the simple identifier we use now. There should be a way to elaborate using semantical TEI, but there's always tei:ab if it comes to that.
@@ -84,6 +84,6 @@ THINGS WAY OFF IN THE FUTURE
 - It would be interesting to handle partial documents. It's not yet obvious to me how to identify discontinuities in the poems using XSL or whether that information should be incoded in the TEI document itself.
   - Related to that, it would be nice to extract document parts to look at everything tied to a "type" in a concordance. You can do this with the demo at http://hocl.tk/html/concordance.html (also in https://github.com/hoccleve-archive/concordance-demo) 
 - The XSLTTransformer sub-classes generally don't include any functionality, so they can be represented in a simple object description like `{"stylesheet": "do-something.xslt", "content-type": "text/plain"}`. Adding this "templating" would make things a *tiny* bit simpler. 
+- Following on the previous point, the XSLTTransformer class can be exposed as the base of a server like hocl.tk. Once it's possible to construct the classes from templates, it might make sense to separate XSLTTransformer (and the internal dependencies) and include it as a dependency of a hocl.tk composed mainly of the templates and the stylesheets.
 - We've discussed storage of documents in RDF triple stores or relational databases for storing documents. Ultimately, I opted to focus on a document-centric model where documents are pulled on-demand using HTTP. Working up-stream on generation of annotations, there is certainly an opportunity for storing CTables in an annotation database.
 - Marca (http://www.gomarca.com/) is a platform for organizing writing classes. It includes tools for composing and annotating documents and we have discussed integrating our tools with theirs. In particular being able to compose documents in Marca which could then be extracted as CTables for distribution could be helpful in displaying an analysis concisely.
-

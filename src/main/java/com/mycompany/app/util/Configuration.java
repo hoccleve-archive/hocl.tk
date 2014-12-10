@@ -5,9 +5,16 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
+/** A simple configuration class.
+ *
+ * Reads configuration from a "properties" file and exposes it with some transformations to Java data types
+ */
 public class Configuration
 {
+    /** The underlying Properties */
     private Properties _props = new Properties();
+
+    /** The single configuration instance */
     private static Configuration theConf;
 
     static
@@ -15,15 +22,18 @@ public class Configuration
         theConf = new Configuration("conf/app.conf");
     }
 
+    /** Get a configuration value */
     public static String C(String key)
     {
         return theConf.getValue(key);
     }
+    /** Get a configuration value as an integer */
     public static Integer C_Integer(String key)
     {
         return new Integer(C(key));
     }
 
+    /** Create the Configuration instance from a file name */
     private Configuration (String filename)
     {
         try
@@ -41,6 +51,7 @@ public class Configuration
         }
     }
 
+    /** Actually return a configuration value from the backing Properties */
     private String getValue(String key)
     {
         return _props.getProperty(key);

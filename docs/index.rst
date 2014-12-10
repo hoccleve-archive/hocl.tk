@@ -4,9 +4,6 @@ Hoccleve Concordance Tables
 
 This is the documentation for the `Hoccleve Archive`_ `concordance table subproject`_. The project is `hosted on github`_ as hocl.tk. This project uses a combination of XSLT, Java Server Pages, and Java WebServlets to modify and present documents composed in TEI_ XML markup.
 
-This documentation is composed in rst_.
-
-.. _rst: http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html
 .. _hosted on github: https://github.com/hoccleve-archive/hocl.tk
 .. _TEI: http://www.tei-c.org/index.xml
 .. _Hoccleve Archive: http://hocclevearchive.org/hocclevearchive/
@@ -61,3 +58,20 @@ To add a document transformation, you have to do three things:
 .. _WebServlet Annotation: https://github.com/hoccleve-archive/hocl.tk/blob/0e4d1fe57da912575b528074bab5be5eeda51d45/src/main/java/controllers/TEIHtml.java#L10
 .. _servlet API version: https://github.com/hoccleve-archive/hocl.tk/blob/0e4d1fe57da912575b528074bab5be5eeda51d45/pom.xml#L20
 .. _web.xml: https://github.com/hoccleve-archive/hocl.tk/blob/master/src/main/webapp/WEB-INF/web.xml
+
+Documentation
+=============
+This documentation is composed in rst_ and is hosted on `Read the Docs`_. Documentation is included in Java source files as Javadoc comments and can be built locally with the build-docs.sh script. There are few recommendations for documentation right now, but feel free to add to these.
+
+.. _rst: http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html
+.. _Read the Docs: http://hocltk.readthedocs.org/en/latest/
+
+Source code
+-----------
+Javadoc comments should be added to every class and to private members as well as public as these are for internal documentation.
+
+Subclasses of XSLTTransformer should only include documentation for the transformation as whole, and not refer to implementation. As an exception, special use of URL query parameters beyond the default name-based usage (e.g., URL parameter 'g' corresponds to transform parameter 'g'), should be documented on the subclass.
+
+Specifications
+--------------
+In describing requirements, please utilize the keywords defined in `RFC 2119 <http://tools.ietf.org/html/rfc2119>`_ .

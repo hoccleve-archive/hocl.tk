@@ -13,8 +13,6 @@ import com.mycompany.app.controllers.XSLTTransformer;
  */
 public class TEINumbers extends XSLTTransformer
 {
-    @Override
-    public void init ()
     {
         xsltResourceName = "tei-numbers.xslt";
     }
