@@ -21,8 +21,11 @@
    -        [ ] Make the link resolve to a TEI-HTML page
    -    
    -->
-    <xsl:import href="url-encode.xslt" />
-    <xsl:output method="html" />
+    <xsl:import href="resources/url-encode.xslt" />
+    <xsl:output method="html"
+                indent="yes"
+                omit-xml-declaration="yes"
+                />
     <xsl:template match="/">
         <xsl:text disable-output-escaping='yes'>&lt;!DOCTYPE html>
 </xsl:text>
@@ -85,16 +88,19 @@
                                 </xsl:otherwise>
                             </xsl:choose>
                         </caption>
-                        <tr><th>Lines</th><th>Type</th><th>Note</th></tr>
+                        <tr><th>#</th><th>Lines</th><th>Type</th><th>Note</th></tr>
                         <xsl:for-each select="ct:entry">
                             <tr>
+                                <td>
+                                    <xsl:number/>
+                                </td>
                                 <td>
                                     <xsl:choose>
                                         <xsl:when test="ct:reference/@from">
                                             <xsl:call-template name="tei-line-number" >
                                                 <xsl:with-param select="ct:reference/@from" name="reference" />
                                                 <xsl:with-param name="tei-doc" select="$subject"/>
-                                            </xsl:call-template>-<xsl:call-template name="tei-line-number" >
+                                            </xsl:call-template> - <xsl:call-template name="tei-line-number" >
                                                 <xsl:with-param select="ct:reference/@to" name="reference" />
                                                 <xsl:with-param name="tei-doc" select="$subject"/>
                                             </xsl:call-template>
@@ -116,6 +122,9 @@
                                             <xsl:value-of select="ct:type/@name"/>
                                         </xsl:otherwise>
                                     </xsl:choose>
+                                    <xsl:if test="ct:type/ct:note">
+                                        (<xsl:value-of select="ct:type/ct:note" />)
+                                    </xsl:if>
                                 </td>
                                 <td><xsl:apply-templates select="ct:function/text()" /></td>
                             </tr>
@@ -141,7 +150,17 @@
     <xsl:template name="tei-line-number">
         <xsl:param name="tei-doc" />
         <xsl:param name="reference" />
-        <xsl:value-of select="exsl:node-set($tei-doc)//tei:l[@xml:id=substring-after($reference, '#')]/@n" />
+        <xsl:variable name="number-string">
+            <xsl:value-of select="exsl:node-set($tei-doc)//tei:l[@xml:id=substring-after($reference, '#')]/@n" />
+        </xsl:variable>
+        <xsl:choose>
+            <xsl:when test="$number-string">
+                <xsl:value-of select="$number-string" />
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$reference" />
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
 
 </xsl:stylesheet>

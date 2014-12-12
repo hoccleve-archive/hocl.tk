@@ -6,31 +6,31 @@
   <display-name>Archetype Created Web Application</display-name>
   <servlet>
       <servlet-name>tei-html</servlet-name>
-      <servlet-class>com.mycompany.app.controllers.TEIHtml</servlet-class>
+      <servlet-class>tk.hocl.controllers.TEIHtml</servlet-class>
   </servlet>
   <servlet>
       <servlet-name>transform</servlet-name>
-      <servlet-class>com.mycompany.app.controllers.XSLTTransformer</servlet-class>
+      <servlet-class>tk.hocl.controllers.XSLTTransformer</servlet-class>
   </servlet>
   <servlet>
       <servlet-name>tei-numbers</servlet-name>
-      <servlet-class>com.mycompany.app.controllers.TEINumbers</servlet-class>
+      <servlet-class>tk.hocl.controllers.TEINumbers</servlet-class>
   </servlet>
   <servlet>
       <servlet-name>include-interp</servlet-name>
-      <servlet-class>com.mycompany.app.controllers.IncludeInterp</servlet-class>
+      <servlet-class>tk.hocl.controllers.IncludeInterp</servlet-class>
   </servlet>
   <servlet>
       <servlet-name>server-info</servlet-name>
-      <servlet-class>com.mycompany.app.controllers.ServerInfo</servlet-class>
+      <servlet-class>tk.hocl.controllers.ServerInfo</servlet-class>
   </servlet>
   <servlet>
       <servlet-name>ctable</servlet-name>
-      <servlet-class>com.mycompany.app.controllers.CTable</servlet-class>
+      <servlet-class>tk.hocl.controllers.CTable</servlet-class>
   </servlet>
   <servlet>
       <servlet-name>ctable-html</servlet-name>
-      <servlet-class>com.mycompany.app.controllers.CTableHTML</servlet-class>
+      <servlet-class>tk.hocl.controllers.CTableHTML</servlet-class>
   </servlet>
   <servlet-mapping>
       <servlet-name>transform</servlet-name>

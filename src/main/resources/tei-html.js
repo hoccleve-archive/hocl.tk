@@ -12,32 +12,49 @@ function make_sidebar_notes ()
     $("table.poem").each( function () {
         /* Hide the note headers */
         $("th.note").css("display", "none");
-        $("tr.line > td.note").each(function () {
-            var note = this;
-            var line = $(note).parent();
-            /* Hide the notes themselves */
-            $(note).css("display","none");
-
-            var length = $(note).attr("rowspan");
-            if (!length)
-            {
-                length = 1;
-            }
-            var referenced_lines = $(line).nextAll().addBack().slice(0,length);
-            /* I've never written such a jquery selector yet */
-            referenced_lines.mouseenter(function () {
-                $(".sidebar.active").removeClass("active");
-                $("td.active").removeClass("active");
-                side_bar_event(note);
-                referenced_lines.find("td:nth-child(2)").addClass("active");
-            });
-        });
+        $("tr.line > td.note").each(setup_note);
     });
+}
+
+function setup_note ()
+{
+    var note = this;
+    var line = $(note).parent();
+
+    /* Hide the notes themselves */
+    $(note).css("display","none");
+
+    var length = $(note).attr("rowspan");
+
+    if (!length)
+    {
+        length = 1;
+    }
+
+    var referenced_lines = $(line).nextAll().addBack().slice(0,length);
+    /* I've never written such a jquery selector yet */
+    var cb = activate_note(note,referenced_lines);
+    referenced_lines.mouseenter(cb);
+}
+
+/* Activates the lines associated to this note, deactivates the other
+ * lines, and updates the sidebar to match
+ */
+function activate_note(note, referenced_lines)
+{
+    return function () {
+        $(".sidebar.active").removeClass("active");
+        $("td.active").removeClass("active");
+        update_sidebar(note);
+        referenced_lines.find("td:nth-child(2)").addClass("active");
+    };
 }
 
 // Matches up to the first '.'
 var note_class_regex = new RegExp("^([^.]+)\\.(.*)");
-function side_bar_event (note)
+
+/* Activates the sidebar and updates the text */
+function update_sidebar (note)
 {
     var classes = $(note).attr("class");
 

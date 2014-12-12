@@ -5,6 +5,8 @@
     </head>
     <body>
         <div style="float: left;" >
+            <note>Virtually no error handling is done on this page other than to make it basically function. YMMV.</note>
+            <br/>
             <textarea id="input-xml" name="q" cols=60 rows=20><jsp:include page="resources/reg+interp.xml" /></textarea>
             <div id="buttons">
                 <button id="add-line-numbers-button" type="submit">Add line numbers</button>
@@ -18,7 +20,6 @@
                 <button id="render-ctable-button" type="submit">Render concordance table</button>
             </div>
         </div>
-        <note>Virtually no error handling is done on this page other than to make it basically function. YMMV.</note>
         <div style="float: right;" class="result" id="poem">
         </div>
         <div style="float: right;" class="result" id="ctable">
@@ -86,6 +87,7 @@
                 datatype: "text/xml"
             }).done(fn);
         }
+
         $(document).ready(function()
         {
             // From: http://stackoverflow.com/a/22179984/638671
@@ -158,6 +160,10 @@
                                 
                                 sorttable.init();/* Sorttable seems not to funtion if this isn't called after setting the html */
                                 inputIfMod["ctable"] = response_last_modified(jqXHR);
+                            }
+                            else if (stat == "error")
+                            {
+                                $("#ctable").html(htmlres);
                             }
                         });
                     }

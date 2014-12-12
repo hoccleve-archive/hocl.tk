@@ -2,4 +2,4 @@
 
 mvn clean
 mvn -e package
-rsync target/my-webapp.war $USER@hocl.tk:/var/lib/tomcat7/webapps/
+rsync target/hocl.war $USER@hocl.tk:/var/lib/tomcat7/webapps/

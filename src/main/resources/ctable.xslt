@@ -44,6 +44,11 @@
                                 <xsl:attribute name="name">
                                     <xsl:value-of select="@type" />
                                 </xsl:attribute>
+                                <xsl:if test="@ct:typeLabel">
+                                    <xsl:attribute name="label">
+                                        <xsl:value-of select="@ct:typeLabel" />
+                                    </xsl:attribute>
+                                </xsl:if>
                                 <xsl:if test="tei:note">
                                     <ct:note>
                                         <xsl:value-of select="tei:note/text()" />

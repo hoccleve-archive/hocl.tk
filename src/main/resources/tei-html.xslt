@@ -2,7 +2,7 @@
     version="1.0"
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:tei="http://www.tei-c.org/ns/1.0"  
-    xmlns:extra="http://hocl.tk/extra/"
+    xmlns:ct="http://hocl.tk/schema/"
     xmlns:xi="http://www.w3.org/2001/XInclude"
     >
     <!--

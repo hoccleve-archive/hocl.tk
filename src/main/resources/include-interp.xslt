@@ -19,7 +19,7 @@
     <xsl:template match="/tei:TEI/tei:text/tei:body">
         <xsl:copy>
             <xsl:apply-templates select="@*|node()"/>
-            <xsl:copy-of select="document($ana)" />
+            <xsl:copy-of select="document($ana)//tei:spanGrp" />
         </xsl:copy>  
     </xsl:template>
 </xsl:stylesheet>
