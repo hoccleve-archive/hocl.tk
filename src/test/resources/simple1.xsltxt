@@ -1,0 +1,8 @@
+stylesheet "1.0"
+
+tpl .match "/a"
+    <a>
+        for-each "b"
+            <b>
+                val "text()"
+                "n"

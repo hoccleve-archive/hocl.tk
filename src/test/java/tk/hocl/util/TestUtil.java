@@ -102,13 +102,14 @@ public class TestUtil
 
     public static boolean simpleDiff(InputStream a, InputStream b)
     {
-    /* Returns whether the XML from a and b are similar.
-     *
-     * Prints the diff as a side effect */
+        /* Returns whether the XML from a and b are similar.
+         *
+         * Prints the diff as a side effect */
         boolean diffStatus = false;
         try
         {
             Diff myDiff = new Diff(new InputSource(a), new InputSource(b));
+            myDiff = new DetailedDiff(myDiff);
             diffStatus = myDiff.similar();
             if ( !diffStatus )
             {

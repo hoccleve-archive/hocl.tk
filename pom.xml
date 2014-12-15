@@ -21,17 +21,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.11</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.google.appengine</groupId>
-            <artifactId>appengine-api-1.0-sdk</artifactId>
-            <version>1.9.15</version>
-        </dependency>
-        <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
             <version>2.5</version>
@@ -48,8 +37,12 @@
             <version>2.7.2</version>
         </dependency>
 
-
-        <!-- Test Dependencies -->
+        <!-- Google App engine deps -->
+        <dependency>
+            <groupId>com.google.appengine</groupId>
+            <artifactId>appengine-api-1.0-sdk</artifactId>
+            <version>1.9.15</version>
+        </dependency>
         <dependency>
             <groupId>com.google.appengine</groupId>
             <artifactId>appengine-testing</artifactId>
@@ -62,11 +55,29 @@
             <version>1.9.15</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- Test Dependencies -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>xmlunit</groupId>
             <artifactId>xmlunit</artifactId>
             <version>1.5</version>
             <scope>test</scope>
+        </dependency>
+
+        <!-- JAR Dependencies -->
+        <!-- TODO: Turn this into a Maven package -->
+        <dependency>
+            <groupId>tk.hocl</groupId>
+            <artifactId>xsltxt</artifactId>
+            <version>dev</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/xsltxt.jar</systemPath>
         </dependency>
     </dependencies>
     <build>
