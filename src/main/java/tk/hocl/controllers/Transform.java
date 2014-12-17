@@ -393,6 +393,17 @@ public class Transform
         doTransformation(tf, xml_in, xml_out);
     }
 
+    /** Perform a transformation
+     * @param xslt A stream of the XSLT for the transformation
+     */
+    public static void doTransformation(InputStream xslt, InputStream in, Writer out, Map<String,Object> params)
+    {
+        Source xml_in = getInput(in);
+        Result xml_out = getOutput(out);
+        Transformer tf = getTransformer(xslt);
+        doTransformation(tf, xml_in, xml_out, params);
+    }
+
     /** Takes the URI of the xslt and input xml and writes to the OutputStream.
     */
     public static void doTransformation(String xslt, String in, OutputStream out)

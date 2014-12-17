@@ -1,7 +1,7 @@
 resources:
-    - &reg "http://hocl.tk:8080/my-webapp/reg.xml"
+    - &reg "http://hocl.tk:8080/reg.xml"
     #- &reg "https://raw.githubusercontent.com/hoccleve-archive/data/master/reg.xml"
-    - &time-refs "http://hocl.tk:8080/my-webapp/time-refs.xml"
+    - &time-refs "http://hocl.tk:8080/time-refs.xml"
 
 servers:
     - &app-engine "silver-nova-778.appspot.com"
@@ -13,9 +13,11 @@ tests:
     - path: "/tei-html"
       params: 
           q: *reg
+
     - path: "/tei-numbers"
       params: 
           q: *reg
+
     - path: "/include-interp"
       params: 
           q: *reg

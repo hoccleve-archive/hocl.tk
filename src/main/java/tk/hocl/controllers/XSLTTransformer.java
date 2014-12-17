@@ -302,7 +302,23 @@ public class XSLTTransformer extends HttpServlet
             {
                 try (PrintWriter out = response.getWriter())
                 {
-                    Transform.doTransformation(xsl, input_xml, out, params);
+                    if (xsl.endsWith(".xsltxt"))
+                    {
+                        URL u = new URL(xsl);
+                        try
+                        {
+                            InputStream is = u.openStream();
+                            Transform.doTransformation(is, input_xml, out, params);
+                        }
+                        catch (Exception e)
+                        {
+                            sendUserError(response, "Couldn't open XSLTXT stream from URL: " +e.toString());
+                        }
+                    }
+                    else
+                    {
+                        Transform.doTransformation(xsl, input_xml, out, params);
+                    }
                 }
             }
             catch (Transform.MyTransformerException e)
