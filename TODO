@@ -1,89 +1,122 @@
-These are various things that Mark is planning to do that don't fit well into issues on the tracker (github.com/hoccleve-archive/hocl.tk). They aren't sorted in any way, but they can be dated by looking at the output of `git blame` on this file. Also, various source files may have TODOs in them: grep around for "TODO" to find them. I also use "Note:" or "XXX" to mark areas of interest that might need more concern than others.
+==================
+hocl.tk to-do list
+==================
+
+These are various things to do that don't fit well into issues on the tracker
+(github.com/hoccleve-archive/hocl.tk). They aren't sorted in any way, but they
+can be dated by looking at the output of `git blame` on this file. Also, various
+source files may have TODOs in them: grep around for "TODO" to find them. I also
+use "Note:" or "XXX" to mark areas of interest that might need more concern than
+others.
 
 Key to [ ] : X == Done, - == Won't do/Invalid
 
 THINGS THAT ARE RELEVANT NOW
+----------------------------
 
-[X] Turn a ctable xml file into HTML
-[X] There's a test in XSLTest.java for transforming poems and analysis to HTML. 
-    [X] The expected output is currently missing line numbers.
-    [X] The HTML should present the analysis in a side bar on mouse-over
-    [-] and maybe pin it on click. Either Javascript or CSS is acceptable for doing that (I have no idea if that's possible with CSS though).
-    [X] Also, the actual transformation still doesn't show the analysis at all. By analysis, I mean the spanGrp at the bottom of the source XML document, of course.
-[X] Our first use case was to get out a concordance table from a document. There aren't any tests for this now, but the ctable*xslt files have to do with that. A sort of planned document from an earlier iteration is below:
-    <table xmlns="http://hocl.tk/schema/"
-           xmlns:hocc="http://hocl.tk/html/reg.xml#"
-           subject="http://hocl.tk/html/reg.xml"
-        >
-        <!-- As this is a stand-off document, the subject is meant to indicate the document this table is based on -->
-    <!--TODO:The schema isn't yet written down-->
+[ ] It would be good to have tests against the REST API run automatically on a
+    `git push` and to 'deploy' to a test server (like hocl.tk/test) at the same
+    time.
 
-        <entry>
-            <!--XXX: Is this the right way to make references?-->
-            <!--`from' and `to' are xml ids.
-                 When there is only one line, either from or to
-                 may be used.
-                 -->
-            <reference from="hocc:l6" />
-            <!-- The type isn't an attribute since I'm already thinking it could be extended like::
+[X] The "sidebar" element in the TEI-poem HTML should present the class of the
+    note in addition to the text of the note.
 
-                     <type name="food-bar">
-                         <typeClass name="foo" />
-                         <typeClass name="bar" />
-                         Something about the shades of foobar-ness
-                     </type>
+    [ ] In addition to that, some notes have an extra bit of description which
+        modifies the class, but which is specific to the note. This is currently
+        rendered in an unappealing manner (just the text is shown). It would be good to
+        find a way to present that nicely.
 
-                 to arbitrarily create types that have a name distinct from the aggregation of tags. The
-                 inner-text is intended to be a comment on the type itself. This is distinct from
-                 the `function`, does not follow the `name`, and dosen't distinguish the type in any way.
-                 -->
-            <!--One tag-->
-            <type class="abstract" />
-            <!--Another tag-->
-            <type class="moment" />
-            <!--The citation text included in the original table is omitted since
-                 the whole line is the subject of the entry. It is expected that
-                 the document can be accessed for display purposes
-                 -->
-            <function>Specific place (Chester Inn) and time creates narrative context of entering dream.</function>
-        </entry>
-        <entry>
-            <reference from="hocc:l8" />
+    [ ] Related to the previous issue, we would like to encode some more
+        information about the class of a note beyond the simple identifier we use now.
+        There should be a way to elaborate using semantical TEI, but there's always
+        tei:ab if it comes to that.
 
-            <type class="abstract duration" />
-            <!--The text can be included anyway-->
-            <text>And many a day and nyght that wikkid hyne</text>
-            <function>Recollection of past duration starts to merge past and present times, acting as a descriptive tool of thought processes.</function>
-        </entry>
-    </table>
-    This format basically has nothing to do with TEI (except that we should be able to make these from <spanGrp>s), but is intended to make it easier to get the table we want. We want to turn this into a *printable* attractive table.
-[ ] It would be good to have tests against the REST API run automatically on a `git push` and to 'deploy' to a test server (like hocl.tk/test) at the same time.
-[X] The "sidebar" element in the TEI-poem HTML should present the class of the note in addition to the text of the note. 
-[ ] In addition to that, some notes have an extra bit of description which modifies the class, but which is specific to the note. This is currently rendered in an unappealing manner (just the text is shown). It would be good to find a way to present that nicely.
-[ ] Related to the previous issue, we would like to encode some more information about the class of a note beyond the simple identifier we use now. There should be a way to elaborate using semantical TEI, but there's always tei:ab if it comes to that.
-[ ] One of the things which we'd like to describe about classes are the relationships between them: some classes are modifications of other classes. We'd like to store these either with the analysis document or in a separate TEI document 
-[ ] so that such relationships can be used for querying, sorting, and aggregating.
-[ ] Find a way to test against a relax-ng schema in Java.
+    [ ] One of the things which we'd like to describe about classes are the
+        relationships between them: some classes are modifications of other classes.
+        We'd like to store these either with the analysis document or in a separate TEI
+        document
 
-- (Not really a task) More expressive sorting and aggregation tools are missing from the initial concordance table demo created -- currently hosted at http://hocl.tk/html/concordance.html. A first step for exploring these capabilities would be plugging in the concordance table with the interactive poem
-- There are quite a few stylesheets on the TEI Consortium's Github account: https://github.com/TEIC/Stylesheets/
-  I didn't give attention to them because the stylesheets we have were simpler to write than it would have been to evaluate theirs. That said, some of the ones in that repository may be useful and worth trying out. Other TEI projects worth looking at:
-  - For creating ODD (schema) files, LaTeX output, docx files, and Open Document Text files: http://wiki.tei-c.org/index.php/Tei-xsl
-  - Web publishing application. Apparently only supports P4: http://omeka.org/codex/Documentation
- 
+    [ ] so that such relationships can be used for querying, sorting, and
+        aggregating.
+
+[ ] Test against relax-ng schemata in Java.
 
 THINGS THAT WOULD BE NICE BUT AREN'T ESSENTIAL
-- `tidy` HTML cleaner suggests adding a summary element to our HTML tables. Apparently it helps non-visual readers.
-- Automated tests to make sure static documents match schema. Alternatively, a policy of manually checking them after changes are made, though not ideal, may be acceptable.
-- Add our stylsheets to the TEI wiki: http://wiki.tei-c.org/index.php/Category:XSLT
-- Set some project-wide variables in the configuration and use them in the code. For example: the location of our bug tracker or our project name.
-- Using PrimeFaces (http://primefaces.org/) might work well for a server interface. I have mostly avoided JSP/Facelets in favor of Javascript.
+----------------------------------------------
+
+- `tidy` HTML cleaner suggests adding a summary element to our HTML tables.
+  Apparently it helps non-visual readers.
+
+- Automated tests to make sure static documents match schema. Alternatively, a
+  policy of manually checking them after changes are made, though not ideal, may
+  be acceptable.
+
+- Add our stylsheets to the TEI wiki:
+  http://wiki.tei-c.org/index.php/Category:XSLT
+
+- Set some project-wide variables in the configuration and use them in the
+  code. For example: the location of our bug tracker or our project name.
+
+- Using PrimeFaces (http://primefaces.org/) might work well for a server
+  interface. I have mostly avoided JSP/Facelets in favor of Javascript.
+
 - Enable CORS since we're running a public service.
 
 THINGS WAY OFF IN THE FUTURE
-- It would be interesting to handle partial documents. It's not yet obvious to me how to identify discontinuities in the poems using XSL or whether that information should be incoded in the TEI document itself.
-  - Related to that, it would be nice to extract document parts to look at everything tied to a "type" in a concordance. You can do this with the demo at http://hocl.tk/html/concordance.html (also in https://github.com/hoccleve-archive/concordance-demo) 
-- The XSLTTransformer sub-classes generally don't include any functionality, so they can be represented in a simple object description like `{"stylesheet": "do-something.xslt", "content-type": "text/plain"}`. Adding this "templating" would make things a *tiny* bit simpler. 
-- Following on the previous point, the XSLTTransformer class can be exposed as the base of a server like hocl.tk. Once it's possible to construct the classes from templates, it might make sense to separate XSLTTransformer (and the internal dependencies) and include it as a dependency of a hocl.tk composed mainly of the templates and the stylesheets.
-- We've discussed storage of documents in RDF triple stores or relational databases for storing documents. Ultimately, I opted to focus on a document-centric model where documents are pulled on-demand using HTTP. Working up-stream on generation of annotations, there is certainly an opportunity for storing CTables in an annotation database.
-- Marca (http://www.gomarca.com/) is a platform for organizing writing classes. It includes tools for composing and annotating documents and we have discussed integrating our tools with theirs. In particular being able to compose documents in Marca which could then be extracted as CTables for distribution could be helpful in displaying an analysis concisely.
+----------------------------
+
+- It would be interesting to handle partial documents. It's not yet obvious to
+  me how to identify discontinuities in the poems using XSL or whether that
+  information should be incoded in the TEI document itself.
+
+  - Related to that, it would be nice to extract document parts to look at
+    everything tied to a "type" in a concordance. You can do this with the demo at
+    http://hocl.tk/html/concordance.html (also in
+    https://github.com/hoccleve-archive/concordance-demo)
+
+- The XSLTTransformer sub-classes generally don't include any functionality, so
+  they can be represented in a simple object description like `{"stylesheet":
+  "do-something.xslt", "content-type": "text/plain"}`. Adding this "templating"
+  would make things a *tiny* bit simpler.
+
+- Following on the previous point, the XSLTTransformer class can be exposed as
+  the base of a server like hocl.tk. Once it's possible to construct the classes
+  from templates, it might make sense to separate XSLTTransformer (and the
+  internal dependencies) and include it as a dependency of a hocl.tk composed
+  mainly of the templates and the stylesheets.
+
+- We've discussed storage of documents in RDF triple stores or relational
+  databases for storing documents. Ultimately, I opted to focus on a
+  document-centric model where documents are pulled on-demand using HTTP. Working
+  up-stream on generation of annotations, there is certainly an opportunity for
+  storing CTables in an annotation database.
+
+THINGS TO LOOK AT
+-----------------
+
+- (Not really a task) More expressive sorting and aggregation tools are missing
+  from the initial concordance table demo created -- currently hosted at
+  http://hocl.tk/html/concordance.html. A first step for exploring these
+  capabilities would be plugging in the concordance table with the interactive
+  poem
+
+- There are quite a few stylesheets on the TEI Consortium's Github account:
+
+      https://github.com/TEIC/Stylesheets/
+
+  I didn't give attention to them because the stylesheets we have were simpler
+  to write than it would have been to evaluate theirs. That said, some of the
+  ones in that repository may be useful and worth trying out. Other TEI projects
+  worth looking at:
+
+  - For creating ODD (schema) files, LaTeX output, docx files, and Open
+    Document Text files: http://wiki.tei-c.org/index.php/Tei-xsl
+
+  - Web publishing application. Apparently only supports P4:
+    http://omeka.org/codex/Documentation
+
+- Marca (http://www.gomarca.com/) is a platform for organizing writing classes.
+  It includes tools for composing and annotating documents and we have discussed
+  integrating our tools with theirs. In particular being able to compose
+  documents in Marca which could then be extracted as CTables for distribution
+  could be helpful in displaying an analysis concisely.
