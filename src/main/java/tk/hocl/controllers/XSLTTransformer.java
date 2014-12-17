@@ -9,6 +9,8 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import tk.hocl.controllers.Transform;
 import static tk.hocl.util.Util.*;
+import tk.hocl.util.XSLTXTInputStream;
+import com.zanthan.xsltxt.exception.SyntaxException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.URIResolver;
@@ -308,11 +310,18 @@ public class XSLTTransformer extends HttpServlet
                         try
                         {
                             InputStream is = u.openStream();
-                            Transform.doTransformation(is, input_xml, out, params);
+                            XSLTXTInputStream xslt_in = new XSLTXTInputStream(is);
+                            Transform.doTransformation(xslt_in, input_xml, out, params);
                         }
-                        catch (Exception e)
+                        catch (SyntaxException e)
+                        {
+                            sendUserError(response, "Syntax error in XSLTXT: " +e.toString());
+                            e.printStackTrace();
+                        }
+                        catch (IOException e)
                         {
                             sendUserError(response, "Couldn't open XSLTXT stream from URL: " +e.toString());
+                            e.printStackTrace();
                         }
                     }
                     else
