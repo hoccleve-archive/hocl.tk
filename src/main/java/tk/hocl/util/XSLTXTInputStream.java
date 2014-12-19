@@ -24,37 +24,81 @@ public class XSLTXTInputStream extends InputStream
     /** Where XSLTXT code writes to */
     private PipedWriter _out = new PipedWriter();
     /** For the implementation of read() */
-    private PipedReader _realIn = new PipedReader();
+    private Producer<PipedReader> _realIn;
 
     public XSLTXTInputStream (InputStream is) throws IOException, SyntaxException
     {
         super();
-        _out.connect(_realIn);
 
         InputStreamReader r = new InputStreamReader(is);
-        Outputter out = new Outputter(new PrintWriter(_out));
-        out.output("<?xml version=\"1.0\"?>");
-        // Create a Lexer to read the input file via the reader. The
-        // name of the file is used in error messages so that you know
-        // where the problem is.
         Lexer lex = new Lexer(r, "MEMORY");
+        final Statement stat = StatementFactory.getInstance().getStatement(lex);
 
-        // Calling getStatement on a StatementFactory instance reads
-        // the first statement from the lexer and all of the
-        // statements it contains. So, it reads the whole file for a
-        // well constructed file.
-
-        Statement stat = StatementFactory.getInstance().getStatement(lex);
-        out.newline();
-        stat.outputXML(out);
-        // Flush to make sure all is written.
-        out.flush();
-        _out.close();
+        PipedReader reader = new PipedReader();
+        _out.connect(reader);
+        _realIn = new Producer<PipedReader> (reader)
+        {
+            public void real_run () throws SyntaxException, IOException
+            {
+                Outputter out = new Outputter(new PrintWriter(_out));
+                out.output("<?xml version=\"1.0\"?>");
+                out.newline();
+                stat.outputXML(out);
+                // Flush to make sure all is written.
+                out.flush();
+                _out.close();
+            }
+        };
+        _realIn.start();
     }
 
     @Override
     public int read() throws IOException
     {
-        return _realIn.read();
+        try
+        {
+            return _realIn.get().read();
+        }
+        catch (Exception e)
+        {
+            throw new IOException(e);
+        }
+    }
+
+    public static abstract class Producer<T> extends Thread
+    {
+        T _item;
+        Exception _exc = null;
+
+        public Producer(T i)
+        {
+            _item = i;
+        }
+
+        public abstract void real_run () throws Exception;
+
+        public void run ()
+        {
+            try
+            {
+                real_run();
+            }
+            catch (Exception e)
+            {
+                _exc = e;
+            }
+        }
+
+        public T get () throws Exception
+        {
+            if (_exc != null)
+            {
+                throw _exc;
+            }
+            else
+            {
+                return _item;
+            }
+        }
     }
 }

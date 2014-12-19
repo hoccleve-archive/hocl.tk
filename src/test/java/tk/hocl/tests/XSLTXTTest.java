@@ -34,7 +34,6 @@ public class XSLTXTTest extends MyXMLTestCase
     @Test
     public void testBasicConvert ()
     {
-        int ch;
         try
         {
             XSLTXTInputStream is = new XSLTXTInputStream(getResourceStream("simple1.xsltxt"));
@@ -51,6 +50,57 @@ public class XSLTXTTest extends MyXMLTestCase
             System.out.println("Syntax error in xsltxt file:");
             e.printStackTrace();
         }
+    }
+
+    /** Test that XSLTXT -> XSLT conversions aren't too slow.
+     * "Too slow" is more than one hundred times what it takes to just read the XML file in.
+     * If this test fails, just run it again
+     */
+    @Test
+    public void testConvertTime ()
+    {
+        int number_of_iterations = 20;
+        long t0, t1;
+        long conversion_times_sum = 0;
+        long xml_read_times_sum = 0;
+        byte[] buffer = new byte[2048];
+        try
+        {
+            for (int i = 0; i < number_of_iterations; i++)
+            {
+                /* Time the xsltxt convert+read */
+                {
+                    t0 = System.currentTimeMillis();
+                    XSLTXTInputStream txt_is = new XSLTXTInputStream(getResourceStream("tei-html.xsltxt"));
+                    while (txt_is.read(buffer) != -1) {};
+                    t1 = System.currentTimeMillis();
+                    conversion_times_sum += (t1-t0);
+                }
+
+                /* Time the xml read */
+                {
+                    t0 = System.currentTimeMillis();
+                    InputStream xml_is = getResourceStream("tei-html.xslt");
+                    while (xml_is.read(buffer) != -1) {};
+                    t1 = System.currentTimeMillis();
+                    xml_read_times_sum += (t1-t0);
+                }
+            }
+            System.out.println("xml_read_times_sum = "+xml_read_times_sum);
+            System.out.println("conversion_times_sum = "+conversion_times_sum);
+            assertTrue(xml_read_times_sum * 100 > conversion_times_sum);
+        }
+        catch (SyntaxException e)
+        {
+            System.out.println("Couldn't complete the test (bad syntax in xsltxt):");
+            e.printStackTrace();
+        }
+        catch (IOException e)
+        {
+            System.out.println("Couldn't complete the test:");
+            e.printStackTrace();
+        }
+
     }
 
     private boolean test_transformation (String stylesheetFile, String sourceFile)
