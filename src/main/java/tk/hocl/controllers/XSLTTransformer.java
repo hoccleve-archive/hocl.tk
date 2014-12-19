@@ -389,6 +389,7 @@ public class XSLTTransformer extends HttpServlet
             return _n;
         }
     }
+
     /** A callback for a subclass to provide any value it wants for a parameter.
      */
     public abstract static class RequestValue

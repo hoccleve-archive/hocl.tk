@@ -14,7 +14,7 @@ XSLT Recommendations
 This project is largely composed of XSLT documents. The most useful and authoritative reference for XSLT is the `W3C XSL Transformations recommendation <http://www.w3.org/TR/xslt>`_. Below is a list of recommendations for authoring XSLT documents (called "stylesheets") in this project.
 
 Naming
-======
+~~~~~~
 
 These rules help to keep the relationships between resources and code from becoming obscured. They do not, however, affect functionality.
 
@@ -34,7 +34,7 @@ In other words:
 For a stylesheet which takes parameters, a particular ``XSLTTransformer`` may be a parameterized version of that stylesheet. In this case, the name of the ``XSLTTransformer`` does not need to have the correspondence with the stylesheet like that described above.
 
 Testing and Debugging
-=====================
+~~~~~~~~~~~~~~~~~~~~~
 
 I strongly recommend using a command line tool, or a simple GUI if you prefer, to develop and debug stylesheets. Re-deploying the application just to test simple changes to a stylesheet is huge waste of time. As long as you make sure any extensions you use are supported by your command line tool and the Java XSLT library (they may even be the same), then you shouldn't have any problems. I use xsltproc for this purpose.
 
@@ -60,18 +60,18 @@ To add a document transformation, you have to do three things:
 .. _web.xml: https://github.com/hoccleve-archive/hocl.tk/blob/master/src/main/webapp/WEB-INF/web.xml
 
 Documentation
-=============
+-------------
 This documentation is composed in rst_ and is hosted on `Read the Docs`_. Documentation is included in Java source files as Javadoc comments and can be built locally with the build-docs.sh script. There are few recommendations for documentation right now, but feel free to add to these.
 
 .. _rst: http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html
 .. _Read the Docs: http://hocltk.readthedocs.org/en/latest/
 
 Source code
------------
+~~~~~~~~~~~
 Javadoc comments should be added to every class and to private members as well as public as these are for internal documentation.
 
 Subclasses of XSLTTransformer should only include documentation for the transformation as whole, and not refer to implementation. As an exception, special use of URL query parameters beyond the default name-based usage (e.g., URL parameter 'g' corresponds to transform parameter 'g'), should be documented on the subclass.
 
 Specifications
---------------
+~~~~~~~~~~~~~~
 In describing requirements, please utilize the keywords defined in `RFC 2119 <http://tools.ietf.org/html/rfc2119>`_ .

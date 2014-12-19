@@ -1,0 +1,143 @@
+stylesheet "1.0"
+namespace "tei" "http://www.tei-c.org/ns/1.0"
+namespace "ct" "http://hocl.tk/schema/"
+namespace "xi" "http://www.w3.org/2001/XInclude"
+#       - There *is* a TEI->HTML XSLT-based converter provided by TEI-C, but it
+#       - basically just wraps everything in divs. It doesn't support line numbers
+#       - out of the box. It isn't any prettier...
+#       
+# The interval between numbered lines
+output .method "html"
+param "line_number_interval"
+  "1"
+tpl .match "/"
+  tx-no-esc "<!DOCTYPE html>"
+  apply .select "node()"
+tpl .match "/tei:TEI"
+  <html>
+    <head>
+      <title>
+        apply
+          .select "tei:teiHeader/tei:fileDesc/tei:titleStmt/tei:title/text()"
+      <script src="jquery-2.1.1.js">
+      <script src="resources/tei-html.js">
+      <link href="resources/tei-html.css" rel="stylesheet" type="text/css">
+# TODO: Put this in another transform and find out how to do XInclude processing in Java
+#                   -<xi:include href="html-head-includes"/>
+#                   
+    <body>
+      for-each "tei:text/tei:body"
+        <h1>
+          val "tei:head/text()"
+        for-each "tei:div[@type='poem']"
+          call "poem"
+      for-each "//tei:spanGrp"
+        <div>
+          attribute "class"
+            "sidebar "
+            val "@type"
+      <script src="resources/tei-html.js">
+      <script>
+        "
+
+                    $(document).ready(function ()
+                    {
+                        make_sidebar_notes();
+                    });
+        
+                "
+tpl .name "poem"
+  <table class="poem">
+# This thead prevents the first heading in the poem from jumping up here
+    <thead>
+      <tr>
+        <th>
+        <th>
+        for-each "//tei:spanGrp"
+          <th class="note">
+            val "@type"
+    for-each "*"
+      choose
+        when "self::tei:lg"
+          call "poem_lines"
+        when "self::tei:label"
+          call "poem_label"
+tpl .match "tei:note"
+  <div class="note">
+    val "text()"
+tpl .name "line_note"
+  param "span"
+    "1"
+  param "interp_class"
+  <td>
+    if "$span > 1"
+      attribute "rowspan"
+        val "$span"
+    attribute "class"
+      if "$interp_class"
+        val "$interp_class"
+        "."
+      val "@type"
+      " note"
+    apply .select "tei:note|text()"
+tpl .name "poem_lines"
+  <tbody>
+    for-each "tei:l"
+      var "line_id" .select "@xml:id"
+# TODO: Use XSLT keys for these IDs
+      var "line_id_ref" .select "concat('#', @xml:id)"
+      var "line_number" .select "@n"
+      <tr>
+        if "@xml:id"
+          attribute "id"
+            val "$line_id"
+        attribute "class"
+          "line"
+        <td>
+          if "(@n mod $line_number_interval) = 0"
+            val "@n"
+            "]
+                        "
+        <td>
+          val "text()"
+          if
+            "//tei:spanGrp/tei:span[@target=$line_id_ref or @from=$line_id_ref]"
+            <span style="color:red">
+              <b>
+                "*"
+        for-each "//tei:spanGrp"
+          var "interp_class" .select "@type"
+          for-each "tei:span[(@target=$line_id_ref) or (@from=$line_id_ref)]"
+            choose
+# XXX:The id function, properly, requires a DTD. Consider using another query
+#                                     or using XSLT keys. The method used below is a hack and only works with
+#                                     specially named targets. 
+              when "@from=$line_id_ref"
+# <xsl:variable name="start_" select="substring-after(@from,'#')" />
+# <xsl:variable name="start_node" select="id($start_)" />
+# <xsl:variable name="start" select="$start_node/@n" />
+                var "start" .select "substring-after(@from,'#line-')"
+                var "end" .select "substring-after(@to,'#line-')"
+# <xsl:variable name="end_" select="substring-after(@to,'#')" />
+# <xsl:variable name="end_node" select="id($end_)" />
+# <xsl:variable name="end" select="$end_node/@n" />
+                call "line_note"
+                  param "interp_class" .select "$interp_class"
+                  param "span"
+                    val "$end - $start + 1"
+# From: <xsl:value-of select="@from" />
+# To: <xsl:value-of select="@to" />
+# Start: <xsl:value-of select="$start" />
+# Start_: <xsl:value-of select="$start_" />
+# Start_Node: <xsl:value-of select="$start_node" />
+# End: <xsl:value-of select="$end" />
+# End_: <xsl:value-of select="$end_" />
+# End_Node: <xsl:value-of select="$end_node" />
+              otherwise
+                call "line_note" ("interp_class":"$interp_class")
+tpl .name "poem_label"
+  <thead>
+    <tr>
+      <td>
+      <th style="text-align: left;">
+        val "text()"
