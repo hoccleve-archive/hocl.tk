@@ -9,6 +9,10 @@ source files may have TODOs in them: grep around for "TODO" to find them. I also
 use "Note:" or "XXX" to mark areas of interest that might need more concern than
 others.
 
+To take advantage of version control, create a task, commit before completing
+it, and when a task the taks is complete, mark it as done. Periodically remove
+tasks which are complete to un-clutter the list.
+
 Key to [ ] : X == Done, - == Won't do/Invalid
 
 THINGS THAT ARE RELEVANT NOW
@@ -23,23 +27,38 @@ THINGS THAT ARE RELEVANT NOW
 
     [ ] In addition to that, some notes have an extra bit of description which
         modifies the class, but which is specific to the note. This is currently
-        rendered in an unappealing manner (just the text is shown). It would be good to
-        find a way to present that nicely.
+        rendered in an unappealing manner (just the text is shown). It would be
+        good to find a way to present that nicely.
 
     [ ] Related to the previous issue, we would like to encode some more
-        information about the class of a note beyond the simple identifier we use now.
-        There should be a way to elaborate using semantical TEI, but there's always
-        tei:ab if it comes to that.
+        information about the class of a note beyond the simple identifier we
+        use now. There should be a way to elaborate using semantical TEI, but
+        there's always tei:ab if it comes to that.
 
     [ ] One of the things which we'd like to describe about classes are the
-        relationships between them: some classes are modifications of other classes.
-        We'd like to store these either with the analysis document or in a separate TEI
-        document
+        relationships between them: some classes are modifications of other
+        classes. We'd like to store these either with the analysis document or
+        in a separate TEI document
 
     [ ] so that such relationships can be used for querying, sorting, and
         aggregating.
 
 [ ] Test against relax-ng schemata in Java.
+
+[ ] The XSLTTransformer sub-classes generally don't include any functionality,
+    so they can be represented in a simple object description like:
+        
+        `{"stylesheet": "do-something.xslt", "content-type": "text/plain"}`
+
+    This description doesn't need to be a servlet on its own, but can just be a
+    list of descriptions in XSLTTransformer.
+
+    [ ] Following on the previous point, the XSLTTransformer class can be exposed as
+        the base of a server like hocl.tk. Once it's possible to construct the classes
+        from templates, it might make sense to separate XSLTTransformer (and the
+        internal dependencies) and include it as a dependency of a hocl.tk composed
+        mainly of the templates and the stylesheets.
+
 
 THINGS THAT WOULD BE NICE BUT AREN'T ESSENTIAL
 ----------------------------------------------
@@ -70,20 +89,9 @@ THINGS WAY OFF IN THE FUTURE
   information should be incoded in the TEI document itself.
 
   - Related to that, it would be nice to extract document parts to look at
-    everything tied to a "type" in a concordance. You can do this with the demo at
-    http://hocl.tk/html/concordance.html (also in
+    everything tied to a "type" in a concordance. You can do this with the demo
+    at http://hocl.tk/html/concordance.html (also in
     https://github.com/hoccleve-archive/concordance-demo)
-
-- The XSLTTransformer sub-classes generally don't include any functionality, so
-  they can be represented in a simple object description like `{"stylesheet":
-  "do-something.xslt", "content-type": "text/plain"}`. Adding this "templating"
-  would make things a *tiny* bit simpler.
-
-- Following on the previous point, the XSLTTransformer class can be exposed as
-  the base of a server like hocl.tk. Once it's possible to construct the classes
-  from templates, it might make sense to separate XSLTTransformer (and the
-  internal dependencies) and include it as a dependency of a hocl.tk composed
-  mainly of the templates and the stylesheets.
 
 - We've discussed storage of documents in RDF triple stores or relational
   databases for storing documents. Ultimately, I opted to focus on a
