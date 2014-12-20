@@ -1,10 +1,13 @@
 hocl.tk
 =======
+*Hoccleve Archive Concordance Tables*
 
 Rationale
 ---------
-hocl.tk provides a set of XSL Transformations for [TEI](http://tei-c.org/) documents and the means to access them over the web. An important aspect of hocl.tk is share-ability: you can share documents generated with a public hocl.tk server using just a URL and embed generated documents wherever you like. This only works, however, when the source documents have URLs of their own.
+hocl.tk provides a set of XSL Transformations for [TEI](http://tei-c.org/) documents and the means to access them over the web. An important aspect of hocl.tk is share-ability: you can share documents generated with a public hocl.tk server using just a URL and embed generated documents wherever you like.
 
+Functionality
+-------------
 The transformations performed by the server are:
 
 - tei-html : Present a TEI document as HTML. Currently only works with poems.
@@ -17,7 +20,7 @@ Each transformation is accessed through the server like:
 
     <server-root>/<transformation-name>?q=<source-document>&<param1>=<value1>&<param2>=<value2>
 
-where `<source-document>` is a URL to the source document (an XML file) of the transformation. 
+where `<source-document>` is a URL to the source document (an XML file) of the transformation. This is how we are able to share the result of a transformation: the result returned from that URL is good as long as the source document (and any other documents it references) are good.
 
 The transformation names are listed in `src/main/webapp/WEB-INF/web.xml`, but should be the same as the transformations listed above.
 
@@ -29,4 +32,4 @@ You'll need the [XSLTXT library](https://github.com/mwatts15/xsltxt) which isn't
 
 The application can be deployed to any Java Servlets container. You should follow the documentation for the container you intend to use. [Apache Tomcat](https://tomcat.apache.org/tomcat-7.0-doc/index.html) is an easy to setup and use container with ample documentation.
 
-Additional documentation can be found at hocltk.readthedocs.org or in the `docs` subdirectory of this project.
+Additional documentation can be found at http://hocltk.readthedocs.org or in the `docs` subdirectory of this project.
