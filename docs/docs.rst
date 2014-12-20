@@ -35,7 +35,9 @@ The docs will be compiled to html which you can view by pointing your web browse
 
 API Documentation
 ------------------
-Documentation is included in Java source files as Javadoc comments (the ones that start with ``/**``) and can be built locally with the :file:`build-docs.sh` script.
+Documentation is included in Java source files as Javadoc comments (the ones that start with ``/**``) and can be built locally with the Maven ``javadoc:javadoc`` goal::
+
+    mvn javadoc:javadoc
 
 Substitutions
 -------------
