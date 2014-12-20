@@ -4,7 +4,7 @@
 Documentation for hocl.tk
 =========================
 
-This documentation is composed in reStructuredText_ and is hosted on `Read the Docs`_. 
+This documentation is composed in reStructuredText_ and is hosted on `Read the Docs`_. You can also visit the blog at `<hocl.tk>`_ which has some information about how hocl.tk has been deployed.
 
 .. _reStructuredText: http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html
 .. _Read the Docs: http://hocltk.readthedocs.org/en/latest/

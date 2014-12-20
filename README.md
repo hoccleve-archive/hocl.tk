@@ -17,12 +17,16 @@ Each transformation is accessed through the server like:
 
     <server-root>/<transformation-name>?q=<source-document>&<param1>=<value1>&<param2>=<value2>
 
+where `<source-document>` is a URL to the source document (an XML file) of the transformation. 
+
 The transformation names are listed in `src/main/webapp/WEB-INF/web.xml`, but should be the same as the transformations listed above.
 
 Build
 -----
-You'll need the [XSLTXT library](https://github.com/mwatts15/xsltxt) which isn't in Maven Central repository. You need to either deploy it to your group's maven repository and configure (in the `pom.xml` file) where that repository is, or install it in the local repository where you build hocl.tk. Aside from that, building the web app should be as easy as:
+You'll need the [XSLTXT library](https://github.com/mwatts15/xsltxt) which isn't in Maven Central repository. You need to either install it to your group's maven repository and configure (in the `pom.xml` file) where that repository is, or install it in the local repository where you build hocl.tk. Aside from that, building the web app should be as easy as:
     
     mvn clean install
 
+The application can be deployed to any Java Servlets container. You should follow the documentation for the container you intend to use. [Apache Tomcat](https://tomcat.apache.org/tomcat-7.0-doc/index.html) is an easy to setup and use container with ample documentation.
 
+Additional documentation can be found at hocltk.readthedocs.org or in the `docs` subdirectory of this project.
