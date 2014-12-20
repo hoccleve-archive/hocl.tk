@@ -12,7 +12,7 @@ This documentation is composed in reStructuredText_ and is hosted on `Read the D
 
 Adding documentation
 ---------------------
-Documentation for |pow| is housed in two locations: 
+Documentation for hocl.tk is housed in two locations: 
 
     #. In the top-level project directory as :file:`README.md`. 
     #. As a `Sphinx <http://sphinx-doc.org/>`_ project under the ``docs`` directory 
