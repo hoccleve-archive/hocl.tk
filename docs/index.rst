@@ -9,6 +9,7 @@ Contents:
 
    docs
    contrib
+   tei-elements
 
 
 This is the documentation for the `Hoccleve Archive`_ `concordance table subproject`_. The project is `hosted on github`_ as hocl.tk. This project uses a combination of XSLT, Java Server Pages, and Java WebServlets to modify and present documents composed in TEI_ XML markup.
