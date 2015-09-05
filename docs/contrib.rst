@@ -13,12 +13,25 @@ XSLT documents (called "stylesheets") in this project.
 
 Testing and Debugging
 ~~~~~~~~~~~~~~~~~~~~~
+A small Java test suite is included under :file:`src/test/java`. These tests 
+can be run with JUnit (via Surefire Maven plugin) using the ``mvn test`` 
+command. Additional functional testing for XSL may be added to the 
+``tk.hocl.tests.XSLTest`` or another subclass of 
+``tk.hocl.testcase.MyXMLTestCase``.
+
 I strongly recommend using a command line tool, or a simple GUI if you prefer, 
 to develop and debug stylesheets. Re-deploying the application just to test 
 simple changes to a stylesheet is huge waste of time. As long as you make sure 
 any extensions you use are supported by your command line tool and the Java 
 XSLT library (they may even be the same), then you shouldn't have any problems. 
 I use xsltproc for this purpose.
+
+For measuring the performance of API calls, you can start with the 
+:file:`perf.sh` script in the hocl.tk project. This script uses httperfpy, 
+which itself uses httperf, a tool for measuring the performance of HTTP 
+servers. :file:`perf.sh` reads from :file:`perf_tests.yml` or a file you 
+specify on the command line to know what queries it should run and on which 
+endpoints you already have set up.
 
 HTML Recommendations
 --------------------

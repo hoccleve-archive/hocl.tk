@@ -100,7 +100,6 @@ public class XSLTXTTest extends MyXMLTestCase
             System.out.println("Couldn't complete the test:");
             e.printStackTrace();
         }
-
     }
 
     private boolean test_transformation (String stylesheetFile, String sourceFile)
